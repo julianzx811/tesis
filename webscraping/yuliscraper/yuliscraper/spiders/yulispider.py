@@ -1,11 +1,21 @@
 import scrapy
 from yuliscraper.items import yuliProduct
 from yuliscraper.itemsloaders import yuliProductLoader
+#from request import google_query
+from googlesearch import search
 
+def google_query():
+    query = "comprar online"
+    results = search(query, num_results=20)
+    urls = []
+    for result in results:
+        urls.append(str(result)) 
+    return urls
 
 class YulispiderSpider(scrapy.Spider):
     name = "yulispider"
-    start_urls = ["https://www.chocolate.co.uk/collections/all"]
+    #start_urls = ["https://www.chocolate.co.uk/collections/all"]
+    start_urls = google_query()
 
     def parse(self, response):
         products = response.css("product-item")
@@ -24,3 +34,4 @@ class YulispiderSpider(scrapy.Spider):
         if next_page is not True:
             next_page_url = "https://www.chocolate.co.uk" + next_page
             yield response.follow(next_page_url, callback=self.parse)
+
