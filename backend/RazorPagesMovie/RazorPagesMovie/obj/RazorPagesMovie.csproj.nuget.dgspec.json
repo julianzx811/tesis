@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yulian\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj": {}
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yulian\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj": {
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yulian\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj",
+        "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj",
         "projectName": "RazorPagesMovie",
-        "projectPath": "C:\\Users\\yulian\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj",
-        "packagesPath": "C:\\Users\\yulian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yulian\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\obj\\",
+        "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj",
+        "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\RazorPagesMovie\\RazorPagesMovie\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

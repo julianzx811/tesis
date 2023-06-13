@@ -23,7 +23,8 @@ namespace RazorPagesMovie.Pages.Movies
         {
             return Page();
         }
-
+        /*This allows you to access the values of the form fields directly in the Movie property 
+         without explicitly writing code to extract and assign the values.*/
         [BindProperty]
         public Movie Movie { get; set; } = default!;
         
