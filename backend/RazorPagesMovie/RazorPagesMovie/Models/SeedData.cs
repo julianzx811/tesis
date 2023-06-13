@@ -22,21 +22,24 @@ namespace RazorPagesMovie.Models
                         Title = "omg",
                         ReleaseDate = DateTime.Parse("1989-2-12"),
                         Genre = "Romantic Comedy",
-                        Price = 7.99M
+                        Price = 7.99M,
+                       Rating = "E"
                     },
                     new Movie
                     {
                         Title = "pelis",
                         ReleaseDate = DateTime.Parse("1989-2-12"),
                         Genre = "Romantic Comedy",
-                        Price = 7.99M
+                        Price = 7.99M,
+                        Rating = "E"
                     },
                     new Movie
                     {
                         Title = "nah increible",
                         ReleaseDate = DateTime.Parse("1989-2-12"),
                         Genre = "Romantic Comedy",
-                        Price = 7.99M
+                        Price = 7.99M,
+                        Rating = "E"
                     }
                     );
                 context.SaveChanges();
