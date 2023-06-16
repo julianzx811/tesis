@@ -11,5 +11,6 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>RazorPagesMovie.Data.RazorPagesMovieContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>C:\Users\yulian\Desktop\tesis\backend\RazorPagesMovie\RazorPagesMovie\Properties\PublishProfiles\razorpagesmovie-app.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
