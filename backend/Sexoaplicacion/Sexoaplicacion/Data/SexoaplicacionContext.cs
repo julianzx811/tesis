@@ -14,6 +14,7 @@ namespace Sexoaplicacion.Data
         {
         }
 
-        public DbSet<Sexoaplicacion.Models.Usuario> Usuario { get; set; } = default!;
+        public DbSet<Usuario> Usuario { get; set; } = default!;
+        public DbSet<CategoriaUsuario> CategoriaUsuarios { get;set; } = default!;
     }
 }

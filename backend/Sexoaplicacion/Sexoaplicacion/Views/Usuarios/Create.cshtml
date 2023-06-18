@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+
+    var categorias = ViewData["categorias"] as List<CategoriaUsuario>;
 }
 
 <h1>Create</h1>
@@ -32,6 +34,12 @@
                     <input class="form-check-input" asp-for="Sex" /> @Html.DisplayNameFor(model => model.Sex)
                 </label>
             </div>
+            <select >
+                @foreach (var categoria in categorias)
+                {
+                    <option asp-for="Id_categoria">@categoria.Id_categoria</option>
+                }
+            </select >
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

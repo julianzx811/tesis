@@ -20,23 +20,19 @@ namespace Sexoaplicacion.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index(string searchName)
+        public async Task<IActionResult> Index(string? searchName)
         {
-            if (_context.Usuario == null) {
-                return View();
-            }
-            else
+            var usuarios = from u in _context.Usuario select u;
+            if (string.IsNullOrEmpty(searchName) || _context.Usuario == null)
             {
+                    return View(await usuarios.Distinct().ToListAsync());
+            }
+            else {
                 if (!string.IsNullOrEmpty(searchName))
                 {
-                    var usuarios = from u in _context.Usuario select u;
                     usuarios = usuarios.Where(u => u.Name!.Contains(searchName));
                     return View(await usuarios.Distinct().ToListAsync());
-                }
-                else
-                {
-                    return View();
-                }
+                }else { return View(await usuarios.Distinct().ToListAsync()); }
             }
         }
 
@@ -59,8 +55,11 @@ namespace Sexoaplicacion.Controllers
         }
 
         // GET: Usuarios/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var Cat_query = from G in _context.CategoriaUsuarios select G;
+            List<CategoriaUsuario> Categorias = Cat_query.ToList();
+            ViewData["categorias"] = Categorias;
             return View();
         }
 
@@ -69,7 +68,7 @@ namespace Sexoaplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Second_Name,edad,sex")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Name,Second_Name,Edad,Sex,Id_categoria")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {

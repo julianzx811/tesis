@@ -11335,19 +11335,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\julia\\.nuget\\packages\\": {}
+    "C:\\Users\\yulian\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\Sexoaplicacion\\Sexoaplicacion\\Sexoaplicacion.csproj",
+      "projectUniqueName": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\Sexoaplicacion\\Sexoaplicacion\\Sexoaplicacion.csproj",
       "projectName": "Sexoaplicacion",
-      "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\Sexoaplicacion\\Sexoaplicacion\\Sexoaplicacion.csproj",
-      "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\Sexoaplicacion\\Sexoaplicacion\\obj\\",
+      "projectPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\Sexoaplicacion\\Sexoaplicacion\\Sexoaplicacion.csproj",
+      "packagesPath": "C:\\Users\\yulian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\Sexoaplicacion\\Sexoaplicacion\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
