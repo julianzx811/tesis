@@ -1,42 +1,39 @@
 import { useState } from "react";
-import { View,Text,ScrollView,SafeAreaView} from "react-native";
-import { Stack,useRouter } from "expo-router";
+import { View, Text, ScrollView, SafeAreaView } from "react-native";
+import { Stack, useRouter } from "expo-router";
 
-import {COLORS, icons, images, SIZES} from "../constants"
-import {Nearbyjbos, Popularjobs,ScreenHeaderBtn,Welcome} from "../components"
+import { COLORS, icons, images, SIZES } from "../constants";
+import {
+  Nearbyjbos,
+  Popularjobs,
+  ScreenHeaderBtn,
+  Welcome,
+} from "../components";
 
-export default function Home(){
+export default function Home() {
   const router = useRouter();
 
-  return(
-    <SafeAreaView style={{flex: 1, backgroundColors: COLORS.secondary}}>
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
-      options={{
-        headerStyle:{backgroundColor: COLORS.lightWhite},
-        headerShadowVisible: false,
-        headerLeft: () =>(
-          <ScreenHeaderBtn iconUrl={icons.menu}
-            dimension="60%"
-          ></ScreenHeaderBtn>
-        ),
-        headerRight: () =>(
-          <ScreenHeaderBtn iconUrl={images.profile}
-            dimension="100%"
-          ></ScreenHeaderBtn>
-        ),
-        headerTitle:"inicio",
-        headerTitleAlign: "center"
-      }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{flex: 1, padding: SIZES.medium}}>
-            <Welcome
-
-            />
-            <Popularjobs/>
-            <Nearbyjbos/>
-          </View>
-        </ScrollView>
-      </Stack.Screen>
+        options={{
+          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerShadowVisible: true,
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+          ),
+        }}
+      />
+      <ScrollView showsHorizontalScrollIndicator={true}>
+        <View style={{ flex: 1, padding: SIZES.small }}>
+          <Welcome />
+          <Popularjobs />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
