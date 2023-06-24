@@ -11784,19 +11784,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yulian\\.nuget\\packages\\": {}
+    "C:\\Users\\julia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\testeo\\testeo.csproj",
+      "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\testeo\\testeo.csproj",
       "projectName": "testeo",
-      "projectPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\testeo\\testeo.csproj",
-      "packagesPath": "C:\\Users\\yulian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\testeo\\obj\\",
+      "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\testeo\\testeo.csproj",
+      "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\testeo\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\yulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
