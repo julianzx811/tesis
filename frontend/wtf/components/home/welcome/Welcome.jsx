@@ -59,6 +59,7 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
           )}
           keyExtractor={(key) => key}
           contentContainerStyle={{ columnGap: SIZES.small }}
+          showsHorizontalScrollIndicator={false}
           horizontal
         />
       </View>
