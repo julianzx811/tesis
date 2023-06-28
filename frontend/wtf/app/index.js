@@ -32,6 +32,7 @@ export default function Home() {
         <View style={{ flex: 1, padding: SIZES.small }}>
           <Welcome />
           <Popularjobs />
+          {/* <Nearbyjbos /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
