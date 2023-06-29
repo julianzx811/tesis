@@ -4,7 +4,7 @@ import { Stack, useRouter } from "expo-router";
 
 import { COLORS, icons, images, SIZES } from "../constants";
 import {
-  Nearbyjbos,
+  Nearbyjobs,
   Popularjobs,
   ScreenHeaderBtn,
   Welcome,
@@ -28,11 +28,11 @@ export default function Home() {
           ),
         }}
       />
-      <ScrollView showsHorizontalScrollIndicator={true}>
+      <ScrollView showsHorizontalScrollIndicator={false}>
         <View style={{ flex: 1, padding: SIZES.small }}>
           <Welcome />
           <Popularjobs />
-          {/* <Nearbyjbos /> */}
+          <Nearbyjobs />
         </View>
       </ScrollView>
     </SafeAreaView>

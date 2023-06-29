@@ -20,7 +20,10 @@ const Popularjobs = () => {
     query: ".Net Developer",
     num_pages: 1,
   });
-  console.log(data);
+
+  const [selectJob, setSelectJob] = useState();
+  const handleCardPress = () => {};
+  // console.log(data);
 
   return (
     <View style={styles.container}>
@@ -33,7 +36,7 @@ const Popularjobs = () => {
 
       <View style={styles.cardsContainer}>
         {isloading ? (
-          <ActivityIndicator size={"large"} color={COLORS.primary} />
+          <ActivityIndicator size="large" color={COLORS.primary} />
         ) : error ? (
           <Text>somehting went wrong</Text>
         ) : (
