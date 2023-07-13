@@ -31,17 +31,10 @@ namespace QuickMerk.API.Controllers
         }
 
         [HttpPost("~/CreateUsuario")]
-        public ActionResult<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
+        public async Task<ActionResult<UsuarioDTO>> CreateUsuario(UsuarioDTO usuarioDTO)
         {
-            var usuario = usuarioService.CreateUsuario(usuarioDTO);
+            var usuario = await usuarioService.CreateUsuario(usuarioDTO);
             return Ok(usuario);
-        }
-
-        [HttpPost("~/CreateCuenta")]
-        public async Task<ActionResult<UsuarioDTO>> CreateCuenta(CuentaDTO cuentaDTO)
-        {
-            var cuenta = await usuarioService.CreateCuenta(cuentaDTO);
-            return Ok(cuenta);
         }
     }
 }

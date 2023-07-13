@@ -21,9 +21,11 @@ CREATE TABLE Tipo_cuenta(
 CREATE TABLE Cuentas(
     CuentaId int  NOT NULL,
 	Tipo_cuenta int NOT NULL,
+	usuarioId int NOT NULL,
 	Creacion DATETIME  NOT NULL,
 	PRIMARY KEY (CuentaId),
-	FOREIGN KEY (Tipo_cuenta) REFERENCES Tipo_cuenta(TipoCuentaId)
+	FOREIGN KEY (Tipo_cuenta) REFERENCES Tipo_cuenta(TipoCuentaId),
+	FOREIGN KEY (usuarioId) REFERENCES Usuarios(Usuario_id)
 );
 
 CREATE TABLE Usuarios (

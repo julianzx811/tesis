@@ -26,26 +26,38 @@ namespace QuickMerk.Infraestructure.Repository
             return await cuentas.ToListAsync();
         }
 
-        public async Task<CuentaDTO> CreateCuenta(CuentaDTO cuentaDTO) {
-            var usuario = await userDbContext.usuarios.FindAsync(cuentaDTO.UsuarioID);
-            var cuenta = new Cuenta
-            {
-                Name = cuentaDTO.Name,
-                usuario = usuario
-            };
-            userDbContext.cuentas.Add(cuenta);
-            userDbContext.SaveChanges();
-            return cuentaDTO;
-        }
-
-        public UsuarioDTO CreateUsuario(UsuarioDTO usuarioDTO)
+        public async Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
         {
             var usuario = new Usuario
             {
-                Name = usuarioDTO.Name,
-                age = usuarioDTO.age,
-                cuentas = new List<Cuenta>(),
+                Nombre = usuarioDTO.Nombre,
+                Apellido = usuarioDTO.Apellido,
+                Edad = usuarioDTO.Edad,
+                Nacimiento = usuarioDTO.Nacimiento,
+                Sexo = usuarioDTO.Sexo,
+                Telefono = usuarioDTO.Telefono,
+                direcion = usuarioDTO.direcion,
+                Ciudad = usuarioDTO.Ciudad,
+                Busquedas = new List<Busquedas>(),
             };
+            var cuenta = new Cuenta
+            {   
+                tipo_Cuenta = await userDbContext.tipo_Cuentas.FindAsync(1),
+                usuario = usuario,
+                Creacion = DateTime.Now,
+            };
+            var documento = new Documento
+            {
+                DocumentoName = usuarioDTO.Documento,
+                tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(1),
+                usuario = usuario
+            };
+            usuario.Cuenta = cuenta;
+            usuario.Documento = documento;
+
+            userDbContext.cuentas.Add(cuenta);
+            userDbContext.documentos.Add(documento);
+            
             userDbContext.usuarios.Add(usuario);
             userDbContext.SaveChanges();
             return usuarioDTO;

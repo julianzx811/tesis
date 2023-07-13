@@ -25,14 +25,10 @@ namespace QuickMerk.Application.Services
            var cuentas = usuarioRepository.GetCuentas(usuarioId);
             return cuentas;
         }
-        public UsuarioDTO CreateUsuario(UsuarioDTO usuarioDTO)
+        public Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
         {
             var usuario = usuarioRepository.CreateUsuario(usuarioDTO);
             return usuario;
-        }
-        public async Task<CuentaDTO> CreateCuenta(CuentaDTO cuentaDTO) {
-           var cuenta =  await usuarioRepository.CreateCuenta(cuentaDTO);
-            return cuenta;
         }
     }
 }

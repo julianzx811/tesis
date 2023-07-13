@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\julia\\.nuget\\packages\\": {}
+    "C:\\Users\\yulian\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\julia\\source\\repos\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
       "projectName": "QuickMerk.Domain",
-      "projectPath": "C:\\Users\\julia\\source\\repos\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
-      "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\julia\\source\\repos\\QuickMerk.API\\QuickMerk.Domain\\obj\\",
+      "projectPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
+      "packagesPath": "C:\\Users\\yulian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
