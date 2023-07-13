@@ -13,10 +13,8 @@ namespace QuickMerk.Domain.Entitys
         public string? Telefono { get; set; }
         public string? direcion { get; set; }   
         public string? Ciudad { get; set; }
-        public int CuentaId { get; set; }
         [JsonIgnore]
         public Cuenta? Cuenta { get; set; }
-        public int DocumentoId { get; set; }
         [JsonIgnore]
         public Documento? Documento { get; set; }
         [JsonIgnore]

@@ -13,5 +13,6 @@ namespace QuickMerk.Application.Interfaces
         Task<List<Usuario>> GetUsuarios();
         Task<List<Cuenta>> GetCuentas(int usuarioId);
         Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO);
+        Task<BusquedaDTO> CreateBusqueda(BusquedaDTO busquedaDto);
     }
 }

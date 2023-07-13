@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuickMerk.Domain.Entitys;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickMerk.Infraestructure.Context
 {
@@ -18,16 +12,19 @@ namespace QuickMerk.Infraestructure.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cuenta>()
-            .HasOne(a => a.usuario)
-            .WithOne(a => a.Cuenta)
-            .HasForeignKey<Usuario>(c => c.CuentaId);
+            //relaciones usuario y cuenta
+            modelBuilder.Entity<Usuario>()
+            .HasOne(a => a.Cuenta)
+            .WithOne(a => a.usuario)
+            .HasForeignKey<Cuenta>(c => c.usuarioId);
 
+            //relaciones usuario y documentos
             modelBuilder.Entity<Usuario>()
             .HasOne(a => a.Documento)
             .WithOne(a => a.usuario)
-            .HasForeignKey<Usuario>(c => c.DocumentoId);
+            .HasForeignKey<Documento>(c => c.usuarioId);
         }
+
         public DbSet<Busquedas> busquedas { get; set; }
         public DbSet<Cuenta> cuentas { get; set; }
         public DbSet<Documento> documentos { get; set; }

@@ -36,5 +36,11 @@ namespace QuickMerk.API.Controllers
             var usuario = await usuarioService.CreateUsuario(usuarioDTO);
             return Ok(usuario);
         }
+        [HttpPost("~/CreateBusqueda")]
+        public async Task<ActionResult<BusquedaDTO>> CreateBusqueda(BusquedaDTO busquedaDto)
+        {
+            var busquedaDTO = await usuarioService.CreateBusqueda(busquedaDto);
+            return Ok(busquedaDTO);
+        }
     }
 }

@@ -12,8 +12,8 @@ using QuickMerk.Infraestructure.Context;
 namespace QuickMerk.API.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230713011304_EntityFix")]
-    partial class EntityFix
+    [Migration("20230713033949_InitialDb")]
+    partial class InitialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,12 @@ namespace QuickMerk.API.Migrations
                     b.Property<DateTime>("Creacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("contrasena")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("correo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("tipo_CuentaId")
                         .HasColumnType("int");
 
@@ -66,6 +72,9 @@ namespace QuickMerk.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("tipo_CuentaId");
+
+                    b.HasIndex("usuarioId")
+                        .IsUnique();
 
                     b.ToTable("cuentas");
                 });
@@ -84,12 +93,18 @@ namespace QuickMerk.API.Migrations
                     b.Property<int?>("tipo_DocumentoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("tipo_Documento_Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("usuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("tipo_DocumentoId");
+
+                    b.HasIndex("usuarioId")
+                        .IsUnique();
 
                     b.ToTable("documentos");
                 });
@@ -140,12 +155,6 @@ namespace QuickMerk.API.Migrations
                     b.Property<string>("Ciudad")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CuentaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DocumentoId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Edad")
                         .HasColumnType("int");
 
@@ -165,12 +174,6 @@ namespace QuickMerk.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CuentaId")
-                        .IsUnique();
-
-                    b.HasIndex("DocumentoId")
-                        .IsUnique();
 
                     b.ToTable("usuarios");
                 });
@@ -192,7 +195,15 @@ namespace QuickMerk.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("QuickMerk.Domain.Entitys.Usuario", "usuario")
+                        .WithOne("Cuenta")
+                        .HasForeignKey("QuickMerk.Domain.Entitys.Cuenta", "usuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("tipo_Cuenta");
+
+                    b.Navigation("usuario");
                 });
 
             modelBuilder.Entity("QuickMerk.Domain.Entitys.Documento", b =>
@@ -201,36 +212,14 @@ namespace QuickMerk.API.Migrations
                         .WithMany("documentos")
                         .HasForeignKey("tipo_DocumentoId");
 
+                    b.HasOne("QuickMerk.Domain.Entitys.Usuario", "usuario")
+                        .WithOne("Documento")
+                        .HasForeignKey("QuickMerk.Domain.Entitys.Documento", "usuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("tipo_Documento");
-                });
 
-            modelBuilder.Entity("QuickMerk.Domain.Entitys.Usuario", b =>
-                {
-                    b.HasOne("QuickMerk.Domain.Entitys.Cuenta", "Cuenta")
-                        .WithOne("usuario")
-                        .HasForeignKey("QuickMerk.Domain.Entitys.Usuario", "CuentaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("QuickMerk.Domain.Entitys.Documento", "Documento")
-                        .WithOne("usuario")
-                        .HasForeignKey("QuickMerk.Domain.Entitys.Usuario", "DocumentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cuenta");
-
-                    b.Navigation("Documento");
-                });
-
-            modelBuilder.Entity("QuickMerk.Domain.Entitys.Cuenta", b =>
-                {
-                    b.Navigation("usuario")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("QuickMerk.Domain.Entitys.Documento", b =>
-                {
                     b.Navigation("usuario");
                 });
 
@@ -247,6 +236,10 @@ namespace QuickMerk.API.Migrations
             modelBuilder.Entity("QuickMerk.Domain.Entitys.Usuario", b =>
                 {
                     b.Navigation("Busquedas");
+
+                    b.Navigation("Cuenta");
+
+                    b.Navigation("Documento");
                 });
 #pragma warning restore 612, 618
         }

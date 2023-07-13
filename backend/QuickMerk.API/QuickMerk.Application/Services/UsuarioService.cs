@@ -30,5 +30,10 @@ namespace QuickMerk.Application.Services
             var usuario = usuarioRepository.CreateUsuario(usuarioDTO);
             return usuario;
         }
+        public Task<BusquedaDTO> CreateBusqueda(BusquedaDTO busquedaDto)
+        {
+            var usuario = usuarioRepository.CreateBusqueda(busquedaDto);
+            return usuario;
+        }
     }
 }

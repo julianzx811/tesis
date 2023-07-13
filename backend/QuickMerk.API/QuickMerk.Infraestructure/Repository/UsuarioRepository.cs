@@ -45,11 +45,13 @@ namespace QuickMerk.Infraestructure.Repository
                 tipo_Cuenta = await userDbContext.tipo_Cuentas.FindAsync(1),
                 usuario = usuario,
                 Creacion = DateTime.Now,
+                correo = usuarioDTO.correo,
+                contrasena = usuarioDTO.contrasena
             };
             var documento = new Documento
             {
                 DocumentoName = usuarioDTO.Documento,
-                tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(1),
+                tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(usuarioDTO.tipo_Documento_id),
                 usuario = usuario
             };
             usuario.Cuenta = cuenta;
@@ -61,6 +63,19 @@ namespace QuickMerk.Infraestructure.Repository
             userDbContext.usuarios.Add(usuario);
             userDbContext.SaveChanges();
             return usuarioDTO;
+        }
+
+        public async Task<BusquedaDTO> CreateBusqueda(BusquedaDTO busquedaDto)
+        {
+            var usuario = await userDbContext.usuarios.FindAsync(busquedaDto.UsuarioId);
+            var busqueda = new Busquedas
+            {
+                busquedas = busquedaDto.Busqueda,
+                usuario = usuario
+            };
+
+            userDbContext.busquedas.Add(busqueda);
+            return busquedaDto;
         }
     }
 }

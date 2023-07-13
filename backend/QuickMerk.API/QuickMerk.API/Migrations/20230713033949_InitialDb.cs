@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace QuickMerk.API.Migrations
 {
     /// <inheritdoc />
-    public partial class EntityFix : Migration
+    public partial class InitialDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,47 +38,6 @@ namespace QuickMerk.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "cuentas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    tipo_CuentaId = table.Column<int>(type: "int", nullable: false),
-                    usuarioId = table.Column<int>(type: "int", nullable: false),
-                    Creacion = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_cuentas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_cuentas_tipo_Cuentas_tipo_CuentaId",
-                        column: x => x.tipo_CuentaId,
-                        principalTable: "tipo_Cuentas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "documentos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DocumentoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    tipo_DocumentoId = table.Column<int>(type: "int", nullable: true),
-                    usuarioId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_documentos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_documentos_tipo_Documentos_tipo_DocumentoId",
-                        column: x => x.tipo_DocumentoId,
-                        principalTable: "tipo_Documentos",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "usuarios",
                 columns: table => new
                 {
@@ -91,25 +50,11 @@ namespace QuickMerk.API.Migrations
                     Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     direcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ciudad = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CuentaId = table.Column<int>(type: "int", nullable: false),
-                    DocumentoId = table.Column<int>(type: "int", nullable: false)
+                    Ciudad = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_usuarios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_usuarios_cuentas_CuentaId",
-                        column: x => x.CuentaId,
-                        principalTable: "cuentas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_usuarios_documentos_DocumentoId",
-                        column: x => x.DocumentoId,
-                        principalTable: "documentos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -131,6 +76,62 @@ namespace QuickMerk.API.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "cuentas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    tipo_CuentaId = table.Column<int>(type: "int", nullable: false),
+                    usuarioId = table.Column<int>(type: "int", nullable: false),
+                    Creacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    correo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    contrasena = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_cuentas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_cuentas_tipo_Cuentas_tipo_CuentaId",
+                        column: x => x.tipo_CuentaId,
+                        principalTable: "tipo_Cuentas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_cuentas_usuarios_usuarioId",
+                        column: x => x.usuarioId,
+                        principalTable: "usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "documentos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DocumentoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    tipo_Documento_Id = table.Column<int>(type: "int", nullable: false),
+                    tipo_DocumentoId = table.Column<int>(type: "int", nullable: true),
+                    usuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_documentos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_documentos_tipo_Documentos_tipo_DocumentoId",
+                        column: x => x.tipo_DocumentoId,
+                        principalTable: "tipo_Documentos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_documentos_usuarios_usuarioId",
+                        column: x => x.usuarioId,
+                        principalTable: "usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_busquedas_usuarioId",
                 table: "busquedas",
@@ -142,20 +143,20 @@ namespace QuickMerk.API.Migrations
                 column: "tipo_CuentaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_cuentas_usuarioId",
+                table: "cuentas",
+                column: "usuarioId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_documentos_tipo_DocumentoId",
                 table: "documentos",
                 column: "tipo_DocumentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_usuarios_CuentaId",
-                table: "usuarios",
-                column: "CuentaId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_usuarios_DocumentoId",
-                table: "usuarios",
-                column: "DocumentoId",
+                name: "IX_documentos_usuarioId",
+                table: "documentos",
+                column: "usuarioId",
                 unique: true);
         }
 
@@ -164,9 +165,6 @@ namespace QuickMerk.API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "busquedas");
-
-            migrationBuilder.DropTable(
-                name: "usuarios");
 
             migrationBuilder.DropTable(
                 name: "cuentas");
@@ -179,6 +177,9 @@ namespace QuickMerk.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "tipo_Documentos");
+
+            migrationBuilder.DropTable(
+                name: "usuarios");
         }
     }
 }

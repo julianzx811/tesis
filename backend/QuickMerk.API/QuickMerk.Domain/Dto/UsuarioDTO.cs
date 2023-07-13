@@ -11,5 +11,8 @@
         public string? direcion { get; set; }
         public string? Ciudad { get; set; }
         public string? Documento { get; set; }
+        public string? correo { get; set; }
+        public string? contrasena { get; set; }
+        public int tipo_Documento_id { get; set; }
     }
 }
