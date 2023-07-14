@@ -19,11 +19,10 @@ namespace QuickMerk.Infraestructure.Repository
             return usuarios;
         }
 
-        public async Task<List<Cuenta>> GetCuentas(int usuarioId)
+        public async Task<Cuenta> GetCuenta(int usuarioId)
         {
-            var cuentas = from c in userDbContext.cuentas select c;
-            cuentas = cuentas.Where(c => c.usuario.Id == usuarioId);
-            return await cuentas.ToListAsync();
+            var cuentas = await userDbContext.cuentas.FindAsync(usuarioId);
+            return cuentas;
         }
 
         public async Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
@@ -75,7 +74,19 @@ namespace QuickMerk.Infraestructure.Repository
             };
 
             userDbContext.busquedas.Add(busqueda);
+            userDbContext.SaveChanges();
             return busquedaDto;
+        }
+
+        public async Task<List<Busquedas>> GetBusquedas(int CuentaId, int cantidad) 
+        {
+            var busquedas = await userDbContext.busquedas.Where(b => b.usuarioId == CuentaId).Take(cantidad).ToListAsync();
+            return  busquedas;
+        }
+        public async Task<(string documento, string tipoDocumento)> GetDocumento(int cuentaID) { 
+            var documento = await userDbContext.documentos.FindAsync(cuentaID);
+            var tipo_documento = await userDbContext.tipo_Documentos.FindAsync(documento.tipo_DocumentoId);
+            return (documento.DocumentoName, tipo_documento.TipoDeDocumento);
         }
     }
 }

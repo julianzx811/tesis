@@ -23,11 +23,11 @@ namespace QuickMerk.API.Controllers
             return Ok(usuarios);
         }
 
-        [HttpGet("~/GetCuentas")]
-        public async Task<ActionResult<List<Cuenta>>> GetCuentas(int usuarioId)
+        [HttpGet("~/GetCuenta")]
+        public async Task<ActionResult<Cuenta>> GetCuenta(int usuarioId)
         {
-            var cuentas = await usuarioService.GetCuentas(usuarioId);
-            return Ok(cuentas);
+            var cuenta = await usuarioService.GetCuenta(usuarioId);
+            return Ok(cuenta);
         }
 
         [HttpPost("~/CreateUsuario")]
@@ -41,6 +41,19 @@ namespace QuickMerk.API.Controllers
         {
             var busquedaDTO = await usuarioService.CreateBusqueda(busquedaDto);
             return Ok(busquedaDTO);
+        }
+
+        [HttpGet("~/GetBusquedas")]
+        public async Task<ActionResult<List<string>>> GetBusquedas(int CuentaId, int cantidad) {
+            var Busquedas = await usuarioService.GetBusquedas(CuentaId, cantidad);
+            return Ok(Busquedas);
+        }
+        [HttpGet("~/GetDocumento")]
+        public async Task<ActionResult<DocumentoDTO>> GetDocumento(int UsuarioId)
+        {
+            var cuentaID = await usuarioService.GetCuenta(UsuarioId);
+            var documento =  await usuarioService.GetDocumento(cuentaID.Id);
+            return Ok(documento);
         }
     }
 }

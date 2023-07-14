@@ -21,8 +21,8 @@ namespace QuickMerk.Application.Services
             var usuarios = usuarioRepository.GetUsuarios();
             return usuarios;
         }
-        public Task<List<Cuenta>> GetCuentas(int usuarioId) { 
-           var cuentas = usuarioRepository.GetCuentas(usuarioId);
+        public async Task<Cuenta> GetCuenta(int usuarioId) { 
+           var cuentas = await usuarioRepository.GetCuenta(usuarioId);
             return cuentas;
         }
         public Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
@@ -34,6 +34,27 @@ namespace QuickMerk.Application.Services
         {
             var usuario = usuarioRepository.CreateBusqueda(busquedaDto);
             return usuario;
+        }
+        public async Task<IList<string>> GetBusquedas(int CuentaId,int cantidad) 
+        {
+            var busquedasObj = await usuarioRepository.GetBusquedas(CuentaId,cantidad);
+            IList<string> busquedas = new List<string>();
+            for (int i = 0; i < busquedasObj.Count; i++)
+            {
+                busquedas.Add(busquedasObj[i].busquedas);
+            }
+            return busquedas;
+        }
+
+        public async Task<DocumentoDTO> GetDocumento(int cuentaIDs)
+        {
+            (string documento, string tipoDocumento) Documento = await usuarioRepository.GetDocumento(cuentaIDs);
+            var documentoDTO = new DocumentoDTO() 
+            {
+                DocumentoName = Documento.documento,
+                TipoDeDocumento = Documento.tipoDocumento
+            };
+            return documentoDTO;
         }
     }
 }
