@@ -1,5 +1,6 @@
 ﻿using QuickMerk.Domain.Dto;
 using QuickMerk.Domain.Entitys;
+using QuickMerk.Domain.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace QuickMerk.Application.Interfaces
         Task<BusquedaDTO> CreateBusqueda(BusquedaDTO busquedaDto);
         Task<IList<string>> GetBusquedas(int CuentaId, int cantidad);
         Task<DocumentoDTO> GetDocumento(int cuentaID);
+        Token Autenticacion(cuenta Cuenta);
     }
 }

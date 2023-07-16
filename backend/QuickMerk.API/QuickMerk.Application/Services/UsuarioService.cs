@@ -1,6 +1,7 @@
 ﻿using QuickMerk.Application.Interfaces;
 using QuickMerk.Domain.Dto;
 using QuickMerk.Domain.Entitys;
+using QuickMerk.Domain.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,11 @@ namespace QuickMerk.Application.Services
                 TipoDeDocumento = Documento.tipoDocumento
             };
             return documentoDTO;
+        }
+        public Token Autenticacion(cuenta Cuenta) 
+        {
+            var token = usuarioRepository.Autenticacion(Cuenta);        
+            return token;
         }
     }
 }

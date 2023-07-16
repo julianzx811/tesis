@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuickMerk.Application.Interfaces;
 using QuickMerk.Domain.Dto;
 using QuickMerk.Domain.Entitys;
+using QuickMerk.Domain.models;
 
 namespace QuickMerk.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
@@ -30,6 +33,7 @@ namespace QuickMerk.API.Controllers
             return Ok(cuenta);
         }
 
+        [AllowAnonymous]
         [HttpPost("~/CreateUsuario")]
         public async Task<ActionResult<UsuarioDTO>> CreateUsuario(UsuarioDTO usuarioDTO)
         {
@@ -54,6 +58,20 @@ namespace QuickMerk.API.Controllers
             var cuentaID = await usuarioService.GetCuenta(UsuarioId);
             var documento =  await usuarioService.GetDocumento(cuentaID.Id);
             return Ok(documento);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("authenticate")]
+        public IActionResult Authenticate(cuenta Cuenta)
+        {
+            var token = usuarioService.Autenticacion(Cuenta);
+
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(token);
         }
     }
 }

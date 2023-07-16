@@ -277,3 +277,4 @@ C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Debug\net6.0\QuickMerk.API.pdb
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Debug\net6.0\QuickMerk.API.genruntimeconfig.cache
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Debug\net6.0\ref\QuickMerk.API.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,17 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using QuickMerk.Application.Interfaces;
 using QuickMerk.Domain.Dto;
 using QuickMerk.Domain.Entitys;
+using QuickMerk.Domain.models;
 using QuickMerk.Infraestructure.Context;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace QuickMerk.Infraestructure.Repository
 {
     public class UsuarioRepository : IUsuarioRepository
     {
         private readonly UserDbContext userDbContext;
-        public UsuarioRepository(UserDbContext userDbContext)
+        private readonly IConfiguration _configuration;
+        public UsuarioRepository(UserDbContext userDbContext, IConfiguration _configuration)
         {
             this.userDbContext = userDbContext;
+            this._configuration = _configuration;
         }
 
         public async Task<List<Usuario>> GetUsuarios() {
@@ -87,6 +95,36 @@ namespace QuickMerk.Infraestructure.Repository
             var documento = await userDbContext.documentos.FindAsync(cuentaID);
             var tipo_documento = await userDbContext.tipo_Documentos.FindAsync(documento.tipo_DocumentoId);
             return (documento.DocumentoName, tipo_documento.TipoDeDocumento);
+        }
+
+        public Token Autenticacion(cuenta cuenta) 
+        {
+            var cuentaVerificacion = userDbContext.cuentas.Where(
+                c => c.correo ==  cuenta.Correo &&
+                c.contrasena == cuenta.Password);
+
+            if (!cuentaVerificacion.Any())
+            {
+                return null;
+            }
+
+            //We have Authenticated
+            //Generate JSON Web Token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenKey = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+              {
+             new Claim(ClaimTypes.Name, cuenta.Correo)
+              }),
+                Expires = DateTime.UtcNow.AddHours(24),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(tokenKey), 
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return new Token { token = tokenHandler.WriteToken(token) };
         }
     }
 }
