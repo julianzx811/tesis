@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using QuickMerk.Application.Interfaces;
 using QuickMerk.Domain.Dto;
 using QuickMerk.Domain.Entitys;
+using QuickMerk.Domain.Enums;
 using QuickMerk.Domain.models;
 using QuickMerk.Infraestructure.Context;
 using System.IdentityModel.Tokens.Jwt;
@@ -35,13 +36,14 @@ namespace QuickMerk.Infraestructure.Repository
 
         public async Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
         {
+            var sex = (SexoTipo)usuarioDTO.Sexo;
             var usuario = new Usuario
             {
                 Nombre = usuarioDTO.Nombre,
                 Apellido = usuarioDTO.Apellido,
                 Edad = usuarioDTO.Edad,
                 Nacimiento = usuarioDTO.Nacimiento,
-                Sexo = usuarioDTO.Sexo,
+                Sexo = sex.ToString(),
                 Telefono = usuarioDTO.Telefono,
                 direcion = usuarioDTO.direcion,
                 Ciudad = usuarioDTO.Ciudad,
@@ -52,13 +54,13 @@ namespace QuickMerk.Infraestructure.Repository
                 tipo_Cuenta = await userDbContext.tipo_Cuentas.FindAsync(1),
                 usuario = usuario,
                 Creacion = DateTime.Now,
-                correo = usuarioDTO.correo,
+                correo = usuarioDTO.Correo,
                 contrasena = usuarioDTO.contrasena
             };
             var documento = new Documento
             {
                 DocumentoName = usuarioDTO.Documento,
-                tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(usuarioDTO.tipo_Documento_id),
+                tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(usuarioDTO.Tipo_Documento_id),
                 usuario = usuario
             };
             usuario.Cuenta = cuenta;
@@ -91,6 +93,7 @@ namespace QuickMerk.Infraestructure.Repository
             var busquedas = await userDbContext.busquedas.Where(b => b.usuarioId == CuentaId).Take(cantidad).ToListAsync();
             return  busquedas;
         }
+
         public async Task<(string documento, string tipoDocumento)> GetDocumento(int cuentaID) { 
             var documento = await userDbContext.documentos.FindAsync(cuentaID);
             var tipo_documento = await userDbContext.tipo_Documentos.FindAsync(documento.tipo_DocumentoId);

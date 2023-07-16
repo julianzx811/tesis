@@ -31,9 +31,10 @@ namespace QuickMerk.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("busquedas")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("usuarioId")
+                    b.Property<int>("usuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -55,9 +56,11 @@ namespace QuickMerk.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("contrasena")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("correo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("tipo_CuentaId")
@@ -85,12 +88,10 @@ namespace QuickMerk.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DocumentoName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("tipo_DocumentoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("tipo_Documento_Id")
+                    b.Property<int>("tipo_DocumentoId")
                         .HasColumnType("int");
 
                     b.Property<int>("usuarioId")
@@ -115,6 +116,7 @@ namespace QuickMerk.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("tipo_cuenta")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -131,6 +133,7 @@ namespace QuickMerk.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("TipoDeDocumento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -147,9 +150,11 @@ namespace QuickMerk.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Apellido")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ciudad")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Edad")
@@ -159,15 +164,19 @@ namespace QuickMerk.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sexo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("direcion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -179,7 +188,9 @@ namespace QuickMerk.API.Migrations
                 {
                     b.HasOne("QuickMerk.Domain.Entitys.Usuario", "usuario")
                         .WithMany("Busquedas")
-                        .HasForeignKey("usuarioId");
+                        .HasForeignKey("usuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("usuario");
                 });
@@ -207,7 +218,9 @@ namespace QuickMerk.API.Migrations
                 {
                     b.HasOne("QuickMerk.Domain.Entitys.Tipo_documento", "tipo_Documento")
                         .WithMany("documentos")
-                        .HasForeignKey("tipo_DocumentoId");
+                        .HasForeignKey("tipo_DocumentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("QuickMerk.Domain.Entitys.Usuario", "usuario")
                         .WithOne("Documento")

@@ -53,10 +53,11 @@ namespace QuickMerk.Application.Services
             var documentoDTO = new DocumentoDTO() 
             {
                 DocumentoName = Documento.documento,
-                TipoDeDocumento = Documento.tipoDocumento
+                TipoDeDocumento = Documento.tipoDocumento,
             };
             return documentoDTO;
         }
+
         public Token Autenticacion(cuenta Cuenta) 
         {
             var token = usuarioRepository.Autenticacion(Cuenta);        

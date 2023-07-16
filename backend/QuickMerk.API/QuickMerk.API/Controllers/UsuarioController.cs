@@ -19,12 +19,12 @@ namespace QuickMerk.API.Controllers
             this.usuarioService = usuarioService;
         }
 
-        [HttpGet("~/GetUsuarios")]
-        public async Task<ActionResult<List<UsuarioDTO>>> GetUsuarios()
-        {
-            var usuarios = await usuarioService.GetUsuarios();
-            return Ok(usuarios);
-        }
+        //[HttpGet("~/GetUsuarios")]
+        //public async Task<ActionResult<List<UsuarioDTO>>> GetUsuarios()
+        //{
+        //    var usuarios = await usuarioService.GetUsuarios();
+        //    return Ok(usuarios);
+        //}
 
         [HttpGet("~/GetCuenta")]
         public async Task<ActionResult<Cuenta>> GetCuenta(int usuarioId)
@@ -61,7 +61,7 @@ namespace QuickMerk.API.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        [Route("authenticate")]
+        [Route("~/Login")]
         public IActionResult Authenticate(cuenta Cuenta)
         {
             var token = usuarioService.Autenticacion(Cuenta);
