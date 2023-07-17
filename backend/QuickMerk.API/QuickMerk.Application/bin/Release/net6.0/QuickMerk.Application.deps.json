@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "QuickMerk.Application/1.0.0": {
+        "dependencies": {
+          "QuickMerk.Domain": "1.0.0"
+        },
+        "runtime": {
+          "QuickMerk.Application.dll": {}
+        }
+      },
+      "QuickMerk.Domain/1.0.0": {
+        "runtime": {
+          "QuickMerk.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QuickMerk.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuickMerk.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
