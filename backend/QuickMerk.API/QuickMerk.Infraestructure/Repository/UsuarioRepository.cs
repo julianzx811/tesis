@@ -129,5 +129,10 @@ namespace QuickMerk.Infraestructure.Repository
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return new Token { token = tokenHandler.WriteToken(token) };
         }
+        public async Task<List<Tipo_documento>> GetTiposDocumentos() 
+        { 
+            var tiposDocumentos = await userDbContext.tipo_Documentos.ToListAsync();
+            return tiposDocumentos;
+        }
     }
 }

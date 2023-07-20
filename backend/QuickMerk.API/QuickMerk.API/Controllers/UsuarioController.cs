@@ -73,5 +73,12 @@ namespace QuickMerk.API.Controllers
 
             return Ok(token);
         }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("~/GetDocumentos")]
+        public async Task<ActionResult<List<string>>> GetTiposDocumentos() { 
+            var documentos = await usuarioService.GetTiposDocumentos();
+            return Ok(documentos);
+        }
     }
 }

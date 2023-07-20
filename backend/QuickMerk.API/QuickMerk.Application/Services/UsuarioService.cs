@@ -63,5 +63,15 @@ namespace QuickMerk.Application.Services
             var token = usuarioRepository.Autenticacion(Cuenta);        
             return token;
         }
+        public async Task<List<string>> GetTiposDocumentos()
+        { 
+            List<Tipo_documento> Tipos = await usuarioRepository.GetTiposDocumentos();
+            List<string> tipoDocumentos = new List<string>();
+            foreach (var tipo in Tipos) 
+            {
+                tipoDocumentos.Add(tipo.TipoDeDocumento);
+            }
+            return tipoDocumentos;
+        }
     }
 }

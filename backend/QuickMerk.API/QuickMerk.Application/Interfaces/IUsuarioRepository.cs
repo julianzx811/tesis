@@ -18,5 +18,6 @@ namespace QuickMerk.Application.Interfaces
         Task<List<Busquedas>> GetBusquedas(int CuentaId, int cantidad);
         Task<(string documento, string tipoDocumento)> GetDocumento(int cuentaID);
         Token Autenticacion(cuenta Cuenta);
+        Task<List<Tipo_documento>> GetTiposDocumentos();
     }
 }
