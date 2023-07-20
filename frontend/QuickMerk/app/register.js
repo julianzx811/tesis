@@ -6,9 +6,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import styles from "./styles/containers";
 import { useRouter } from "expo-router";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const Register = () => {
   const [nombre, setNombre] = useState();
@@ -34,6 +36,7 @@ const Register = () => {
         <View style={styles.registerContainer}>
           <Input nombre="nombre.." set={setNombre} />
           <Input nombre="apellido.." set={setApellido} />
+          <Datepicker Date={setNacimiento} Nacimiento={nacimiento} />
           <Input nombre="direcion.." set={setDirecion} />
           <Input nombre="ciudad.." set={setCiudad} />
           <Input nombre="documento.." set={setdocumento} />
@@ -75,6 +78,34 @@ const BackToLogin = ({ router }) => {
           Logueate!
         </Text>
       </TouchableOpacity>
+    </View>
+  );
+};
+
+const Datepicker = ({ Date, Nacimiento }) => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    Date(date);
+    hideDatePicker();
+  };
+  return (
+    <View>
+      <Button title={Nacimiento.toDateString()} onPress={showDatePicker} />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
     </View>
   );
 };
