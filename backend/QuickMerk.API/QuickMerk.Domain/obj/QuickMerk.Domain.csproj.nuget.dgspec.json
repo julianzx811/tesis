@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {}
+    "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {
+    "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
         "projectName": "QuickMerk.Domain",
-        "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
-        "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\obj\\",
+        "projectPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
+        "packagesPath": "C:\\Users\\yulian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yulian\\Desktop\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\yulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -18,10 +18,8 @@ export default function Page() {
       method: "post",
       url: "https://quickmerkapi.azurewebsites.net/Login",
       data: {
-        // correo: user.correo,
-        // password: user.password,}
-        correo: "yulicorreo",
-        password: "1234",
+        correo: user.correo,
+        password: user.password,
       },
     }).then(
       (response) => {

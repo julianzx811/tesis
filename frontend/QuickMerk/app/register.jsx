@@ -7,6 +7,9 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  Modal,
+  Pressable,
+  Alert,
 } from "react-native";
 import styles from "./styles/containers";
 import { useRouter } from "expo-router";
@@ -27,11 +30,14 @@ const Register = () => {
   const [documento, setdocumento] = useState();
   const [correo, setCorreo] = useState();
   const [contrasena, setContrasena] = useState();
-  const [tipo_Documento_id, set_tipo_Documento_id] = useState();
+  const [tipo_Documento_id, set_tipo_Documento_id] = useState(0);
 
   const [documentosArray, setDocumentosArray] = useState([]);
 
   const router = useRouter();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [handlerError, setHandlerError] = useState();
 
   useEffect(() => {
     axios({
@@ -50,10 +56,44 @@ const Register = () => {
       }
     );
   }, []);
-
+  const registrame = () => {
+    var usuario = {
+      nombre: nombre,
+      apellido: apellido,
+      edad: edad,
+      nacimiento: nacimiento,
+      sexo: sexo,
+      telefono: telefono,
+      direcion: direcion,
+      ciudad: ciudad,
+      documento: documento,
+      correo: correo,
+      contrasena: contrasena,
+      tipo_Documento_id: tipo_Documento_id,
+    };
+    console.log(usuario);
+    axios({
+      method: "post",
+      url: "https://quickmerkapi.azurewebsites.net/CreateUsuario",
+      data: usuario,
+    }).then(
+      (response) => {
+        if (response.status == 200) {
+          router.replace("/");
+        }
+      },
+      (error) => {
+        console.log(error);
+        setHandlerError(error);
+        setModalVisible(true);
+      }
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        {/* error handler */}
+        <Error modalVisible={modalVisible} setModalVisible={setModalVisible} />
         <View style={styles.main}>
           <Text style={styles.title}>Quick Merk</Text>
           <Text style={styles.subtitle}>Registro!!</Text>
@@ -64,18 +104,18 @@ const Register = () => {
           <AgePicker setEdad={setEdad} Edad={edad} />
           <Datepicker Date={setNacimiento} Nacimiento={nacimiento} />
           <GenderPicker sex={sexo} SetSexo={setSexo} />
-          <Input nombre="direcion.." set={setDirecion} />
+          <Input nombre="telefono.." set={setTelefono} />
           <Input nombre="direcion.." set={setDirecion} />
           <Input nombre="ciudad.." set={setCiudad} />
           <Input nombre="documento.." set={setdocumento} />
           <Input nombre="correo.." set={setCorreo} />
           <Input nombre="contraseña.." set={setContrasena} />
           <DocumentoPicker
-            documento={documentosArray[0]}
+            documento={tipo_Documento_id}
             setDocumento={set_tipo_Documento_id}
             documentos={documentosArray}
           />
-          <RegisterButton />
+          <RegisterButton registrame={registrame} />
         </View>
         <BackToLogin router={router} />
       </ScrollView>
@@ -83,7 +123,21 @@ const Register = () => {
   );
 };
 
-export default Register;
+const DocumentoPicker = ({ documento, setDocumento, documentos }) => {
+  console.log(documentos);
+  return (
+    <View>
+      <Picker
+        selectedValue={documento}
+        onValueChange={(itemValue, itemIndex) => setDocumento(itemIndex + 1)}
+      >
+        {documentos.map((element, index) => (
+          <Picker.Item key={index + 1} label={element} value={index} />
+        ))}
+      </Picker>
+    </View>
+  );
+};
 
 const Input = ({ nombre, set }) => {
   return (
@@ -177,33 +231,47 @@ const GenderPicker = ({ sex, SetSexo }) => {
   );
 };
 
-const RegisterButton = () => {
+const RegisterButton = ({ registrame }) => {
   return (
     <View>
-      <TouchableOpacity style={styles.loginBtn} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress={() => {
+          registrame();
+        }}
+      >
         <Text style={styles.normalText}>Registrame!</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const DocumentoPicker = ({ documento, setDocumento, documentos }) => {
-  console.log(documentos);
+const Error = ({ modalVisible, setModalVisible }) => {
   return (
-    <View>
-      <Picker
-        // style={styles.picker}
-        selectedValue={documento}
-        onValueChange={(itemValue) => setDocumento(itemValue)}
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
       >
-        {documentos.map((element, index) => (
-          <Picker.Item
-            key={index + 1}
-            label={element.label}
-            value={element.value}
-          />
-        ))}
-      </Picker>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Algo salio mal :o</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Volver al registro</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
+
+export default Register;

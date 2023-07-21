@@ -18,7 +18,7 @@ namespace QuickMerk.Domain.Dto
         public DateTime Nacimiento { get; set; } 
 
         [Required(ErrorMessage = "El sexo es requerido y debe de estar entre 1 y 2")]
-        [Range(1,2)]
+        [Range(0,1)]
         public int Sexo { get; set; }
 
         [Required(ErrorMessage = "El telefono es requerido")]
