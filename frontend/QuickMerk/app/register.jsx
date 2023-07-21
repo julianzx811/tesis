@@ -99,22 +99,35 @@ const Register = () => {
           <Text style={styles.subtitle}>Registro!!</Text>
         </View>
         <View style={styles.registerContainer}>
-          <Input nombre="nombre.." set={setNombre} />
-          <Input nombre="apellido.." set={setApellido} />
-          <AgePicker setEdad={setEdad} Edad={edad} />
-          <Datepicker Date={setNacimiento} Nacimiento={nacimiento} />
-          <GenderPicker sex={sexo} SetSexo={setSexo} />
-          <Input nombre="telefono.." set={setTelefono} />
-          <Input nombre="direcion.." set={setDirecion} />
-          <Input nombre="ciudad.." set={setCiudad} />
-          <Input nombre="documento.." set={setdocumento} />
-          <Input nombre="correo.." set={setCorreo} />
-          <Input nombre="contraseña.." set={setContrasena} />
-          <DocumentoPicker
-            documento={tipo_Documento_id}
-            setDocumento={set_tipo_Documento_id}
-            documentos={documentosArray}
-          />
+          <View style={styles.row}>
+            <Input nombre="nombre.." set={setNombre} />
+            <Input nombre="apellido.." set={setApellido} />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.addsome}>Edad: </Text>
+            <AgePicker setEdad={setEdad} Edad={edad} />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.addsome}>Nacimiento: </Text>
+            <Datepicker Date={setNacimiento} Nacimiento={nacimiento} />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.addsome}>Genero:</Text>
+            <GenderPicker sex={sexo} SetSexo={setSexo} />
+          </View>
+          <InputBig nombre="telefono.." set={setTelefono} />
+          <InputBig nombre="direcion.." set={setDirecion} />
+          <InputBig nombre="ciudad.." set={setCiudad} />
+          <InputBig nombre="correo.." set={setCorreo} />
+          <InputBig nombre="contraseña.." set={setContrasena} />
+          <View style={styles.row}>
+            <DocumentoPicker
+              documento={tipo_Documento_id}
+              setDocumento={set_tipo_Documento_id}
+              documentos={documentosArray}
+            />
+            <Input nombre="documento.." set={setdocumento} />
+          </View>
           <RegisterButton registrame={registrame} />
         </View>
         <BackToLogin router={router} />
@@ -128,6 +141,7 @@ const DocumentoPicker = ({ documento, setDocumento, documentos }) => {
   return (
     <View>
       <Picker
+        style={{ width: 130, marginLeft: 20 }}
         selectedValue={documento}
         onValueChange={(itemValue, itemIndex) => setDocumento(itemIndex + 1)}
       >
@@ -152,9 +166,22 @@ const Input = ({ nombre, set }) => {
   );
 };
 
+const InputBig = ({ nombre, set }) => {
+  return (
+    <View style={styles.inputViewBig}>
+      <TextInput
+        style={styles.inputText}
+        placeholder={nombre}
+        placeholderTextColor="#003f5c"
+        onChangeText={(text) => set(text)}
+      />
+    </View>
+  );
+};
+
 const BackToLogin = ({ router }) => {
   return (
-    <View style={styles.row}>
+    <View style={styles.row2}>
       <Text style={styles.normalText}>tienes cuenta? </Text>
       <TouchableOpacity>
         <Text
@@ -187,7 +214,9 @@ const Datepicker = ({ Date, Nacimiento }) => {
   };
   return (
     <View>
-      <Button title={Nacimiento.toDateString()} onPress={showDatePicker} />
+      <TouchableOpacity style={styles.button} onPress={showDatePicker}>
+        <Text>{Nacimiento.toDateString()}</Text>
+      </TouchableOpacity>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
@@ -202,6 +231,12 @@ const AgePicker = ({ setEdad, edad }) => {
   return (
     <View>
       <InputSpinner
+        shadow={true}
+        colorLeft={"grey"}
+        colorRight={"grey"}
+        width={130}
+        height={35}
+        skin="square"
         max={100}
         min={10}
         step={2}
@@ -220,12 +255,12 @@ const GenderPicker = ({ sex, SetSexo }) => {
   return (
     <View>
       <Picker
-        // style={styles.picker}
+        style={{ width: 160 }}
         selectedValue={sex}
         onValueChange={(itemValue) => SetSexo(itemValue)}
       >
-        <Picker.Item label="Femenino" value="1" />
-        <Picker.Item label="Masculino" value="2" />
+        <Picker.Item label="Femenino" value="0" />
+        <Picker.Item label="Masculino" value="1" />
       </Picker>
     </View>
   );

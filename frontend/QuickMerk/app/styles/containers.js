@@ -31,20 +31,33 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   inputView: {
-    width: "100%",
+    width: "40%",
     backgroundColor: "#465881",
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
     justifyContent: "center",
     padding: 20,
+    marginHorizontal: 16,
+    marginTop: 5,
+  },
+  inputViewBig: {
+    width: "90%",
+    backgroundColor: "#465881",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 20,
+    marginHorizontal: 16,
+    marginTop: 5,
   },
   inputText: {
     height: 50,
     color: "white",
   },
   loginBtn: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "#fb5b5a",
     borderRadius: 25,
     height: 50,
@@ -52,6 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 19,
   },
   normalText: {
     color: "white",
@@ -60,8 +74,14 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
+    paddingBottom: 15,
   },
-
+  row2: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 10,
+    marginLeft: 100,
+  },
   registerContainer: {
     paddingTop: 10,
   },
@@ -97,6 +117,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    width: "100%",
+    alignItems: "center",
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -112,6 +134,13 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  addsome: {
+    fontSize: 22,
+    color: "orange",
+    paddingLeft: 0,
+    paddingHorizontal: 72,
+    marginLeft: 15,
   },
 });
 
