@@ -1,0 +1,11 @@
+Codigo:
+-implementar modal o pantalla de carga en register y login
+-implementar form en login y register QuickMerkApp
+-implementar validaciones QuickMerkUsersApi
+-implementar handler de error en login y register
+-implementar handler error en login y register de la api
+-implementar editar usuario en api
+-implementar editar cuenta en app
+
+Documento:
+-terminar de rehacer el documento

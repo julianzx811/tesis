@@ -2,28 +2,42 @@ import { StyleSheet, Text, View, TextInput } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
+import { store } from "../app/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { login } from "../app/redux/actions/UserActions";
 
 export default function Page() {
   const router = useRouter();
   const [correo, setCorreo] = useState();
   const [contrasena, setContrasena] = useState();
+  const dispatch = useDispatch();
+
+  const count = useSelector((store) => store.user);
 
   const onLogin = () => {
     let user = {
       correo: correo,
       password: contrasena,
     };
+
+    const logmein = (token) => {
+      dispatch(login(token));
+    };
+
     axios({
       method: "post",
       url: "https://quickmerkapi.azurewebsites.net/Login",
       data: {
-        correo: user.correo,
-        password: user.password,
+        // correo: user.correo,
+        // password: user.password,
+        correo: "yulicorreo",
+        password: "1234",
       },
     }).then(
       (response) => {
         if (response.status == 200) {
+          logmein(response.data["token"]);
           router.replace("/account");
         }
       },
