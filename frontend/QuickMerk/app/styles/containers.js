@@ -142,6 +142,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 72,
     marginLeft: 15,
   },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
 });
 
 export default styles;

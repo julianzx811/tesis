@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import styles from "../styles/containers";
-
+import MapView from "react-native-maps";
 const Maps = () => {
   return (
     <View style={styles.container}>
-      <Text>Maps</Text>
+      <MapView style={styles.map} />
     </View>
   );
 };
