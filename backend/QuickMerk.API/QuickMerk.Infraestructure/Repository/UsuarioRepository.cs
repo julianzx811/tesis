@@ -134,5 +134,23 @@ namespace QuickMerk.Infraestructure.Repository
             var tiposDocumentos = await userDbContext.tipo_Documentos.ToListAsync();
             return tiposDocumentos;
         }
+        public async Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO,int usuarioId) 
+        {
+            var usuario = await userDbContext.usuarios.FindAsync(usuarioId);
+            var sex = (SexoTipo)usuarioDTO.Sexo;
+            //create a mapper for this
+            usuario.Nombre = usuarioDTO.Nombre;
+            usuario.Apellido = usuarioDTO.Apellido;
+            usuario.Edad = usuarioDTO.Edad;
+            usuario.Nacimiento = usuarioDTO.Nacimiento;
+            usuario.Sexo = sex.ToString();
+            usuario.Telefono = usuarioDTO.Telefono;
+            usuario.direcion = usuarioDTO.direcion;
+            usuario.Ciudad = usuarioDTO.Ciudad;
+
+            userDbContext.usuarios.Update(usuario);
+            userDbContext.SaveChanges();
+            return usuarioDTO;
+        }
     }
 }

@@ -80,5 +80,13 @@ namespace QuickMerk.API.Controllers
             var documentos = await usuarioService.GetTiposDocumentos();
             return Ok(documentos);
         }
+
+        [HttpPut]
+        [Route("~/GetDocumentos")]
+        public async Task<ActionResult<UsuarioDTO>> UpdateUser(UsuarioDTO usuarioDTO,int usuarioId)
+        {
+            var user = await  usuarioService.UpdateUser(usuarioDTO, usuarioId);
+            return Ok(user);
+        }
     }
 }

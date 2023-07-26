@@ -73,5 +73,10 @@ namespace QuickMerk.Application.Services
             }
             return tipoDocumentos;
         }
+        public async Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO, int usuarioId) 
+        { 
+            var user = await usuarioRepository.UpdateUser(usuarioDTO, usuarioId);
+            return user;
+        }
     }
 }
