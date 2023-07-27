@@ -134,9 +134,10 @@ namespace QuickMerk.Infraestructure.Repository
             var tiposDocumentos = await userDbContext.tipo_Documentos.ToListAsync();
             return tiposDocumentos;
         }
-        public async Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO,int usuarioId) 
+        public async Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO,int UsuarioId) 
         {
-            var usuario = await userDbContext.usuarios.FindAsync(usuarioId);
+            //updating user
+            var usuario = await userDbContext.usuarios.FindAsync(UsuarioId);
             var sex = (SexoTipo)usuarioDTO.Sexo;
             //create a mapper for this
             usuario.Nombre = usuarioDTO.Nombre;
@@ -150,6 +151,24 @@ namespace QuickMerk.Infraestructure.Repository
 
             userDbContext.usuarios.Update(usuario);
             userDbContext.SaveChanges();
+
+            //updating document
+            var documento = await userDbContext.documentos.Where(d => d.usuarioId == UsuarioId).FirstOrDefaultAsync();
+
+            documento.DocumentoName = usuarioDTO.Documento;
+            documento.tipo_DocumentoId = usuarioDTO.Tipo_Documento_id;
+
+            userDbContext.documentos.Update(documento);
+            userDbContext.SaveChanges();
+
+            //updating cuenta
+            var cuenta = await userDbContext.cuentas.Where(c => c.usuarioId == UsuarioId).FirstOrDefaultAsync();
+            cuenta.correo = usuarioDTO.Correo;
+            cuenta.contrasena = usuarioDTO.contrasena;
+
+            userDbContext.cuentas.Update(cuenta);
+            userDbContext.SaveChanges();
+
             return usuarioDTO;
         }
     }

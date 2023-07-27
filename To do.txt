@@ -3,8 +3,7 @@ Codigo:
 -implementar form en login y register QuickMerkApp
 -implementar validaciones QuickMerkUsersApi
 -implementar handler de error en login y register
--implementar handler error en login y register de la api
--implementar editar usuario en api
+-global handling error
 -implementar editar cuenta en app
 
 Documento:

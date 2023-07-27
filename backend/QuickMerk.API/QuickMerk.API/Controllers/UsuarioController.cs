@@ -82,7 +82,7 @@ namespace QuickMerk.API.Controllers
         }
 
         [HttpPut]
-        [Route("~/GetDocumentos")]
+        [Route("~/UpdateUser")]
         public async Task<ActionResult<UsuarioDTO>> UpdateUser(UsuarioDTO usuarioDTO,int usuarioId)
         {
             var user = await  usuarioService.UpdateUser(usuarioDTO, usuarioId);
