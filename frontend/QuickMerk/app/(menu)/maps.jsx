@@ -7,8 +7,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const Maps = () => {
   const insets = useSafeAreaInsets();
   return (
-    <View style={{ paddingTop: insets.top, backgroundColor: "#003f5c" }}>
-      <MapView style={styles.map} />
+    <View style={styles({ insets }).container}>
+      <MapView style={styles({ insets }).map} />
     </View>
   );
 };
