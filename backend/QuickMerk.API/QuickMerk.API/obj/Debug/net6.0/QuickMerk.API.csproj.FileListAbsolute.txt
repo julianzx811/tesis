@@ -278,3 +278,10 @@ C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Debug\net6.0\QuickMerk.API.genruntimeconfig.cache
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Debug\net6.0\ref\QuickMerk.API.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll

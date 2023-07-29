@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace QuickMerk.Application.Services
 {
@@ -73,10 +74,20 @@ namespace QuickMerk.Application.Services
             }
             return tipoDocumentos;
         }
-        public async Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO, int usuarioId) 
+        public async Task<UsuarioUpdateDTO> UpdateUser(UsuarioUpdateDTO usuarioDTO, int usuarioId) 
         { 
             var user = await usuarioRepository.UpdateUser(usuarioDTO, usuarioId);
             return user;
+        }
+        public async Task<ActionResult> UpdateCorreo(string correo, int usuarioId) 
+        {
+            var Correo = await usuarioRepository.UpdateCorreo(correo, usuarioId);
+            return Correo;
+        }
+        public async Task<ActionResult> UpdateContrasena(string contrasena, int usuarioId)
+        {
+            var Contrasena = await usuarioRepository.UpdateContrasena(contrasena, usuarioId);
+            return Contrasena;
         }
     }
 }

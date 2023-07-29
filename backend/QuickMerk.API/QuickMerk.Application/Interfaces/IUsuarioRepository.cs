@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace QuickMerk.Application.Interfaces
 {
@@ -19,6 +20,8 @@ namespace QuickMerk.Application.Interfaces
         Task<(string documento, string tipoDocumento)> GetDocumento(int cuentaID);
         Token Autenticacion(cuenta Cuenta);
         Task<List<Tipo_documento>> GetTiposDocumentos();
-        Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO, int usuarioId);
+        Task<UsuarioUpdateDTO> UpdateUser(UsuarioUpdateDTO usuarioDTO, int usuarioId);
+        Task<ActionResult> UpdateCorreo(string correo, int usuarioId);
+        Task<ActionResult> UpdateContrasena(string contrasena, int usuarioId);
     }
 }

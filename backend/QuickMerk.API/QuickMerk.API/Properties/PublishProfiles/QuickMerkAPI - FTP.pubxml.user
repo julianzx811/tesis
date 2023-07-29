@@ -8,7 +8,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA/9G+2yorqEemYapmmPK9bgAAAAACAAAAAAAQZgAAAAEAACAAAABqC++U4Fttaq1SR0pxkE8BvhFmky7sn9MhmfV1Fn+6hgAAAAAOgAAAAAIAACAAAABx9kwyhyIVGS8o+S/v/fjZnzzqy6qhWWyJOA6Kzz+ksoAAAABszAtMiIwYiywSeHcw3+OE5IMwSImTOuhY1mjFTJyjiQ2FWXHy2w5RKNaylsVEB+FSR5W7aMKCl/UPpSjQnxS/X38PJazpZ+M96dJjsANxgSUr0OVCAlkp52NbCaXiQfKZQjCFrv9Le+Ol113Sgq/SjJEH5piUtpHzJqCWR45YS0AAAAAYQzslE3GdsUFHIZbLx6v4INWXraaYkllEbDkGOyPwMFW7e7xJZJod1KHoFj/jUWUmVHOP4SsQ8Q4Ftp1bYnOH</EncryptedPassword>
     <_PublishTargetUrl>ftps://waws-prod-blu-423.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
-    <History>True|2023-07-27T21:01:29.2128360Z;True|2023-07-20T21:35:24.3755740-05:00;False|2023-07-20T19:54:10.1793122-05:00;False|2023-07-20T19:52:07.0515698-05:00;</History>
+    <History>True|2023-07-29T03:28:11.3176813Z;True|2023-07-27T16:01:29.2128360-05:00;True|2023-07-20T21:35:24.3755740-05:00;False|2023-07-20T19:54:10.1793122-05:00;False|2023-07-20T19:52:07.0515698-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>

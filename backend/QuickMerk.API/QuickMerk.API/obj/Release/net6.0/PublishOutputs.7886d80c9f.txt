@@ -6,6 +6,12 @@ C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\QuickMerk.API.pdb
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Azure.Core.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Azure.Identity.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\System.Web.Mvc.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\System.Web.Razor.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\System.Web.Helpers.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\System.Web.WebPages.Deployment.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\System.Web.WebPages.Razor.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\System.Web.WebPages.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
@@ -32,6 +38,7 @@ C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Tokens.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.SqlServer.Server.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Web.Infrastructure.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll

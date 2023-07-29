@@ -20,6 +20,7 @@ const SECTIONS = [
     items: [
       { icon: "flag", label: "Cambiar Correo", type: "link" },
       { icon: "mail", label: "Cambiar Contraseña", type: "link" },
+      { icon: "mail", label: "Actualizar mi informacion", type: "link" },
     ],
   },
   {

@@ -186,3 +186,10 @@ C:\Users\yulian\Desktop\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\ne
 C:\Users\yulian\Desktop\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\QuickMerk.API.pdb
 C:\Users\yulian\Desktop\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\QuickMerk.API.genruntimeconfig.cache
 C:\Users\yulian\Desktop\tesis\backend\QuickMerk.API\QuickMerk.API\obj\Release\net6.0\ref\QuickMerk.API.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\System.Web.Mvc.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\System.Web.Razor.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\System.Web.Helpers.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\System.Web.WebPages.dll
+C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.API\bin\Release\net6.0\Microsoft.Web.Infrastructure.dll

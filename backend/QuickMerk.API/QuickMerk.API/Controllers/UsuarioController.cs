@@ -82,11 +82,28 @@ namespace QuickMerk.API.Controllers
         }
 
         [HttpPut]
-        [Route("~/UpdateUser")]
-        public async Task<ActionResult<UsuarioDTO>> UpdateUser(UsuarioDTO usuarioDTO,int usuarioId)
+        [Route("~/UpdateUsuario")]
+        public async Task<ActionResult<UsuarioDTO>> UpdateUsuario(UsuarioUpdateDTO usuarioDTO,int usuarioId)
         {
-            var user = await  usuarioService.UpdateUser(usuarioDTO, usuarioId);
-            return Ok(user);
+            var usuario = await usuarioService.UpdateUser(usuarioDTO, usuarioId);
+            return Ok(usuario);
+        }
+
+        [HttpPut]
+        [Route("~/UpdateCorreo")]
+        public async Task<System.Web.Mvc.ActionResult> UpdateCorreo(string correo,int usuarioId)
+        {
+            var Correo = await usuarioService.UpdateCorreo(correo, usuarioId);
+            return Correo;
+
+        }
+
+        [HttpPut]
+        [Route("~/UpdateContrasena")]
+        public async Task<System.Web.Mvc.ActionResult> UpdateContrasena(string contrasena,int usuarioId)
+        {
+            var Correo = await usuarioService.UpdateContrasena(contrasena, usuarioId);
+            return Correo;
         }
     }
 }

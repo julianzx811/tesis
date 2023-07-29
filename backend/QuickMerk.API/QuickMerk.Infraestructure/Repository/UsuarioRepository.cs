@@ -10,6 +10,7 @@ using QuickMerk.Infraestructure.Context;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Web.Mvc;
 
 namespace QuickMerk.Infraestructure.Repository
 {
@@ -102,7 +103,7 @@ namespace QuickMerk.Infraestructure.Repository
 
         public Token Autenticacion(cuenta cuenta) 
         {
-            var cuentaVerificacion = userDbContext.cuentas.Where(
+            var cuentaVerificacion =  userDbContext.cuentas.Where(
                 c => c.correo ==  cuenta.Correo &&
                 c.contrasena == cuenta.Password);
 
@@ -127,14 +128,17 @@ namespace QuickMerk.Infraestructure.Repository
                     SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return new Token { token = tokenHandler.WriteToken(token) };
+            return new Token { 
+                token = tokenHandler.WriteToken(token) ,
+                CuentaId = cuentaVerificacion.SingleOrDefault().usuarioId,
+            };
         }
         public async Task<List<Tipo_documento>> GetTiposDocumentos() 
         { 
             var tiposDocumentos = await userDbContext.tipo_Documentos.ToListAsync();
             return tiposDocumentos;
         }
-        public async Task<UsuarioDTO> UpdateUser(UsuarioDTO usuarioDTO,int UsuarioId) 
+        public async Task<UsuarioUpdateDTO> UpdateUser(UsuarioUpdateDTO usuarioDTO,int UsuarioId) 
         {
             //updating user
             var usuario = await userDbContext.usuarios.FindAsync(UsuarioId);
@@ -152,24 +156,40 @@ namespace QuickMerk.Infraestructure.Repository
             userDbContext.usuarios.Update(usuario);
             userDbContext.SaveChanges();
 
-            //updating document
-            var documento = await userDbContext.documentos.Where(d => d.usuarioId == UsuarioId).FirstOrDefaultAsync();
-
-            documento.DocumentoName = usuarioDTO.Documento;
-            documento.tipo_DocumentoId = usuarioDTO.Tipo_Documento_id;
-
-            userDbContext.documentos.Update(documento);
-            userDbContext.SaveChanges();
-
-            //updating cuenta
-            var cuenta = await userDbContext.cuentas.Where(c => c.usuarioId == UsuarioId).FirstOrDefaultAsync();
-            cuenta.correo = usuarioDTO.Correo;
-            cuenta.contrasena = usuarioDTO.contrasena;
-
-            userDbContext.cuentas.Update(cuenta);
-            userDbContext.SaveChanges();
-
             return usuarioDTO;
+        }
+
+        public async Task<ActionResult> UpdateCorreo(string correo, int usuarioId)
+        {
+            var usuario = await userDbContext.usuarios.FindAsync(usuarioId);
+            var cuenta = await userDbContext.cuentas.FindAsync(usuario.Id);
+            if (cuenta != null)
+            {
+                cuenta.correo = correo;
+                userDbContext.cuentas.Update(cuenta);
+                userDbContext.SaveChanges();
+                return new EmptyResult();
+            }
+            else {
+                return null;
+            } 
+        }
+
+        public async Task<ActionResult> UpdateContrasena(string contrasena, int usuarioId)
+        {
+            var usuario = await userDbContext.usuarios.FindAsync(usuarioId);
+            var cuenta = await userDbContext.cuentas.FindAsync(usuario.Id);
+            if (cuenta != null)
+            {
+                cuenta.contrasena = contrasena;
+                userDbContext.cuentas.Update(cuenta);
+                userDbContext.SaveChanges();
+                return new EmptyResult();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
