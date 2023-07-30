@@ -49,7 +49,7 @@ const Account = () => {
     <SafeAreaView style={styles({ insets }).containerxd}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles({ insets }).header}>
-          <Text style={styles({ insets }).title}>Settings</Text>
+          <Text style={styles({ insets }).menutitle}>Settings</Text>
         </View>
 
         <View style={styles({ insets }).section}>

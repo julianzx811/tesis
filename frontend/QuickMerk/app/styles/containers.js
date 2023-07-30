@@ -164,7 +164,7 @@ const styles = (props) =>
       justifyContent: "center",
       paddingTop: 12,
     },
-    title: {
+    menutitle: {
       fontSize: 24,
       fontWeight: "bold",
       color: "#1f1f1f",
