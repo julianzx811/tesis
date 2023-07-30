@@ -1,5 +1,4 @@
-import { StyleSheet, StatusBar } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native";
 
 const styles = (props) =>
   StyleSheet.create({
@@ -84,7 +83,8 @@ const styles = (props) =>
       flexDirection: "row",
       flexWrap: "wrap",
       marginTop: 10,
-      marginLeft: 100,
+      marginLeft: 120,
+      paddingBottom: 20,
     },
     registerContainer: {
       paddingTop: 10,
