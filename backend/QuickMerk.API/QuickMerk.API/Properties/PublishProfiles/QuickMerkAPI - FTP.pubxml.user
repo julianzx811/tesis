@@ -8,7 +8,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA/9G+2yorqEemYapmmPK9bgAAAAACAAAAAAAQZgAAAAEAACAAAABqC++U4Fttaq1SR0pxkE8BvhFmky7sn9MhmfV1Fn+6hgAAAAAOgAAAAAIAACAAAABx9kwyhyIVGS8o+S/v/fjZnzzqy6qhWWyJOA6Kzz+ksoAAAABszAtMiIwYiywSeHcw3+OE5IMwSImTOuhY1mjFTJyjiQ2FWXHy2w5RKNaylsVEB+FSR5W7aMKCl/UPpSjQnxS/X38PJazpZ+M96dJjsANxgSUr0OVCAlkp52NbCaXiQfKZQjCFrv9Le+Ol113Sgq/SjJEH5piUtpHzJqCWR45YS0AAAAAYQzslE3GdsUFHIZbLx6v4INWXraaYkllEbDkGOyPwMFW7e7xJZJod1KHoFj/jUWUmVHOP4SsQ8Q4Ftp1bYnOH</EncryptedPassword>
     <_PublishTargetUrl>ftps://waws-prod-blu-423.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
-    <History>True|2023-07-29T03:28:11.3176813Z;True|2023-07-27T16:01:29.2128360-05:00;True|2023-07-20T21:35:24.3755740-05:00;False|2023-07-20T19:54:10.1793122-05:00;False|2023-07-20T19:52:07.0515698-05:00;</History>
+    <History>True|2023-07-29T05:22:20.4321832Z;False|2023-07-29T00:14:26.6899108-05:00;False|2023-07-29T00:10:40.6718908-05:00;True|2023-07-28T22:28:11.3176813-05:00;True|2023-07-27T16:01:29.2128360-05:00;True|2023-07-20T21:35:24.3755740-05:00;False|2023-07-20T19:54:10.1793122-05:00;False|2023-07-20T19:52:07.0515698-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -22,7 +22,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/04/2022 16:38:56</publishTime>
     </File>
     <File Include="Azure.Identity.dll">
-      <publishTime>05/04/2022 15:26:00</publishTime>
+      <publishTime>04/05/2022 15:26:00</publishTime>
     </File>
     <File Include="Microsoft.AspNetCore.Authentication.JwtBearer.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -79,22 +79,22 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Abstractions.dll">
-      <publishTime>12/07/2023 13:11:50</publishTime>
+      <publishTime>07/12/2023 13:11:50</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.JsonWebTokens.dll">
-      <publishTime>12/07/2023 12:40:10</publishTime>
+      <publishTime>07/12/2023 12:40:10</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Logging.dll">
-      <publishTime>12/07/2023 12:42:36</publishTime>
+      <publishTime>07/12/2023 12:42:36</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Protocols.dll">
-      <publishTime>01/07/2022 13:29:14</publishTime>
+      <publishTime>07/01/2022 13:29:14</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Protocols.OpenIdConnect.dll">
-      <publishTime>01/07/2022 13:39:00</publishTime>
+      <publishTime>07/01/2022 13:39:00</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Tokens.dll">
-      <publishTime>12/07/2023 12:54:20</publishTime>
+      <publishTime>07/12/2023 12:54:20</publishTime>
     </File>
     <File Include="Microsoft.OpenApi.dll">
       <publishTime>08/29/2020 15:14:12</publishTime>
@@ -102,41 +102,44 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <File Include="Microsoft.SqlServer.Server.dll">
       <publishTime>01/27/2022 12:19:08</publishTime>
     </File>
+    <File Include="Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 06:48:56</publishTime>
+    </File>
     <File Include="Microsoft.Win32.SystemEvents.dll">
       <publishTime>10/19/2020 13:40:26</publishTime>
     </File>
     <File Include="QuickMerk.API.deps.json">
-      <publishTime>07/27/2023 15:58:35</publishTime>
+      <publishTime>07/29/2023 00:19:50</publishTime>
     </File>
     <File Include="QuickMerk.API.dll">
-      <publishTime>07/27/2023 15:58:28</publishTime>
+      <publishTime>07/29/2023 00:19:44</publishTime>
     </File>
     <File Include="QuickMerk.API.exe">
-      <publishTime>07/27/2023 15:58:28</publishTime>
+      <publishTime>07/29/2023 00:19:45</publishTime>
     </File>
     <File Include="QuickMerk.API.pdb">
-      <publishTime>07/27/2023 15:58:28</publishTime>
+      <publishTime>07/29/2023 00:19:44</publishTime>
     </File>
     <File Include="QuickMerk.API.runtimeconfig.json">
-      <publishTime>07/20/2023 21:31:22</publishTime>
+      <publishTime>07/28/2023 22:25:26</publishTime>
     </File>
     <File Include="QuickMerk.Application.dll">
-      <publishTime>07/27/2023 15:58:27</publishTime>
+      <publishTime>07/29/2023 00:08:40</publishTime>
     </File>
     <File Include="QuickMerk.Application.pdb">
-      <publishTime>07/27/2023 15:58:27</publishTime>
+      <publishTime>07/29/2023 00:08:40</publishTime>
     </File>
     <File Include="QuickMerk.Domain.dll">
-      <publishTime>07/27/2023 15:58:26</publishTime>
+      <publishTime>07/28/2023 22:25:24</publishTime>
     </File>
     <File Include="QuickMerk.Domain.pdb">
-      <publishTime>07/27/2023 15:58:26</publishTime>
+      <publishTime>07/28/2023 22:25:24</publishTime>
     </File>
     <File Include="QuickMerk.Infraestructure.dll">
-      <publishTime>07/27/2023 15:58:27</publishTime>
+      <publishTime>07/29/2023 00:08:40</publishTime>
     </File>
     <File Include="QuickMerk.Infraestructure.pdb">
-      <publishTime>07/27/2023 15:58:27</publishTime>
+      <publishTime>07/29/2023 00:08:40</publishTime>
     </File>
     <File Include="runtimes/browser/lib/net6.0/System.Text.Encodings.Web.dll">
       <publishTime>10/18/2022 11:40:14</publishTime>
@@ -148,16 +151,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/31/2023 12:51:28</publishTime>
     </File>
     <File Include="runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>03/10/2022 17:45:42</publishTime>
+      <publishTime>10/03/2022 17:45:42</publishTime>
     </File>
     <File Include="runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>03/10/2022 17:45:32</publishTime>
+      <publishTime>10/03/2022 17:45:32</publishTime>
     </File>
     <File Include="runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>03/10/2022 17:45:32</publishTime>
+      <publishTime>10/03/2022 17:45:32</publishTime>
     </File>
     <File Include="runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>03/10/2022 17:45:32</publishTime>
+      <publishTime>10/03/2022 17:45:32</publishTime>
     </File>
     <File Include="runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll">
       <publishTime>10/19/2020 13:52:12</publishTime>
@@ -178,13 +181,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>10/19/2020 13:49:30</publishTime>
     </File>
     <File Include="Swashbuckle.AspNetCore.Swagger.dll">
-      <publishTime>11/01/2023 01:48:20</publishTime>
+      <publishTime>01/11/2023 01:48:20</publishTime>
     </File>
     <File Include="Swashbuckle.AspNetCore.SwaggerGen.dll">
-      <publishTime>11/01/2023 01:48:24</publishTime>
+      <publishTime>01/11/2023 01:48:24</publishTime>
     </File>
     <File Include="Swashbuckle.AspNetCore.SwaggerUI.dll">
-      <publishTime>11/01/2023 01:49:02</publishTime>
+      <publishTime>01/11/2023 01:49:02</publishTime>
     </File>
     <File Include="System.Configuration.ConfigurationManager.dll">
       <publishTime>10/19/2020 13:52:30</publishTime>
@@ -193,10 +196,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>10/19/2020 13:50:02</publishTime>
     </File>
     <File Include="System.IdentityModel.Tokens.Jwt.dll">
-      <publishTime>12/07/2023 12:32:56</publishTime>
+      <publishTime>07/12/2023 12:32:56</publishTime>
     </File>
     <File Include="System.Memory.Data.dll">
-      <publishTime>08/04/2021 11:45:54</publishTime>
+      <publishTime>04/08/2021 11:45:54</publishTime>
     </File>
     <File Include="System.Runtime.Caching.dll">
       <publishTime>10/19/2020 13:52:34</publishTime>
@@ -213,11 +216,29 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <File Include="System.Text.Json.dll">
       <publishTime>10/18/2022 11:30:30</publishTime>
     </File>
+    <File Include="System.Web.Helpers.dll">
+      <publishTime>05/27/2022 18:41:54</publishTime>
+    </File>
+    <File Include="System.Web.Mvc.dll">
+      <publishTime>05/27/2022 18:42:20</publishTime>
+    </File>
+    <File Include="System.Web.Razor.dll">
+      <publishTime>05/27/2022 18:42:06</publishTime>
+    </File>
+    <File Include="System.Web.WebPages.Deployment.dll">
+      <publishTime>05/27/2022 18:42:46</publishTime>
+    </File>
+    <File Include="System.Web.WebPages.dll">
+      <publishTime>05/27/2022 18:42:16</publishTime>
+    </File>
+    <File Include="System.Web.WebPages.Razor.dll">
+      <publishTime>05/27/2022 18:42:50</publishTime>
+    </File>
     <File Include="System.Windows.Extensions.dll">
       <publishTime>10/19/2020 13:53:38</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/27/2023 15:58:35</publishTime>
+      <publishTime>07/29/2023 00:19:50</publishTime>
     </File>
   </ItemGroup>
 </Project>

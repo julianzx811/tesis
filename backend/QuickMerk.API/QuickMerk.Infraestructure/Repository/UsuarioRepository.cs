@@ -24,8 +24,8 @@ namespace QuickMerk.Infraestructure.Repository
             this._configuration = _configuration;
         }
 
-        public async Task<List<Usuario>> GetUsuarios() {
-            var usuarios = await userDbContext.usuarios.ToListAsync();
+        public async Task<Usuario> GetUsuarios(int usuarioId) {
+            var usuarios = await userDbContext.usuarios.FindAsync(usuarioId);
             return usuarios;
         }
 

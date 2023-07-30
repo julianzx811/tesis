@@ -12,7 +12,7 @@ namespace QuickMerk.Application.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<List<Usuario>> GetUsuarios();
+        Task<Usuario> GetUsuarios(int usuarioId);
         Task<Cuenta> GetCuenta(int usuarioId);
         Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO);
         Task<BusquedaDTO> CreateBusqueda(BusquedaDTO busquedaDto);

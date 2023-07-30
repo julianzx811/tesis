@@ -19,12 +19,36 @@ namespace QuickMerk.API.Controllers
             this.usuarioService = usuarioService;
         }
 
-        //[HttpGet("~/GetUsuarios")]
-        //public async Task<ActionResult<List<UsuarioDTO>>> GetUsuarios()
-        //{
-        //    var usuarios = await usuarioService.GetUsuarios();
-        //    return Ok(usuarios);
-        //}
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("~/GetDocumentos")]
+        public async Task<ActionResult<List<string>>> GetTiposDocumentos()
+        {
+            var documentos = await usuarioService.GetTiposDocumentos();
+            return Ok(documentos);
+        }
+
+        [HttpGet("~/GetBusquedas")]
+        public async Task<ActionResult<List<string>>> GetBusquedas(int CuentaId, int cantidad)
+        {
+            var Busquedas = await usuarioService.GetBusquedas(CuentaId, cantidad);
+            return Ok(Busquedas);
+        }
+
+        [HttpGet("~/GetDocumento")]
+        public async Task<ActionResult<DocumentoDTO>> GetDocumento(int UsuarioId)
+        {
+            var cuentaID = await usuarioService.GetCuenta(UsuarioId);
+            var documento = await usuarioService.GetDocumento(cuentaID.Id);
+            return Ok(documento);
+        }
+
+        [HttpGet("~/GetUsuario")]
+        public async Task<ActionResult<UsuarioDTO>> GetUsuario(int usuarioId)
+        {
+            var usuarios = await usuarioService.GetUsuarios(usuarioId);
+            return Ok(usuarios);
+        }
 
         [HttpGet("~/GetCuenta")]
         public async Task<ActionResult<Cuenta>> GetCuenta(int usuarioId)
@@ -47,18 +71,6 @@ namespace QuickMerk.API.Controllers
             return Ok(busquedaDTO);
         }
 
-        [HttpGet("~/GetBusquedas")]
-        public async Task<ActionResult<List<string>>> GetBusquedas(int CuentaId, int cantidad) {
-            var Busquedas = await usuarioService.GetBusquedas(CuentaId, cantidad);
-            return Ok(Busquedas);
-        }
-        [HttpGet("~/GetDocumento")]
-        public async Task<ActionResult<DocumentoDTO>> GetDocumento(int UsuarioId)
-        {
-            var cuentaID = await usuarioService.GetCuenta(UsuarioId);
-            var documento =  await usuarioService.GetDocumento(cuentaID.Id);
-            return Ok(documento);
-        }
         [AllowAnonymous]
         [HttpPost]
         [Route("~/Login")]
@@ -72,13 +84,6 @@ namespace QuickMerk.API.Controllers
             }
 
             return Ok(token);
-        }
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("~/GetDocumentos")]
-        public async Task<ActionResult<List<string>>> GetTiposDocumentos() { 
-            var documentos = await usuarioService.GetTiposDocumentos();
-            return Ok(documentos);
         }
 
         [HttpPut]

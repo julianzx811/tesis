@@ -18,9 +18,9 @@ namespace QuickMerk.Application.Services
         {
             this.usuarioRepository = usuarioRepository;
         }
-        public Task<List<Usuario>> GetUsuarios()
+        public Task<Usuario> GetUsuarios(int usuarioId)
         {
-            var usuarios = usuarioRepository.GetUsuarios();
+            var usuarios = usuarioRepository.GetUsuarios(usuarioId);
             return usuarios;
         }
         public async Task<Cuenta> GetCuenta(int usuarioId) { 
