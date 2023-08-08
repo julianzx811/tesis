@@ -1,32 +1,56 @@
 const ProductsService = require("../services/ProductsService");
 const { getConnection } = require("../database/connection");
 const { querys } = require("../database/querys");
+
 const getAllProducts = async (req, res) => {
-  try {
-    const pool = await getConnection();
-    const result = await pool.request().query(querys.getAllProducts);
-    res.json(result.recordset);
-  } catch (error) {
-    res.status(500);
-    res.send(error.message);
+  const allproducts = await ProductsService.getAllProducts();
+  return { status: "OK", data: res.json(allproducts.recordset) };
+};
+
+const getOneProduct = async (req, res) => {
+  const {
+    params: { ProductId },
+  } = req;
+  if (!ProductId) {
+    return;
+  }
+  const Producto = await ProductsService.getOneProduct(ProductId);
+  res.send({ status: "OK", data: Producto });
+};
+
+const createNewProduct = async (req, res) => {
+  const producto = { ...req.body };
+  const newProducto = await ProductsService.createNewProduct(producto);
+  if (newProducto) {
+    return { status: "OK", data: res.json(newProducto) };
+  } else {
+    return { status: "401", data: res.json("algo malo paso") };
   }
 };
 
-const getOneProduct = (req, res) => {
-  const allWorkouts = ProductsService.getOneProduct();
-  res.send("Create a new workout");
-};
-const createNewProduct = (req, res) => {
-  const allWorkouts = ProductsService.createNewProduct();
-  res.send("Create a new workout");
-};
 const updateOneProduct = (req, res) => {
-  const allWorkouts = ProductsService.updateOneProduct();
-  res.send("Create a new workout");
+  const {
+    params: { ProductId },
+  } = req;
+  const producto = { ...req.body };
+  const UpdateProduct = ProductsService.updateOneProduct(ProductId, producto);
+  if (UpdateProduct) {
+    res.send({ status: "OK", data: UpdateProduct });
+  } else {
+    return { status: "400", data: res.json("algo malo paso") };
+  }
 };
-const deleteOneProduct = (req, res) => {
-  const allWorkouts = ProductsService.deleteOneProduct();
-  res.send("Create a new workout");
+
+const deleteOneProduct = async (req, res) => {
+  const {
+    params: { ProductId },
+  } = req;
+  const deleteProduct = await ProductsService.deleteOneProduct(ProductId);
+  if (deleteProduct) {
+    res.send({ status: "OK", data: "done" });
+  } else {
+    return { status: "400", data: res.json("algo malo paso") };
+  }
 };
 
 module.exports = {

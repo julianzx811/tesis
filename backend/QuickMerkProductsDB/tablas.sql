@@ -1,12 +1,12 @@
 CREATE TABLE Empresa (
-    EmpresaId int NOT NULL,
+    EmpresaId int IDENTITY(1, 1) NOT NULL ,
     Empresa_Nombre varchar(255) NOT NULL,
     link varchar(255),
     PRIMARY KEY (EmpresaId)
 );
 
 CREATE TABLE Tienda (
-    TiendaId int NOT NULL,
+    TiendaId int IDENTITY(1, 1) NOT NULL,
     Tienda_Nombre varchar(255) NOT NULL,
     latitude float NOT NULL,
     longitude float NOT NULL,
@@ -18,16 +18,16 @@ CREATE TABLE Tienda (
 );
 
 CREATE TABLE Producto_info (
-    ProductInfoId int,
+    ProductInfoId int IDENTITY(1, 1) NOT NULL,
     precio float,
     Disponibilidad varchar(10),
     Imagen varchar(255),
-    Descripción  varchar(5000),
+    Descripcion  varchar(5000),
     PRIMARY KEY (ProductInfoId),
 );
 
 CREATE TABLE Producto (
-    ProductId int,
+    ProductId int IDENTITY(1, 1),
     ProductName varchar(255),
     info int,
     -- en caso de que no se encuentre tienda debe ser null
