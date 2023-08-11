@@ -1,43 +1,46 @@
 const ProductsService = require("../services/ProductsService");
-const { getConnection } = require("../database/connection");
 const { querys } = require("../database/querys");
 
-const getAllProducts = async (req, res) => {
-  const allproducts = await ProductsService.getAllProducts();
-  return { status: "OK", data: res.json(allproducts.recordset) };
+const getAllProducts = async (req, res,next) => {
+  const allproducts = await ProductsService.getAllProducts(next);
+  return res.status(201).json(allproducts.recordset);
 };
 
-const getOneProduct = async (req, res) => {
+const getOneProduct = async (req, res,next) => {
   const {
     params: { ProductId },
   } = req;
   if (!ProductId) {
     return;
   }
-  const Producto = await ProductsService.getOneProduct(ProductId);
-  res.send({ status: "OK", data: Producto });
+  const Producto = await ProductsService.getOneProduct(ProductId,next);
+  if (Producto) {
+    return res.status(201).json(Producto);
+  } else {
+    return res.status(404).send('el producto no existe');
+  }
 };
 
 const createNewProduct = async (req, res) => {
   const producto = { ...req.body };
   const newProducto = await ProductsService.createNewProduct(producto);
   if (newProducto) {
-    return { status: "OK", data: res.json(newProducto) };
+    return res.status(201).json(newProducto);;
   } else {
-    return { status: "401", data: res.json("algo malo paso") };
+    return res.status(400).send('no se pudo crear el producto');
   }
 };
 
-const updateOneProduct = (req, res) => {
+const updateOneProduct = (req, res,next) => {
   const {
     params: { ProductId },
   } = req;
   const producto = { ...req.body };
-  const UpdateProduct = ProductsService.updateOneProduct(ProductId, producto);
+  const UpdateProduct = ProductsService.updateOneProduct(ProductId, producto,next);
   if (UpdateProduct) {
-    res.send({ status: "OK", data: UpdateProduct });
+    return res.send({ status: "OK", data: UpdateProduct });
   } else {
-    return { status: "400", data: res.json("algo malo paso") };
+    return res.status(401).send('el producto no existe');
   }
 };
 
@@ -47,9 +50,9 @@ const deleteOneProduct = async (req, res) => {
   } = req;
   const deleteProduct = await ProductsService.deleteOneProduct(ProductId);
   if (deleteProduct) {
-    res.send({ status: "OK", data: "done" });
+    return res.send({ status: "OK", data: "done" });
   } else {
-    return { status: "400", data: res.json("algo malo paso") };
+    return res.status(401).send('el producto no existe');
   }
 };
 
