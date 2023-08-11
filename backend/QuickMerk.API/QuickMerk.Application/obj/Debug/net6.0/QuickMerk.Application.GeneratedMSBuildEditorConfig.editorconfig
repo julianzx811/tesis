@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = QuickMerk.Application
-build_property.ProjectDir = C:\Users\julia\OneDrive\Escritorio\tesis\backend\QuickMerk.API\QuickMerk.Application\
+build_property.ProjectDir = /home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/

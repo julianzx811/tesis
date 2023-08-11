@@ -1,5 +1,5 @@
 var sql = require("mssql");
-
+require("dotenv").config();
 // const dbSettings = {
 //   user: "yuli",
 //   password: "7878",
@@ -12,13 +12,13 @@ var sql = require("mssql");
 // };
 
 const dbSettings = {
-  user: "yuli", // better stored in an app setting such as process.env.DB_USER
-  password: "Caminoarusia7878$", // better stored in an app setting such as process.env.DB_PASSWORD
-  server: "quickmerkpeopleserver.database.windows.net", // better stored in an app setting such as process.env.DB_SERVER
+  user: process.env.user, // better stored in an app setting such as process.env.DB_USER
+  password: process.env.password, // better stored in an app setting such as process.env.DB_PASSWORD
+  server: process.env.server, // better stored in an app setting such as process.env.DB_SERVER
   port: 1433, // optional, defaults to 1433, better stored in an app setting such as process.env.DB_PORT
-  database: "ProductsDB", // better stored in an app setting such as process.env.DB_NAME
+  database: process.env.database, // better stored in an app setting such as process.env.DB_NAME
   authentication: {
-    type: "default",
+    type: process.env.type,
   },
   options: {
     encrypt: true,
