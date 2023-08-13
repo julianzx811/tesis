@@ -1,0 +1,6 @@
+-add components and styles folders
+-add enviroment variables
+-add loading modal to login and register
+-finish settings screen
+-finish search screem
+

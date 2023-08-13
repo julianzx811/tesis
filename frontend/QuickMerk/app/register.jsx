@@ -4,20 +4,20 @@ import {
   ScrollView,
   SafeAreaView,
   Text,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  Modal,
-  Pressable,
-  Alert,
 } from "react-native";
 import styles from "./styles/containers";
 import { useRouter } from "expo-router";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import InputSpinner from "react-native-input-spinner";
-import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {Input,
+  InputBig,
+  BackToLogin,
+  Datepicker,
+  AgePicker,
+  GenderPicker,
+  RegisterButton,
+  DocumentoPicker,
+  Error} from "./components/RegisterComponents"
 
 const Register = () => {
   const [nombre, setNombre] = useState();
@@ -144,187 +144,6 @@ const Register = () => {
         <BackToLogin router={router} insets={insets} />
       </ScrollView>
     </SafeAreaView>
-  );
-};
-
-const DocumentoPicker = ({ documento, setDocumento, documentos }) => {
-  console.log(documentos);
-  return (
-    <View>
-      <Picker
-        style={{ width: 130, marginLeft: 20 }}
-        selectedValue={documento}
-        onValueChange={(itemValue, itemIndex) => setDocumento(itemIndex + 1)}
-      >
-        {documentos.map((element, index) => (
-          <Picker.Item key={index + 1} label={element} value={index} />
-        ))}
-      </Picker>
-    </View>
-  );
-};
-
-const Input = ({ nombre, set, insets }) => {
-  return (
-    <View style={styles({ insets }).inputView}>
-      <TextInput
-        style={styles({ insets }).inputText}
-        placeholder={nombre}
-        placeholderTextColor="#003f5c"
-        onChangeText={(text) => set(text)}
-      />
-    </View>
-  );
-};
-
-const InputBig = ({ nombre, set, insets }) => {
-  return (
-    <View style={styles({ insets }).inputViewBig}>
-      <TextInput
-        style={styles({ insets }).inputText}
-        placeholder={nombre}
-        placeholderTextColor="#003f5c"
-        onChangeText={(text) => set(text)}
-      />
-    </View>
-  );
-};
-
-const BackToLogin = ({ router, insets }) => {
-  return (
-    <View style={styles({ insets }).row2}>
-      <Text style={styles({ insets }).normalText}>tienes cuenta? </Text>
-      <TouchableOpacity>
-        <Text
-          style={styles({ insets }).register}
-          onPress={() => {
-            router.replace("/");
-          }}
-        >
-          Logueate!
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const Datepicker = ({ Date, Nacimiento, insets }) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    Date(date);
-    hideDatePicker();
-  };
-  return (
-    <View>
-      <TouchableOpacity
-        style={styles({ insets }).button}
-        onPress={showDatePicker}
-      >
-        <Text>{Nacimiento.toDateString()}</Text>
-      </TouchableOpacity>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-    </View>
-  );
-};
-
-const AgePicker = ({ setEdad, edad }) => {
-  return (
-    <View>
-      <InputSpinner
-        shadow={true}
-        colorLeft={"grey"}
-        colorRight={"grey"}
-        width={130}
-        height={35}
-        skin="square"
-        max={100}
-        min={10}
-        step={2}
-        colorMax={"#f04048"}
-        colorMin={"#40c5f4"}
-        value={edad}
-        onChange={(num) => {
-          setEdad(num);
-        }}
-      />
-    </View>
-  );
-};
-
-const GenderPicker = ({ sex, SetSexo }) => {
-  return (
-    <View>
-      <Picker
-        style={{ width: 160 }}
-        selectedValue={sex}
-        onValueChange={(itemValue) => SetSexo(itemValue)}
-      >
-        <Picker.Item label="Femenino" value="0" />
-        <Picker.Item label="Masculino" value="1" />
-      </Picker>
-    </View>
-  );
-};
-
-const RegisterButton = ({ registrame, insets }) => {
-  return (
-    <View>
-      <TouchableOpacity
-        style={styles({ insets }).loginBtn}
-        onPress={() => {
-          registrame();
-        }}
-      >
-        <Text style={styles({ insets }).normalText}>Registrame!</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const Error = ({ modalVisible, setModalVisible, insets }) => {
-  return (
-    <View style={styles({ insets }).centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles({ insets }).centeredView}>
-          <View style={styles({ insets }).modalView}>
-            <Text style={styles({ insets }).modalText}>Algo salio mal :o</Text>
-            <Pressable
-              style={[
-                styles({ insets }).button,
-                styles({ insets }).buttonClose,
-              ]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles({ insets }).textStyle}>
-                Volver al registro
-              </Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-    </View>
   );
 };
 
