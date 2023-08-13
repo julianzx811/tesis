@@ -5,7 +5,6 @@ const containers = (props) =>
     container: {
       alignItems: "center",
       backgroundColor: "#003f5c",
-      paddingTop: props.insets.top,
     },
     containerLogin: {
       flex: 1,
@@ -21,7 +20,6 @@ const containers = (props) =>
     },
     simpleContainer: {
       backgroundColor: "#003f5c",
-      paddingTop: props.insets.top,
     },
     scrollView: {
       backgroundColor: "#096c99",

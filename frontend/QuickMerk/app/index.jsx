@@ -31,7 +31,7 @@ export default function Page() {
 
     axios({
       method: "post",
-      url: "https://quickmerkapi.azurewebsites.net/Login",
+      url: process.env.EXPO_PUBLIC_LOGIN_URL,
       data: {
         // correo: user.correo,
         // password: user.password,

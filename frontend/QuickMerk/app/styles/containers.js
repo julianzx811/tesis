@@ -5,11 +5,9 @@ const styles = (props) =>
     container: {
       alignItems: "center",
       backgroundColor: "#003f5c",
-      paddingTop: props.insets.top,
     },
     simpleContainer: {
       backgroundColor: "#003f5c",
-      paddingTop: props.insets.top,
     },
     scrollView: {
       backgroundColor: "#096c99",
