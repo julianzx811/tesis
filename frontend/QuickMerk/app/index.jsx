@@ -5,8 +5,9 @@ import { store } from "../app/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { login } from "../app/redux/actions/UserActions";
-import styles from "./components/loginComponents/styles"
-import {GoToRegister,Logmein,Input} from "./components/loginComponents"
+import { containers, text } from "./styles";
+import { GoToRegister, Logmein, Input } from "./components/loginComponents";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Page() {
   console.log(GoToRegister);
@@ -14,6 +15,7 @@ export default function Page() {
   const [correo, setCorreo] = useState();
   const [contrasena, setContrasena] = useState();
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
 
   const count = useSelector((store) => store.user);
 
@@ -50,15 +52,17 @@ export default function Page() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Quick Merk</Text>
-        <Text style={styles.subtitle}>El mejor producto solo para ti!!</Text>
+    <View style={containers({ insets }).containerLogin}>
+      <View style={containers({ insets }).mainLogin}>
+        <Text style={text({ insets }).title}>Quick Merk</Text>
+        <Text style={text({ insets }).subtitle}>
+          El mejor producto solo para ti!!
+        </Text>
       </View>
-      <Input nombre={"Email"} set={setCorreo} />
-      <Input nombre={"Contraseña"} set={setContrasena} />
-      <Logmein onLogin={onLogin} />
-      <GoToRegister router={router} />
+      <Input nombre={"Email"} set={setCorreo} insets={insets} />
+      <Input nombre={"Contraseña"} set={setContrasena} insets={insets} />
+      <Logmein onLogin={onLogin} insets={insets} />
+      <GoToRegister router={router} insets={insets} />
     </View>
   );
 }

@@ -1,5 +1,4 @@
--add components and styles folders
--add enviroment variables
+-finish components and styles on account screen
 -add loading modal to login and register
 -finish settings screen
 -finish search screem

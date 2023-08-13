@@ -1,20 +1,20 @@
-import { TouchableOpacity , Text, View,  } from "react-native";
-import styles from "./styles";
+import { TouchableOpacity, Text, View } from "react-native";
+import { containers, text } from "../../styles";
 
-export default function GoToRegister  ({ router }) {
-    return (
-      <View style={styles.row}>
-        <Text style={styles.normalText}>no tienes cuenta? </Text>
-        <TouchableOpacity>
-          <Text
-            style={styles.register}
-            onPress={() => {
-              router.replace("/register");
-            }}
-          >
-            Registrate!
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
+export default function GoToRegister({ router, insets }) {
+  return (
+    <View style={containers({ insets }).row}>
+      <Text style={text({ insets }).normalText}>no tienes cuenta? </Text>
+      <TouchableOpacity>
+        <Text
+          style={text({ insets }).register}
+          onPress={() => {
+            router.replace("/register");
+          }}
+        >
+          Registrate!
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}

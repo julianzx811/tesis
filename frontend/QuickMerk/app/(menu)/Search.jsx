@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { SearchBar } from "@rneui/themed";
-import styles from "../styles/containers";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { containers } from "../styles";
 
 const Search = () => {
   const insets = useSafeAreaInsets();
@@ -14,7 +13,7 @@ const Search = () => {
   };
 
   return (
-    <View style={styles({ insets }).simpleContainer}>
+    <View style={containers({ insets }).simpleContainer}>
       <SearchBar
         placeholder="Type Here..."
         onChangeText={updateSearch}

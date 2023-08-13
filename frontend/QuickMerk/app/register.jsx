@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  ScrollView,
-  SafeAreaView,
-  Text,
-} from "react-native";
+import { View, ScrollView, SafeAreaView, Text } from "react-native";
 import styles from "./styles/containers";
 import { useRouter } from "expo-router";
 import axios from "axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {Input,
+import {
+  Input,
   InputBig,
   BackToLogin,
   Datepicker,
@@ -17,7 +13,8 @@ import {Input,
   GenderPicker,
   RegisterButton,
   DocumentoPicker,
-  Error} from "./components/RegisterComponents"
+  Error,
+} from "./components/RegisterComponents";
 
 const Register = () => {
   const [nombre, setNombre] = useState();

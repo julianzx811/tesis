@@ -1,9 +1,9 @@
-import { TextInput, View } from "react-native";
+import { View, TextInput } from "react-native";
 import { containers, text } from "../../styles";
 
-export default function Input({ nombre, set, insets }) {
+export default function InputBig({ nombre, set, insets }) {
   return (
-    <View style={containers({ insets }).inputViewLogin}>
+    <View style={containers({ insets }).inputViewBig}>
       <TextInput
         style={text({ insets }).inputText}
         placeholder={nombre}
