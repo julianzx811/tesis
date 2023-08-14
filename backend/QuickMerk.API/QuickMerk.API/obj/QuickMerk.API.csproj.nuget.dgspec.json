@@ -1,36 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.API/QuickMerk.API.csproj": {}
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.API\\QuickMerk.API.csproj": {}
   },
   "projects": {
-    "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.API/QuickMerk.API.csproj": {
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.API\\QuickMerk.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.API/QuickMerk.API.csproj",
+        "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.API\\QuickMerk.API.csproj",
         "projectName": "QuickMerk.API",
-        "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.API/QuickMerk.API.csproj",
-        "packagesPath": "/home/yulian/.nuget/packages/",
-        "outputPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.API/obj/",
+        "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.API\\QuickMerk.API.csproj",
+        "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/yulian/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj": {
-                "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj"
+              "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj": {
+                "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj"
               },
-              "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Infraestructure/QuickMerk.Infraestructure.csproj": {
-                "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Infraestructure/QuickMerk.Infraestructure.csproj"
+              "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Infraestructure\\QuickMerk.Infraestructure.csproj": {
+                "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Infraestructure\\QuickMerk.Infraestructure.csproj"
               }
             }
           }
@@ -85,20 +88,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[6.0.20, 6.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -107,34 +96,36 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj": {
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj",
+        "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj",
         "projectName": "QuickMerk.Application",
-        "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj",
-        "packagesPath": "/home/yulian/.nuget/packages/",
-        "outputPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/obj/",
+        "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj",
+        "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/yulian/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj": {
-                "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj"
+              "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {
+                "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj"
               }
             }
           }
@@ -165,41 +156,33 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj": {
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
         "projectName": "QuickMerk.Domain",
-        "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj",
-        "packagesPath": "/home/yulian/.nuget/packages/",
-        "outputPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/obj/",
+        "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj",
+        "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/yulian/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -228,52 +211,44 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Infraestructure/QuickMerk.Infraestructure.csproj": {
+    "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Infraestructure\\QuickMerk.Infraestructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Infraestructure/QuickMerk.Infraestructure.csproj",
+        "projectUniqueName": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Infraestructure\\QuickMerk.Infraestructure.csproj",
         "projectName": "QuickMerk.Infraestructure",
-        "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Infraestructure/QuickMerk.Infraestructure.csproj",
-        "packagesPath": "/home/yulian/.nuget/packages/",
-        "outputPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Infraestructure/obj/",
+        "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Infraestructure\\QuickMerk.Infraestructure.csproj",
+        "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Infraestructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/yulian/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj": {
-                "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Application/QuickMerk.Application.csproj"
+              "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj": {
+                "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Application\\QuickMerk.Application.csproj"
               },
-              "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj": {
-                "projectPath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj"
+              "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj": {
+                "projectPath": "C:\\Users\\julia\\OneDrive\\Escritorio\\tesis\\backend\\QuickMerk.API\\QuickMerk.Domain\\QuickMerk.Domain.csproj"
               }
             }
           }
@@ -316,22 +291,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.20, 6.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

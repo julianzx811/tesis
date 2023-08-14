@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const v1WorkoutRouter = require("./routes/ProductsRoutes");
 const ErrorHandler = require("./middlewares/ErrorHandler");
 
-
 const app = express();
+//delete " process.env.PORT " if testing online
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());

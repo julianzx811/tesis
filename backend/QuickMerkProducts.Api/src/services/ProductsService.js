@@ -13,28 +13,42 @@ const getAllProducts = async (next) => {
   }
 };
 
-const getOneProduct = async (ProductId,next) => {
+const getOneProduct = async (ProductId, next) => {
   try {
     const pool = await getConnection();
 
-    //check if product exist returning its id
+    //check if product exist
     const result = await pool
       .request()
       .input("Id", ProductId)
       .query(querys.getProducById);
 
     if (result.recordset.length === 0) {
-      return null; // Return null or appropriate value to indicate no data found
+      return null;
     }
 
-    console.log(result.recordset[0]);
-    return result.recordset[0];
+    //getting product info
+    const productInfo = await pool
+      .request()
+      .input("ProductInfoId", result.recordset[0].info)
+      .query(querys.ProductoInfo);
+
+    const product = {
+      ProductId: result.recordset[0].ProductId,
+      ProductName: result.recordset[0].ProductName,
+      tiendaId: result.recordset[0].tiendaId,
+      precio: productInfo.recordset[0].precio,
+      Disponibilidad: productInfo.recordset[0].Disponibilidad,
+      Imagen: productInfo.recordset[0].Imagen,
+      Descripcion: productInfo.recordset[0].Descripcion,
+    };
+    return product;
   } catch (error) {
     next(error);
   }
 };
 
-const createNewProduct = async (Product,next) => {
+const createNewProduct = async (Product, next) => {
   try {
     const pool = await getConnection();
 
@@ -64,7 +78,7 @@ const createNewProduct = async (Product,next) => {
   }
 };
 
-const updateOneProduct = async (ProductId, changes,next) => {
+const updateOneProduct = async (ProductId, changes, next) => {
   try {
     const pool = await getConnection();
 
@@ -75,24 +89,24 @@ const updateOneProduct = async (ProductId, changes,next) => {
       .query(querys.ProductoInfoId);
 
     if (ProductId.recordset[0].info) {
-    //updating product
-    const Producto = await pool
-    .request()
-    .input("ProductName", changes.ProductName)
-    .input("tiendaId", changes.tiendaId)
-    .input("ProductId", ProductId)
-    .query(querys.UpdateProduct);
+      //updating product
+      const Producto = await pool
+        .request()
+        .input("ProductName", changes.ProductName)
+        .input("tiendaId", changes.tiendaId)
+        .input("ProductId", ProductId)
+        .query(querys.UpdateProduct);
 
-    const ProductoInfo = await pool
-      .request()
-      .input("precio", changes.precio)
-      .input("Disponibilidad", changes.Disponibilidad)
-      .input("Imagen", changes.Imagen)
-      .input("Descripcion", changes.Descripcion)
-      .input("ProductInfoId", ProductoInfoId.recordset[0].info)
-      .query(querys.UpdateProductInfo);
+      const ProductoInfo = await pool
+        .request()
+        .input("precio", changes.precio)
+        .input("Disponibilidad", changes.Disponibilidad)
+        .input("Imagen", changes.Imagen)
+        .input("Descripcion", changes.Descripcion)
+        .input("ProductInfoId", ProductoInfoId.recordset[0].info)
+        .query(querys.UpdateProductInfo);
 
-    return changes;
+      return changes;
     } else {
       return null;
     }
@@ -101,7 +115,7 @@ const updateOneProduct = async (ProductId, changes,next) => {
   }
 };
 
-const deleteOneProduct = async (ProductId,next) => {
+const deleteOneProduct = async (ProductId, next) => {
   try {
     const pool = await getConnection();
     //check if product exist and returns its id
@@ -112,12 +126,12 @@ const deleteOneProduct = async (ProductId,next) => {
 
     if (ProductoInfoId) {
       const DeleteProduct = await pool
-      .request()
-      .input("ProductInfoId", ProductoInfoId.recordset[0].info)
-      .input("ProductId", ProductId)
-      .query(querys.DeleteProduct);
+        .request()
+        .input("ProductInfoId", ProductoInfoId.recordset[0].info)
+        .input("ProductId", ProductId)
+        .query(querys.DeleteProduct);
 
-    return DeleteProduct;
+      return DeleteProduct;
     } else {
       return null;
     }

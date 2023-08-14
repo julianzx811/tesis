@@ -5,6 +5,7 @@ using QuickMerk.Application.Interfaces;
 using QuickMerk.Domain.Dto;
 using QuickMerk.Domain.Entitys;
 using QuickMerk.Domain.Enums;
+using QuickMerk.Domain.Exceptions;
 using QuickMerk.Domain.models;
 using QuickMerk.Infraestructure.Context;
 using System.IdentityModel.Tokens.Jwt;
@@ -37,42 +38,51 @@ namespace QuickMerk.Infraestructure.Repository
 
         public async Task<UsuarioDTO> CreateUsuario(UsuarioDTO usuarioDTO)
         {
-            var sex = (SexoTipo)usuarioDTO.Sexo;
-            var usuario = new Usuario
+            var corrreoExist = await userDbContext.cuentas.Where(c => c.correo == usuarioDTO.Correo).AnyAsync();
+            var cedulaoExist = await userDbContext.documentos.Where(d => d.DocumentoName == usuarioDTO.Documento).AnyAsync();
+            if (!corrreoExist && !cedulaoExist)
             {
-                Nombre = usuarioDTO.Nombre,
-                Apellido = usuarioDTO.Apellido,
-                Edad = usuarioDTO.Edad,
-                Nacimiento = usuarioDTO.Nacimiento,
-                Sexo = sex.ToString(),
-                Telefono = usuarioDTO.Telefono,
-                direcion = usuarioDTO.direcion,
-                Ciudad = usuarioDTO.Ciudad,
-                Busquedas = new List<Busquedas>(),
-            };
-            var cuenta = new Cuenta
-            {   
-                tipo_Cuenta = await userDbContext.tipo_Cuentas.FindAsync(1),
-                usuario = usuario,
-                Creacion = DateTime.Now,
-                correo = usuarioDTO.Correo,
-                contrasena = usuarioDTO.contrasena
-            };
-            var documento = new Documento
-            {
-                DocumentoName = usuarioDTO.Documento,
-                tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(usuarioDTO.Tipo_Documento_id),
-                usuario = usuario
-            };
-            usuario.Cuenta = cuenta;
-            usuario.Documento = documento;
+                var sex = (SexoTipo)usuarioDTO.Sexo;
+                var usuario = new Usuario
+                {
+                    Nombre = usuarioDTO.Nombre,
+                    Apellido = usuarioDTO.Apellido,
+                    Edad = usuarioDTO.Edad,
+                    Nacimiento = usuarioDTO.Nacimiento,
+                    Sexo = sex.ToString(),
+                    Telefono = usuarioDTO.Telefono,
+                    direcion = usuarioDTO.direcion,
+                    Ciudad = usuarioDTO.Ciudad,
+                    Busquedas = new List<Busquedas>(),
+                };
+                var cuenta = new Cuenta
+                {
+                    tipo_Cuenta = await userDbContext.tipo_Cuentas.FindAsync(1),
+                    usuario = usuario,
+                    Creacion = DateTime.Now,
+                    correo = usuarioDTO.Correo,
+                    contrasena = usuarioDTO.contrasena
+                };
+                var documento = new Documento
+                {
+                    DocumentoName = usuarioDTO.Documento,
+                    tipo_Documento = await userDbContext.tipo_Documentos.FindAsync(usuarioDTO.Tipo_Documento_id),
+                    usuario = usuario
+                };
+                usuario.Cuenta = cuenta;
+                usuario.Documento = documento;
 
-            userDbContext.cuentas.Add(cuenta);
-            userDbContext.documentos.Add(documento);
-            
-            userDbContext.usuarios.Add(usuario);
-            userDbContext.SaveChanges();
-            return usuarioDTO;
+                userDbContext.cuentas.Add(cuenta);
+                userDbContext.documentos.Add(documento);
+
+                userDbContext.usuarios.Add(usuario);
+                userDbContext.SaveChanges();
+                return usuarioDTO;
+            }
+            else 
+            {
+                throw new BaseCustomException("el correo o la documento ya se encuentran registradas");
+            }
         }
 
         public async Task<BusquedaDTO> CreateBusqueda(BusquedaDTO busquedaDto)
@@ -161,18 +171,26 @@ namespace QuickMerk.Infraestructure.Repository
 
         public async Task<ActionResult> UpdateCorreo(string correo, int usuarioId)
         {
-            var usuario = await userDbContext.usuarios.FindAsync(usuarioId);
-            var cuenta = await userDbContext.cuentas.FindAsync(usuario.Id);
-            if (cuenta != null)
+            var corrreoExist = await userDbContext.cuentas.Where(c => c.correo == correo).AnyAsync();
+            if (!corrreoExist)
             {
-                cuenta.correo = correo;
-                userDbContext.cuentas.Update(cuenta);
-                userDbContext.SaveChanges();
-                return new EmptyResult();
+                var usuario = await userDbContext.usuarios.FindAsync(usuarioId);
+                var cuenta = await userDbContext.cuentas.FindAsync(usuario.Id);
+                if (cuenta != null)
+                {
+                    cuenta.correo = correo;
+                    userDbContext.cuentas.Update(cuenta);
+                    userDbContext.SaveChanges();
+                    return new EmptyResult();
+                }
+                else
+                {
+                    throw new BaseCustomException("la cuenta no existe");
+                }
             }
             else {
-                return null;
-            } 
+                throw new BaseCustomException("el correo ya se encuentra registrado");
+            }
         }
 
         public async Task<ActionResult> UpdateContrasena(string contrasena, int usuarioId)
