@@ -15,6 +15,7 @@ import {
   DocumentoPicker,
   Error,
 } from "./components/RegisterComponents";
+import {EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,EXPO_PUBLIC_REGISTER_URL} from "@env"
 
 const Register = () => {
   const [nombre, setNombre] = useState();
@@ -40,7 +41,7 @@ const Register = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: "https://quickmerkapi.azurewebsites.net/GetDocumentos",
+      url: EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,
     }).then(
       (response) => {
         if (response.status == 200) {
@@ -72,7 +73,7 @@ const Register = () => {
     console.log(usuario);
     axios({
       method: "post",
-      url: "https://quickmerkapi.azurewebsites.net/CreateUsuario",
+      url: EXPO_PUBLIC_REGISTER_URL,
       data: usuario,
     }).then(
       (response) => {

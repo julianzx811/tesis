@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import styles from "../styles/containers";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {Tittle,Profile,UnsingButton} from "../components/AccountComponents";
 
 const SECTIONS = [
   {
@@ -48,32 +49,10 @@ const Account = () => {
   return (
     <SafeAreaView style={styles({ insets }).containerxd}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles({ insets }).header}>
-          <Text style={styles({ insets }).menutitle}>Settings</Text>
-        </View>
 
-        <View style={styles({ insets }).section}>
-          <View style={styles({ insets }).sectionHeader}>
-            <Text style={styles({ insets }).sectionHeaderText}>Account</Text>
-          </View>
-          <View style={styles({ insets }).profile}>
-            <Image
-              alt=""
-              source={{
-                uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80",
-              }}
-              style={styles({ insets }).profileAvatar}
-            />
+        <Tittle tittle={"Settings"} insets={insets} />
 
-            <View style={styles({ insets }).profileBody}>
-              <Text style={styles({ insets }).profileName}>John Doe</Text>
-
-              <Text style={styles({ insets }).profileHandle}>
-                john.doe@mail.com
-              </Text>
-            </View>
-          </View>
-        </View>
+        <Profile insets={insets} name={"yulian"}  email={"yulian@hotmail.com"} />
 
         {SECTIONS.map(({ header, items }) => (
           <View style={styles({ insets }).section} key={header}>
@@ -123,22 +102,7 @@ const Account = () => {
             </View>
           </View>
         ))}
-        <TouchableOpacity
-          style={{ alignItems: "center" }}
-          onPress={() => dispatch(logout())}
-        >
-          <View style={styles({ insets }).row}>
-            <Text style={styles({ insets }).textContainer}>
-              <Ionicons
-                style={{ marginTop: 10 }}
-                color="#ababab"
-                name="log-out-outline"
-                size={22}
-              />
-              Cerrar Sesion
-            </Text>
-          </View>
-        </TouchableOpacity>
+        <UnsingButton dispatch={dispatch} logout={logout} tittle={"Cerrar session"} insets={insets} />
       </ScrollView>
     </SafeAreaView>
   );

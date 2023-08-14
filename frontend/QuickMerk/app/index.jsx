@@ -8,7 +8,7 @@ import { login } from "../app/redux/actions/UserActions";
 import { containers, text } from "./styles";
 import { GoToRegister, Logmein, Input } from "./components/loginComponents";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import {EXPO_PUBLIC_LOGIN_URL} from "@env"
 export default function Page() {
   console.log(GoToRegister);
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function Page() {
 
     axios({
       method: "post",
-      url: "https://quickmerkapi.azurewebsites.net/Login",
+      url: EXPO_PUBLIC_LOGIN_URL,
       data: {
         // correo: user.correo,
         // password: user.password,
