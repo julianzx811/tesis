@@ -5,6 +5,12 @@ const ProductsController = require("../controllers/ProductsController");
 
 router.get("/", ProductsController.getAllProducts);
 
+router.get("/Categorias", ProductsController.GetCategorias);
+
+router.get("/search/:ProductName", ProductsController.GetProductsByName);
+
+router.get("/Categorias/:CategoriaId", ProductsController.GetProductsByCategory);
+
 router.get("/:ProductId", ProductsController.getOneProduct);
 
 router.post("/", ProductsController.createNewProduct);

@@ -6,12 +6,49 @@ const { querys } = require("../database/querys");
 const getAllProducts = async (next) => {
   try {
     const pool = await getConnection();
-    const result = await pool.request().query(querys.getAllProducts);
-    return result;
+    const Products = await pool.request().query(querys.getAllProducts);
+    return Products;
   } catch (error) {
     next(error);
   }
 };
+
+const GetCategorias = async (next) =>{
+  try {
+    const pool = await getConnection();
+  const Categorias = await pool.request().query(querys.getAllcategories);
+  return Categorias;
+  } catch (error) {
+    next(error);
+  }
+}
+
+const GetProductsByCategory = async (CategoriaId,next) =>{
+  try {
+  const pool = await getConnection();
+  const Products = await pool
+      .request()
+      .input("categoria", CategoriaId)
+      .query(querys.GetProductByCategoria);
+  return Products;
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+const GetProductsByName = async (productName,next) =>{
+  try {
+    const pool = await getConnection();
+    const Products = await pool
+      .request()
+      .input("ProductoName", productName)
+      .query(querys.GetProductByName);
+  return Products;
+  } catch (error) {
+    next(error);
+  }
+}
 
 const getOneProduct = async (ProductId,next) => {
   try {
@@ -132,4 +169,7 @@ module.exports = {
   createNewProduct,
   updateOneProduct,
   deleteOneProduct,
+  GetCategorias,
+  GetProductsByName,
+  GetProductsByCategory
 };

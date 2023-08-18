@@ -5,6 +5,13 @@ CREATE TABLE Empresa (
     PRIMARY KEY (EmpresaId)
 );
 
+CREATE TABLE Producto_categoria (
+    CategoriaID int IDENTITY(1, 1) NOT NULL ,
+    Categoria varchar(255) NOT NULL,
+    icono varchar(255) NOT NULL,
+	PRIMARY KEY (CategoriaID)
+);
+
 CREATE TABLE Tienda (
     TiendaId int IDENTITY(1, 1) NOT NULL,
     Tienda_Nombre varchar(255) NOT NULL,
@@ -23,7 +30,9 @@ CREATE TABLE Producto_info (
     Disponibilidad varchar(10),
     Imagen varchar(255),
     Descripcion  varchar(5000),
+    categoria int NULL,
     PRIMARY KEY (ProductInfoId),
+    FOREIGN KEY (categoria) REFERENCES Producto_categoria(CategoriaID),
 );
 
 CREATE TABLE Producto (
@@ -35,5 +44,6 @@ CREATE TABLE Producto (
     tiendaId int NULL,
     PRIMARY KEY (ProductId),
     FOREIGN KEY (info) REFERENCES Producto_info(ProductInfoId),
-    FOREIGN KEY (tiendaId) REFERENCES Tienda(TiendaId)
 );
+
+

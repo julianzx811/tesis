@@ -30,7 +30,7 @@ const Register = () => {
   const [correo, setCorreo] = useState();
   const [contrasena, setContrasena] = useState();
   const [tipo_Documento_id, set_tipo_Documento_id] = useState(0);
-
+  const insets = useSafeAreaInsets();
   const [documentosArray, setDocumentosArray] = useState([]);
 
   const router = useRouter();
@@ -38,23 +38,27 @@ const Register = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [handlerError, setHandlerError] = useState();
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,
-    }).then(
-      (response) => {
-        if (response.status == 200) {
-          response.data.forEach((element) => {
-            setDocumentosArray((prevArray) => [...prevArray, element]);
-          });
+  useEffect( () => {
+    async function GetDocuments(){
+      await axios({
+        method: "get",
+        url: EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,
+      }).then(
+        (response) => {
+          if (response.status == 200) {
+            response.data.forEach((element) => {
+              setDocumentosArray((prevArray) => [...prevArray, element]);
+            });
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
+    }
+    GetDocuments();
   }, []);
+
   const registrame = () => {
     var usuario = {
       nombre: nombre,
@@ -89,7 +93,6 @@ const Register = () => {
     );
   };
 
-  const insets = useSafeAreaInsets();
   return (
     <SafeAreaView style={styles({ insets }).container}>
       <ScrollView showsVerticalScrollIndicator={false}>
