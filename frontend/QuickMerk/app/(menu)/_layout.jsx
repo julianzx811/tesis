@@ -10,7 +10,7 @@ export default () => {
   const router = useRouter();
   const user = useSelector((store) => store.user.logged);
 
-  console.log(useSelector((store) => store.user));
+  //console.log(useSelector((store) => store.user));
 
   useEffect(() => {
     if (user === false) {

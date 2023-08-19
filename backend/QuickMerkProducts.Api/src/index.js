@@ -7,7 +7,7 @@ const ErrorHandler = require("./middlewares/ErrorHandler");
 
 const app = express();
 //delete "process.env.PORT ||" to test localy
-const PORT = process.env.PORT ||3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use("/api/Products", v1WorkoutRouter);
