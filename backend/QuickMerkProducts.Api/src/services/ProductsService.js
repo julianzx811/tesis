@@ -2,56 +2,47 @@
 const { pool, query } = require("mssql");
 const { getConnection } = require("../database/connection");
 const { querys } = require("../database/querys");
+const { ProductMappers } = require("../mappers/ProductMapper");
 
-const getAllProducts = async (next) => {
-  try {
+
+const getAllProducts = async () => {
     const pool = await getConnection();
     const Products = await pool.request().query(querys.getAllProducts);
-    return Products;
-  } catch (error) {
-    next(error);
-  }
+    const ProductsInfo = await pool.request().query(querys.getAllProductsInfo);
+    const allProducts = Products.recordset.map((producto,index)=>{
+      return ProductMappers(producto,ProductsInfo.recordset[index]);
+    });
+    console.log(allProducts);
+    return allProducts;
 };
 
-const GetCategorias = async (next) =>{
-  try {
-    const pool = await getConnection();
+const GetCategorias = async () =>{
+  const pool = await getConnection();
   const Categorias = await pool.request().query(querys.getAllcategories);
   return Categorias;
-  } catch (error) {
-    next(error);
-  }
 }
 
-const GetProductsByCategory = async (CategoriaId,next) =>{
-  try {
+const GetProductsByCategory = async (CategoriaId) =>{
   const pool = await getConnection();
   const Products = await pool
       .request()
       .input("categoria", CategoriaId)
       .query(querys.GetProductByCategoria);
+      
   return Products;
-  } catch (error) {
-    next(error);
-  }
 }
 
 
-const GetProductsByName = async (productName,next) =>{
-  try {
+const GetProductsByName = async (productName) =>{
     const pool = await getConnection();
     const Products = await pool
       .request()
       .input("ProductoName", productName)
       .query(querys.GetProductByName);
   return Products;
-  } catch (error) {
-    next(error);
-  }
 }
 
-const getOneProduct = async (ProductId,next) => {
-  try {
+const getOneProduct = async (ProductId) => {
     const pool = await getConnection();
 
     //check if product exist returning its id
@@ -66,13 +57,10 @@ const getOneProduct = async (ProductId,next) => {
 
     console.log(result.recordset[0]);
     return result.recordset[0];
-  } catch (error) {
-    next(error);
-  }
 };
 
-const createNewProduct = async (Product,next) => {
-  try {
+const createNewProduct = async (Product) => {
+
     const pool = await getConnection();
 
     //añadiendo info
@@ -96,13 +84,9 @@ const createNewProduct = async (Product,next) => {
       .query(querys.PostProduct);
 
     return Product;
-  } catch (error) {
-    next(error);
-  }
 };
 
-const updateOneProduct = async (ProductId, changes,next) => {
-  try {
+const updateOneProduct = async (ProductId, changes) => {
     const pool = await getConnection();
 
     //checks if products exist and returns its id
@@ -133,13 +117,9 @@ const updateOneProduct = async (ProductId, changes,next) => {
     } else {
       return null;
     }
-  } catch (error) {
-    next(error);
-  }
 };
 
-const deleteOneProduct = async (ProductId,next) => {
-  try {
+const deleteOneProduct = async (ProductId) => {
     const pool = await getConnection();
     //check if product exist and returns its id
     const ProductoInfoId = await pool
@@ -158,9 +138,6 @@ const deleteOneProduct = async (ProductId,next) => {
     } else {
       return null;
     }
-  } catch (error) {
-    next(error);
-  }
 };
 
 module.exports = {

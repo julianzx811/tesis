@@ -1,5 +1,6 @@
 const querys = {
   getAllProducts: "SELECT  * from Producto",
+  getAllProductsInfo: "SELECT  * from Producto_info",
   getAllcategories: "SELECT  * from Producto_categoria",
   getProducById: "select * from Producto where ProductId = @Id",
   GetProductByName:"SELECT * FROM Producto WHERE ProductName LIKE  CONCAT('%', @ProductoName, '%')",
@@ -14,7 +15,7 @@ const querys = {
     "UPDATE Producto SET ProductName = @ProductName, tiendaId = @tiendaId WHERE ProductId=@ProductId;",
   UpdateProductInfo:
     "UPDATE Producto_info SET precio = @precio, Disponibilidad = @Disponibilidad, Imagen = @Imagen, Descripcion = @Descripcion WHERE ProductInfoId=@ProductInfoId;",
-  GetProductByCategoria:"select * from Producto_info where categoria = @categoria",  
+  GetProductByCategoria:"SELECT DISTINCT p.*, pc.* FROM Producto AS p INNER JOIN Producto_info AS pc ON p.info = pc.ProductInfoId where pc.categoria = @categoria;",  
 };
 
 module.exports = { querys };
