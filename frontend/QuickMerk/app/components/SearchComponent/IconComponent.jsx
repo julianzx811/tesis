@@ -5,9 +5,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 export default function IconComponent({
   Categoria,
   icono,
+  UpdateProducts,
   id,
-  updateProducts,
-  setcategory,
 }) {
   return (
     <View>
@@ -16,8 +15,8 @@ export default function IconComponent({
         name={icono}
         size={50}
         onPress={() => {
-          setcategory(id);
-          updateProducts();
+          console.log(id);
+          UpdateProducts(id);
         }}
       />
       <Text>{Categoria}</Text>

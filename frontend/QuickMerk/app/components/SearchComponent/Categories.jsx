@@ -1,11 +1,7 @@
 import { View, ScrollView } from "react-native";
 import IconComponent from "./IconComponent";
 
-export default function Categories({
-  CategoryArray,
-  updateProducts,
-  setcategory,
-}) {
+export default function Categories({ CategoryArray, UpdateProducts }) {
   return (
     <View>
       <ScrollView horizontal={true}>
@@ -15,8 +11,7 @@ export default function Categories({
             key={CategoriaID}
             icono={icono}
             id={CategoriaID}
-            updateProducts={updateProducts}
-            setcategory={setcategory}
+            UpdateProducts={UpdateProducts}
           />
         ))}
       </ScrollView>

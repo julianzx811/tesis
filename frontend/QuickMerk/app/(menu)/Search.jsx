@@ -12,13 +12,16 @@ import {
 } from "@env";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { store } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { CurrentCategory } from "../redux/actions/UserActions";
 
 const Search = () => {
+  const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
   const [loadingCategory, setLoadingCategory] = useState(true);
   const [loadingProducts, setloadingProducts] = useState(true);
-  const [category, setcategory] = useState(1);
-
+  const categoria = useSelector((store) => store.user.category);
   const [CategoryArray, setCategoryArray] = useState([]);
   const [productsArray, setProductsArray] = useState([]);
 
@@ -41,10 +44,14 @@ const Search = () => {
     setLoadingCategory(false);
   }
 
-  async function GetProducts() {
+  async function GetProducts(id) {
     setProductsArray([]);
     setloadingProducts(true);
-    var Urlproducts = EXPO_PUBLIC_CATEGORIES_PRODUCTS + `${category}`;
+    setTimeout(() => {
+      dispatch(CurrentCategory(id));
+    }, 1000);
+    console.log(categoria);
+    var Urlproducts = EXPO_PUBLIC_CATEGORIES_PRODUCTS + `${id}`;
     console.log(Urlproducts);
     await axios({
       method: "get",
@@ -66,9 +73,8 @@ const Search = () => {
 
   useEffect(() => {
     GetCategory();
-    GetProducts();
+    GetProducts(categoria);
   }, []);
-  console.log(CategoryArray);
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
       <SearchBarComponent />
@@ -77,8 +83,7 @@ const Search = () => {
       ) : (
         <Categories
           CategoryArray={CategoryArray}
-          updateProducts={GetProducts}
-          setcategory={setcategory}
+          UpdateProducts={GetProducts}
         />
       )}
 

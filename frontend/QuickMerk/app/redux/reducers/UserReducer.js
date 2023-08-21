@@ -2,6 +2,7 @@ const initialState = {
   logged: false,
   productsList: [],
   token: "",
+  category: 1,
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +21,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         productsList: [...state.productsList, action.payload],
+      };
+    case "CurrentCategory":
+      return {
+        ...state,
+        category: action.payload,
       };
     default:
       return state;

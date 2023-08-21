@@ -17,3 +17,10 @@ export const newProducts = (item) => {
     payload: item.id,
   };
 };
+
+export const CurrentCategory = (Category) => {
+  return {
+    type: "CurrentCategory",
+    payload: Category,
+  };
+};
