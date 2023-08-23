@@ -9,6 +9,7 @@ import { SafeAreaView, ActivityIndicator } from "react-native";
 import {
   EXPO_PUBLIC_CATEGORIES_PRODUCTS,
   EXPO_PUBLIC_CATEGORIES_URL,
+  EXPO_PUBLIC_PRODUCTS_NAME,
 } from "@env";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -71,13 +72,40 @@ const Search = () => {
     setloadingProducts(false);
   }
 
+  async function GetProductsName(Name) {
+    setProductsArray([]);
+    setloadingProducts(true);
+    setTimeout(() => {
+      dispatch(CurrentCategory(categoria));
+    }, 1000);
+    console.log(categoria);
+    var Urlproducts = EXPO_PUBLIC_PRODUCTS_NAME + `${Name}`;
+    console.log(Urlproducts);
+    await axios({
+      method: "get",
+      url: Urlproducts,
+    }).then(
+      (response) => {
+        if (response.status == 200) {
+          response.data.forEach((element) => {
+            setProductsArray((prevArray) => [...prevArray, element]);
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    setloadingProducts(false);
+  }
+
   useEffect(() => {
     GetCategory();
     GetProducts(categoria);
   }, []);
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
-      <SearchBarComponent />
+      <SearchBarComponent UpdateProducts={GetProductsName} />
       {loadingCategory ? (
         <ActivityIndicator />
       ) : (

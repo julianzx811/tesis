@@ -1,16 +1,22 @@
-import React from 'react'
-import { SearchBar } from "@rneui/themed";
-import { useState } from 'react';
-export default function SearchBarComponent() {
-    const [search, setSearch] = useState("");
-  const updateSearch = (search) => {
-    setSearch(search);
+import React, { useState } from "react";
+import { Searchbar } from "react-native-paper";
+
+export default function SearchBarComponent({ UpdateProducts }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const onChangeSearch = (query) => setSearchQuery(query);
+
+  const handleSearchIconPress = () => {
+    // Llamar a la función UpdateProducts con el valor de búsqueda
+    UpdateProducts(searchQuery);
   };
+
   return (
-        <SearchBar
-        placeholder="Type Here..."
-        onChangeText={updateSearch}
-        value={search}
-      />
-  )
+    <Searchbar
+      placeholder="Search"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+      onIconPress={handleSearchIconPress} // Usar la función de manejo en lugar de la llamada directa
+    />
+  );
 }
