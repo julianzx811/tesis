@@ -1,28 +1,30 @@
-import { Text, Card, Button, Icon } from '@rneui/themed';
-import React from 'react'
+import { Text, Card, Button, Icon } from "@rneui/themed";
+import { Link } from "expo-router";
+import React from "react";
 
-export default function ProductsComponent({productName,ProductId}) {
+export default function ProductsComponent({
+  productName,
+  ProductId,
+  href,
+  Descripcion,
+}) {
+  console.log(href);
   return (
-    <Card key={ProductId}>
-        <Card.Title>HELLO WORLD</Card.Title>
+    <Link href={href}>
+      <Card key={ProductId}>
+        <Card.Title>{productName}</Card.Title>
         <Card.Divider />
         <Card.Image
           style={{ padding: 0 }}
           source={{
-            uri:
-              'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg',
+            uri: "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg",
           }}
         />
-        <Text style={{ marginBottom: 10 }}>
-          {productName}
-        </Text>
+        <Text style={{ marginBottom: 10 }}>{Descripcion}</Text>
+
         <Button
           icon={
-            <Icon
-              name="code"
-              color="#ffffff"
-              iconStyle={{ marginRight: 10 }}
-            />
+            <Icon name="code" color="#ffffff" iconStyle={{ marginRight: 10 }} />
           }
           buttonStyle={{
             borderRadius: 0,
@@ -33,5 +35,6 @@ export default function ProductsComponent({productName,ProductId}) {
           title="VIEW NOW"
         />
       </Card>
-  )
+    </Link>
+  );
 }

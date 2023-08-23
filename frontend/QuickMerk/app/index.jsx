@@ -25,8 +25,8 @@ export default function Page() {
       password: contrasena,
     };
 
-    const logmein = (token) => {
-      dispatch(login(token));
+    const logmein = (array) => {
+      dispatch(login(array));
     };
 
     axios({
@@ -41,7 +41,7 @@ export default function Page() {
     }).then(
       (response) => {
         if (response.status == 200) {
-          logmein(response.data["token"]);
+          logmein([response.data["token"], response.data["cuentaId"]]);
           router.replace("/account");
         }
       },

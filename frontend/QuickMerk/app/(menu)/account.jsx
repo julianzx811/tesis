@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Switch,
   SafeAreaView,
-  Image,
   ScrollView,
 } from "react-native";
 import { logout } from "../redux/actions/UserActions";
@@ -13,7 +12,7 @@ import { useDispatch } from "react-redux";
 import styles from "../styles/containers";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {Tittle,Profile,UnsingButton} from "../components/AccountComponents";
+import { Tittle, Profile, UnsingButton } from "../components/AccountComponents";
 
 const SECTIONS = [
   {
@@ -21,7 +20,6 @@ const SECTIONS = [
     items: [
       { icon: "flag", label: "Cambiar Correo", type: "link" },
       { icon: "mail", label: "Cambiar Contraseña", type: "link" },
-      { icon: "mail", label: "Actualizar mi informacion", type: "link" },
     ],
   },
   {
@@ -49,10 +47,9 @@ const Account = () => {
   return (
     <SafeAreaView style={styles({ insets }).containerxd}>
       <ScrollView showsVerticalScrollIndicator={false}>
-
         <Tittle tittle={"Settings"} insets={insets} />
 
-        <Profile insets={insets} name={"yulian"}  email={"yulian@hotmail.com"} />
+        <Profile insets={insets} name={"yulian"} email={"yulian@hotmail.com"} />
 
         {SECTIONS.map(({ header, items }) => (
           <View style={styles({ insets }).section} key={header}>
@@ -102,7 +99,12 @@ const Account = () => {
             </View>
           </View>
         ))}
-        <UnsingButton dispatch={dispatch} logout={logout} tittle={"Cerrar session"} insets={insets} />
+        <UnsingButton
+          dispatch={dispatch}
+          logout={logout}
+          tittle={"Cerrar session"}
+          insets={insets}
+        />
       </ScrollView>
     </SafeAreaView>
   );

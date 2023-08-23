@@ -3,6 +3,9 @@ const initialState = {
   productsList: [],
   token: "",
   category: 1,
+  correo: "",
+  nombre: "",
+  usuarioId: "",
 };
 
 export default (state = initialState, action) => {
@@ -11,7 +14,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         logged: true,
-        token: action.payload,
+        token: action.payload[0],
+        usuarioId: action.payload[1],
       };
     case "logout":
       return {
