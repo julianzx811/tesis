@@ -12,7 +12,13 @@ import { useDispatch } from "react-redux";
 import styles from "../styles/containers";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Tittle, Profile, UnsingButton } from "../components/AccountComponents";
+import {
+  Tittle,
+  Profile,
+  UnsingButton,
+  CorreoComponent,
+} from "../components/AccountComponents";
+import { useState } from "react";
 
 const SECTIONS = [
   {
@@ -44,8 +50,14 @@ const SECTIONS = [
 const Account = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <SafeAreaView style={styles({ insets }).containerxd}>
+      <CorreoComponent
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        insets={insets}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Tittle tittle={"Settings"} insets={insets} />
 
@@ -70,29 +82,36 @@ const Account = () => {
                       isLast && styles.rowLast,
                     ]}
                   >
-                    <TouchableOpacity onPress={() => {}}>
-                      <View style={styles({ insets }).row}>
-                        <Text style={styles({ insets }).rowLabel}>{label}</Text>
+                    <View style={styles({ insets }).row}>
+                      <Text style={styles({ insets }).rowLabel}>{label}</Text>
 
-                        <View style={styles({ insets }).rowSpacer} />
+                      <View style={styles({ insets }).rowSpacer} />
 
-                        {type === "input" && (
-                          <Text style={styles({ insets }).rowValue}>
-                            {value}
-                          </Text>
-                        )}
+                      {type === "input" && (
+                        <Text style={styles({ insets }).rowValue}>{value}</Text>
+                      )}
 
-                        {type === "boolean" && <Switch value={value} />}
+                      {type === "boolean" && <Switch value={value} />}
 
-                        {(type === "input" || type === "link") && (
+                      {((type === "input" || type === "link") &&
+                        (label === "Cambiar Contraseña" ||
+                          label === "Cambiar Correo") && (
                           <Ionicons
                             color="#ababab"
                             name="caret-forward-outline"
                             size={22}
+                            onPress={() => setModalVisible(true)}
                           />
-                        )}
-                      </View>
-                    </TouchableOpacity>
+                        )) ||
+                        ((type === "input" || type === "link") &&
+                          label === "Quick Merk" && (
+                            <Ionicons
+                              color="#ababab"
+                              name="caret-forward-outline"
+                              size={22}
+                            />
+                          ))}
+                    </View>
                   </View>
                 );
               })}
