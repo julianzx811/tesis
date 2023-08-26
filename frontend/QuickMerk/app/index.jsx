@@ -8,7 +8,8 @@ import { login } from "../app/redux/actions/UserActions";
 import { containers, text } from "./styles";
 import { GoToRegister, Logmein, Input } from "./components/loginComponents";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { EXPO_PUBLIC_LOGIN_URL } from "@env";
+import { onLogin } from "./fetch/fetch";
+
 export default function Page() {
   console.log(GoToRegister);
   const router = useRouter();
@@ -16,40 +17,6 @@ export default function Page() {
   const [contrasena, setContrasena] = useState();
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
-
-  const count = useSelector((store) => store.user);
-
-  const onLogin = () => {
-    let user = {
-      correo: correo,
-      password: contrasena,
-    };
-
-    const logmein = (array) => {
-      dispatch(login(array));
-    };
-
-    axios({
-      method: "post",
-      url: EXPO_PUBLIC_LOGIN_URL,
-      data: {
-        // correo: user.correo,
-        // password: user.password,
-        correo: "yulicorreo",
-        password: "1234",
-      },
-    }).then(
-      (response) => {
-        if (response.status == 200) {
-          logmein([response.data["token"], response.data["cuentaId"]]);
-          router.replace("/account");
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  };
 
   return (
     <View style={containers({ insets }).containerLogin}>
@@ -61,7 +28,12 @@ export default function Page() {
       </View>
       <Input nombre={"Email"} set={setCorreo} insets={insets} />
       <Input nombre={"Contraseña"} set={setContrasena} insets={insets} />
-      <Logmein onLogin={onLogin} insets={insets} />
+      <Logmein
+        onLogin={() => {
+          onLogin(correo, contrasena, dispatch, login, router);
+        }}
+        insets={insets}
+      />
       <GoToRegister router={router} insets={insets} />
     </View>
   );

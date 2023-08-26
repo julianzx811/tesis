@@ -8,14 +8,12 @@ import {
 import { SafeAreaView, ActivityIndicator } from "react-native";
 import {
   EXPO_PUBLIC_CATEGORIES_PRODUCTS,
-  EXPO_PUBLIC_CATEGORIES_URL,
   EXPO_PUBLIC_PRODUCTS_NAME,
 } from "@env";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { store } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrentCategory } from "../redux/actions/UserActions";
+import { GetCategory, GetProducts } from "../fetch/fetch";
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -26,92 +24,61 @@ const Search = () => {
   const [CategoryArray, setCategoryArray] = useState([]);
   const [productsArray, setProductsArray] = useState([]);
 
-  async function GetCategory() {
-    await axios({
-      method: "get",
-      url: EXPO_PUBLIC_CATEGORIES_URL,
-    }).then(
-      (response) => {
-        if (response.status == 200) {
-          response.data.forEach((element) => {
-            setCategoryArray((prevArray) => [...prevArray, element]);
-          });
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    setLoadingCategory(false);
+  async function getCategory() {
+    try {
+      await GetCategory({ setCategoryArray, setLoadingCategory });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  async function GetProducts(id) {
+  async function getProducts(id) {
     setProductsArray([]);
     setloadingProducts(true);
-    setTimeout(() => {
-      dispatch(CurrentCategory(id));
-    }, 1000);
-    console.log(categoria);
+    dispatch(CurrentCategory(id));
+
     var Urlproducts = EXPO_PUBLIC_CATEGORIES_PRODUCTS + `${id}`;
-    console.log(Urlproducts);
-    await axios({
-      method: "get",
-      url: Urlproducts,
-    }).then(
-      (response) => {
-        if (response.status == 200) {
-          response.data.forEach((element) => {
-            setProductsArray((prevArray) => [...prevArray, element]);
-          });
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    setloadingProducts(false);
+    try {
+      await GetProducts({
+        Urlproducts,
+        setProductsArray,
+        setloadingProducts,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function GetProductsName(Name) {
     setProductsArray([]);
     setloadingProducts(true);
-    setTimeout(() => {
-      dispatch(CurrentCategory(categoria));
-    }, 1000);
-    console.log(categoria);
+    dispatch(CurrentCategory(categoria));
     var Urlproducts = EXPO_PUBLIC_PRODUCTS_NAME + `${Name}`;
-    console.log(Urlproducts);
-    await axios({
-      method: "get",
-      url: Urlproducts,
-    }).then(
-      (response) => {
-        if (response.status == 200) {
-          response.data.forEach((element) => {
-            setProductsArray((prevArray) => [...prevArray, element]);
-          });
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    setloadingProducts(false);
+    try {
+      await GetProducts({
+        Urlproducts,
+        setProductsArray,
+        setloadingProducts,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
-    GetCategory();
-    GetProducts(categoria);
+    getCategory();
+    getProducts(categoria);
   }, []);
+
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
       <SearchBarComponent UpdateProducts={GetProductsName} />
       {loadingCategory ? (
-        <ActivityIndicator />
+        <ActivityIndicator style={containers({ insets }).simpleContainer} />
       ) : (
         <Categories
           CategoryArray={CategoryArray}
-          UpdateProducts={GetProducts}
+          UpdateProducts={getProducts}
         />
       )}
 

@@ -15,7 +15,7 @@ import {
   DocumentoPicker,
   Error,
 } from "./components/RegisterComponents";
-import {EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,EXPO_PUBLIC_REGISTER_URL} from "@env"
+import { GetDocuments, registro } from "./fetch/fetch";
 
 const Register = () => {
   const [nombre, setNombre] = useState();
@@ -29,7 +29,7 @@ const Register = () => {
   const [documento, setdocumento] = useState();
   const [correo, setCorreo] = useState();
   const [contrasena, setContrasena] = useState();
-  const [tipo_Documento_id, set_tipo_Documento_id] = useState(0);
+  const [tipo_Documento_id, set_tipo_Documento_id] = useState(1);
   const insets = useSafeAreaInsets();
   const [documentosArray, setDocumentosArray] = useState([]);
 
@@ -38,25 +38,8 @@ const Register = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [handlerError, setHandlerError] = useState();
 
-  useEffect( () => {
-    async function GetDocuments(){
-      await axios({
-        method: "get",
-        url: EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,
-      }).then(
-        (response) => {
-          if (response.status == 200) {
-            response.data.forEach((element) => {
-              setDocumentosArray((prevArray) => [...prevArray, element]);
-            });
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
-    GetDocuments();
+  useEffect(() => {
+    GetDocuments({ setDocumentosArray });
   }, []);
 
   const registrame = () => {
@@ -75,24 +58,9 @@ const Register = () => {
       tipo_Documento_id: tipo_Documento_id,
     };
     console.log(usuario);
-    axios({
-      method: "post",
-      url: EXPO_PUBLIC_REGISTER_URL,
-      data: usuario,
-    }).then(
-      (response) => {
-        if (response.status == 200) {
-          router.replace("/");
-        }
-      },
-      (error) => {
-        console.log(error);
-        setHandlerError(error);
-        setModalVisible(true);
-      }
-    );
+    registro({ setHandlerError, setModalVisible, router, usuario });
   };
-
+  console.log(tipo_Documento_id);
   return (
     <SafeAreaView style={styles({ insets }).container}>
       <ScrollView showsVerticalScrollIndicator={false}>
