@@ -2,12 +2,12 @@ import { StyleSheet } from "react-native";
 
 const styles = (props) =>
   StyleSheet.create({
-    productContainer:{
-      position: 'absolute',
+    productContainer: {
+      position: "absolute",
       top: 0,
       left: 0,
       right: 0,
-      bottom: 0
+      bottom: 0,
     },
     container: {
       alignItems: "center",
@@ -100,7 +100,7 @@ const styles = (props) =>
       fontSize: 42,
     },
     containerxd: {
-      backgroundColor: "#f8f8f8",
+      backgroundColor: "#003f5c",
       flex: 1,
       paddingTop: props.insets.top,
     },
@@ -260,13 +260,14 @@ const styles = (props) =>
     },
     rowWrapper: {
       paddingLeft: 16,
-      backgroundColor: "#fff",
+      backgroundColor: "#01283b",
       borderTopWidth: 1,
       borderColor: "#f0f0f0",
+      borderRadius: 10,
     },
     rowLabel: {
       fontSize: 17,
-      color: "#000",
+      color: "#d4d2d2",
     },
     rowValue: {
       fontSize: 17,

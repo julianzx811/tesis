@@ -50,7 +50,7 @@ const text = (props) =>
     profileName: {
       fontSize: 18,
       fontWeight: "600",
-      color: "#292929",
+      color: "#ffffff",
     },
     profileName: {
       fontSize: 18,

@@ -12,6 +12,7 @@ export default function ItemComponent({ label, icon, insets }) {
       onPress={() => {
         setModalVisible(true);
       }}
+      style={{ backgroundColor: "#01283b", borderRadius: 10 }}
     >
       <CorreoComponent
         modalVisible={modalVisible}

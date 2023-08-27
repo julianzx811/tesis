@@ -1,8 +1,7 @@
-import { Text, Card, Button, Icon } from "@rneui/themed";
-import { Link } from "expo-router";
 import React from "react";
 import { containers } from "../../styles";
-import { Pressable } from "react-native";
+import ColorfulCard from "react-native-colorful-card";
+import { useRouter } from "expo-router";
 
 export default function ProductsComponent({
   productName,
@@ -10,24 +9,40 @@ export default function ProductsComponent({
   href,
   Descripcion,
   insets,
+  precio,
 }) {
-  console.log(href);
+  function random_rgba() {
+    var o = Math.round,
+      r = Math.random,
+      s = 255;
+    return (
+      "rgba(" +
+      o(r() * s) +
+      "," +
+      o(r() * s) +
+      "," +
+      o(r() * s) +
+      "," +
+      r().toFixed(1) +
+      ")"
+    );
+  }
+
+  var color = random_rgba();
+  const router = useRouter();
+
   return (
-    <Card key={ProductId}>
-      <Card.Title>{productName}</Card.Title>
-      <Card.Divider />
-      <Card.Image
-        style={{ padding: 0 }}
-        source={{
-          uri: "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg",
-        }}
-      />
-      <Text style={{ marginBottom: 10 }}>{Descripcion}</Text>
-      <Link href={href} style={containers({ insets }).button}>
-        <Pressable>
-          <Text>Home</Text>
-        </Pressable>
-      </Link>
-    </Card>
+    <ColorfulCard
+      title={productName}
+      value={precio}
+      valuePostfix="$"
+      footerTitle="Descripcion"
+      footerValue={Descripcion}
+      iconImageSource={require("../../assets/product.png")}
+      style={{ backgroundColor: color }}
+      onPress={() => {
+        router.replace(href);
+      }}
+    />
   );
 }

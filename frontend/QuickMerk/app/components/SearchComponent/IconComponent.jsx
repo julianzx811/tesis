@@ -9,7 +9,7 @@ export default function IconComponent({
   id,
 }) {
   return (
-    <View>
+    <View style={{ paddingLeft: 10, alignItems: "center" }}>
       <Ionicons
         color="#ababab"
         name={icono}

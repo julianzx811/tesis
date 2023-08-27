@@ -13,6 +13,9 @@ const containers = (props) =>
       alignItems: "center",
       backgroundColor: "#003f5c",
       paddingTop: props.insets.top,
+
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius: 10,
     },
     containerLogin: {
       flex: 1,
@@ -29,6 +32,7 @@ const containers = (props) =>
     simpleContainer: {
       backgroundColor: "#003f5c",
       paddingTop: props.insets.top,
+      flex: 1,
     },
     scrollView: {
       backgroundColor: "#096c99",
@@ -159,7 +163,7 @@ const containers = (props) =>
     },
     profile: {
       padding: 12,
-      backgroundColor: "#fff",
+      backgroundColor: "#01283b",
       borderRadius: 12,
       flexDirection: "row",
       alignItems: "center",

@@ -19,12 +19,22 @@ export default () => {
 
   if (user) {
     return (
-      <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveBackgroundColor: "#003f5c",
+          tabBarInactiveBackgroundColor: "#01283b",
+          headerTintColor: "#f7f7f7",
+          tabBarLabelStyle: {
+            color: "white",
+          },
+        }}
+      >
         <Tabs.Screen
           name="maps"
           options={({ navigation }) => ({
             tabBarIcon: () => (
-              <Ionicons name="map-outline" size={24} color="black" />
+              <Ionicons name="map-outline" size={24} color="white" />
             ),
           })}
         />
@@ -32,7 +42,7 @@ export default () => {
           name="Search"
           options={({ navigation }) => ({
             tabBarIcon: () => (
-              <Ionicons name="search" size={24} color="black" />
+              <Ionicons name="search" size={24} color="white" />
             ),
           })}
         />
@@ -41,7 +51,7 @@ export default () => {
           name="account"
           options={({ navigation }) => ({
             tabBarIcon: () => (
-              <Ionicons name="settings" size={22} color="black" />
+              <Ionicons name="settings" size={22} color="white" />
             ),
           })}
         />

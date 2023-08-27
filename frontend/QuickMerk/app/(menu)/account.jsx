@@ -70,11 +70,7 @@ const Account = () => {
               <Text style={styles({ insets }).sectionHeaderText}>{header}</Text>
             </View>
             <View
-              style={[
-                styles({ insets }).rowWrapper,
-                { borderTopWidth: 0 },
-                styles.rowFirst,
-              ]}
+              style={[styles({ insets }).rowWrapper, { borderTopWidth: 0 }]}
             >
               {items.map(({ label, type, value }, index) => (
                 <ItemComponent key={index} label={label} insets={insets} />
@@ -82,13 +78,13 @@ const Account = () => {
             </View>
           </View>
         ))}
+        <UnsingButton
+          insets={insets}
+          dispatch={dispatch}
+          logout={logout}
+          tittle={"Cerrar sesion"}
+        />
       </ScrollView>
-      <UnsingButton
-        insets={insets}
-        dispatch={dispatch}
-        logout={logout}
-        tittle={"Cerrar sesion"}
-      />
     </SafeAreaView>
   );
 };
