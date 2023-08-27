@@ -16,6 +16,8 @@ export default (state = initialState, action) => {
         logged: true,
         token: action.payload[0],
         usuarioId: action.payload[1],
+        correo: action.payload[3],
+        nombre: action.payload[2],
       };
     case "logout":
       return {

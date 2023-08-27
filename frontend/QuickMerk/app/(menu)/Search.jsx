@@ -85,7 +85,7 @@ const Search = () => {
       {loadingProducts ? (
         <ActivityIndicator style={containers({ insets }).simpleContainer} />
       ) : (
-        <Products productsArray={productsArray} />
+        <Products productsArray={productsArray} insets={insets} />
       )}
     </SafeAreaView>
   );

@@ -1,14 +1,14 @@
 import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { store } from "../app/redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { login } from "../app/redux/actions/UserActions";
 import { containers, text } from "./styles";
 import { GoToRegister, Logmein, Input } from "./components/loginComponents";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { onLogin } from "./fetch/fetch";
+// import { store } from "../redux/store";
+import { useSelector } from "react-redux";
 
 export default function Page() {
   console.log(GoToRegister);
@@ -17,6 +17,8 @@ export default function Page() {
   const [contrasena, setContrasena] = useState();
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
+  const user = useSelector((store) => store.user);
+  const [userarray, setuserarray] = useState([]);
 
   return (
     <View style={containers({ insets }).containerLogin}>
@@ -30,7 +32,14 @@ export default function Page() {
       <Input nombre={"Contraseña"} set={setContrasena} insets={insets} />
       <Logmein
         onLogin={() => {
-          onLogin(correo, contrasena, dispatch, login, router);
+          onLogin({
+            correo,
+            contrasena,
+            dispatch,
+            login,
+            router,
+            user,
+          });
         }}
         insets={insets}
       />

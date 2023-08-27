@@ -1,7 +1,7 @@
 import { View, ScrollView } from "react-native";
 import ProductsComponent from "./ProductsComponent";
 import { containers } from "../../styles/";
-import { useState } from "react";
+
 export default function Products({ productsArray, insets }) {
   return (
     <View>
@@ -13,6 +13,7 @@ export default function Products({ productsArray, insets }) {
             ProductId={ProductId}
             key={ProductId}
             Descripcion={Descripcion}
+            insets={insets}
           />
         ))}
       </ScrollView>

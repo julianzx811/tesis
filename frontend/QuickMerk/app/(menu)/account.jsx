@@ -8,13 +8,13 @@ import {
   UnsingButton,
 } from "../../app/components/AccountComponents";
 import { logout } from "../../app/redux/actions/UserActions";
-
 import {
   Tittle,
   Profile,
   CorreoComponent,
 } from "../components/AccountComponents";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const SECTIONS = [
   {
@@ -47,6 +47,7 @@ const Account = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <SafeAreaView style={styles({ insets }).containerxd}>
       <CorreoComponent
@@ -57,7 +58,11 @@ const Account = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Tittle tittle={"Settings"} insets={insets} />
 
-        <Profile insets={insets} name={"yulian"} email={"yulian@hotmail.com"} />
+        <Profile
+          insets={insets}
+          name={useSelector((store) => store.user.nombre)}
+          email={useSelector((store) => store.user.correo)}
+        />
 
         {SECTIONS.map(({ header, items }) => (
           <View style={styles({ insets }).section} key={header}>

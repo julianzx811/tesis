@@ -1,5 +1,7 @@
 import {
   EXPO_PUBLIC_LOGIN_URL,
+  EXPO_PUBLIC_GET_USUARIO,
+  EXPO_PUBLIC_GET_CUENTA,
   EXPO_PUBLIC_REGISTER_DOCUMENTS_URL,
   EXPO_PUBLIC_REGISTER_URL,
   EXPO_PUBLIC_PRODUCTS_URL,
@@ -9,31 +11,61 @@ import {
 } from "@env";
 import axios from "axios";
 
-async function onLogin(correo, contrasena, dispatch, login, router) {
-  const logmein = (array) => {
-    dispatch(login(array));
-  };
+async function onLogin({ correo, contrasena, dispatch, login, router, user }) {
+  try {
+    const response = await axios({
+      method: "post",
+      url: EXPO_PUBLIC_LOGIN_URL,
+      data: {
+        correo: "yulicorreo",
+        password: "1234",
+      },
+    });
 
-  await axios({
-    method: "post",
-    url: EXPO_PUBLIC_LOGIN_URL,
-    data: {
-      // correo: correo,
-      // password: password,
-      correo: "yulicorreo",
-      password: "1234",
-    },
-  }).then(
-    (response) => {
-      if (response.status == 200) {
-        logmein([response.data["token"], response.data["cuentaId"]]);
-        router.replace("/account");
-      }
-    },
-    (error) => {
-      console.log(error);
+    if (response.status === 200) {
+      var url1 = EXPO_PUBLIC_GET_USUARIO + `=${response.data["cuentaId"]}`;
+      var url2 = EXPO_PUBLIC_GET_CUENTA + `=${response.data["cuentaId"]}`;
+      const requests = [
+        axios.get(url1, {
+          headers: {
+            usuarioId: user.usuarioId,
+            Authorization: `Bearer ${response.data["token"]}`,
+          },
+        }),
+        axios.get(url2, {
+          headers: {
+            usuarioId: user.usuarioId,
+            Authorization: `Bearer ${response.data["token"]}`,
+          },
+        }),
+      ];
+
+      const results = await Promise.allSettled(requests);
+
+      var userarray = [
+        response.data["token"],
+        response.data["cuentaId"],
+        "",
+        "",
+      ];
+
+      results.forEach((result, index) => {
+        if (result.status === "fulfilled") {
+          if (index === 0) {
+            userarray[2] = result.value.data["nombre"];
+          } else {
+            userarray[3] = result.value.data["correo"];
+          }
+        }
+      });
+
+      console.log(userarray);
+      dispatch(login(userarray));
+      router.replace("/account");
     }
-  );
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function GetDocuments({ setDocumentosArray }) {
