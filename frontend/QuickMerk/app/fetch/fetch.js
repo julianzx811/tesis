@@ -106,8 +106,6 @@ async function registro({ setHandlerError, setModalVisible, router, usuario }) {
 }
 
 async function GetCategory({ setCategoryArray, setLoadingCategory }) {
-  console.log("xd1" + setCategoryArray);
-  console.log("xd2" + setLoadingCategory);
   await axios({
     method: "get",
     url: EXPO_PUBLIC_CATEGORIES_URL,

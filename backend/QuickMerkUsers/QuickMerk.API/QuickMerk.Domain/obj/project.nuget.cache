@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "qHg2F2jCwd2fAhhGKWFPDGCoByMX/Hx3F60rCcp6DNt1oXN2zRkjqvAlSgniPmPhFs2Jf4+YL02KoUp5zXFSEg==",
+  "success": true,
+  "projectFilePath": "/home/yulian/Documents/GitHub/tesis/backend/QuickMerk.API/QuickMerk.Domain/QuickMerk.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/yulian/.nuget/packages/microsoft.netcore.app.ref/6.0.20/microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
+    "/home/yulian/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.20/microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}

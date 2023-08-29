@@ -2,6 +2,7 @@ import React from "react";
 import { containers } from "../../styles";
 import ColorfulCard from "react-native-colorful-card";
 import { useRouter } from "expo-router";
+import { View } from "react-native";
 
 export default function ProductsComponent({
   productName,
@@ -32,17 +33,19 @@ export default function ProductsComponent({
   const router = useRouter();
 
   return (
-    <ColorfulCard
-      title={productName}
-      value={precio}
-      valuePostfix="$"
-      footerTitle="Descripcion"
-      footerValue={Descripcion}
-      iconImageSource={require("../../assets/product.png")}
-      style={{ backgroundColor: color }}
-      onPress={() => {
-        router.replace(href);
-      }}
-    />
+    <View style={{ paddingRight: 10 }}>
+      <ColorfulCard
+        title={productName}
+        value={precio}
+        valuePostfix="$"
+        footerTitle="Descripcion"
+        footerValue={Descripcion}
+        iconImageSource={require("../../assets/product.png")}
+        style={{ backgroundColor: color, paddingRight: 10 }}
+        onPress={() => {
+          router.replace(href);
+        }}
+      />
+    </View>
   );
 }
