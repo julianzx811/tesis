@@ -102,7 +102,6 @@ const styles = (props) =>
     containerxd: {
       backgroundColor: "#003f5c",
       flex: 1,
-      paddingTop: props.insets.top,
     },
     register: {
       color: "#bb0000",

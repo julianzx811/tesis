@@ -23,7 +23,7 @@ export default function Products({ productsArray, insets }) {
             {pair.map(({ ProductId, ProductName, Descripcion, precio }) => (
               <ProductsComponent
                 key={ProductId}
-                href={`components/SearchComponent/Product/${ProductName}`}
+                href={`components/SearchComponent/Product/${ProductId}`}
                 productName={ProductName}
                 ProductId={ProductId}
                 Descripcion={Descripcion}

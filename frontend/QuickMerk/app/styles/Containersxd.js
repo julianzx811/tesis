@@ -12,8 +12,6 @@ const containers = (props) =>
     container: {
       alignItems: "center",
       backgroundColor: "#003f5c",
-      paddingTop: props.insets.top,
-
       borderBottomLeftRadius: 10,
       borderBottomRightRadius: 10,
     },
@@ -31,7 +29,7 @@ const containers = (props) =>
     },
     simpleContainer: {
       backgroundColor: "#003f5c",
-      paddingTop: props.insets.top,
+
       flex: 1,
     },
     scrollView: {

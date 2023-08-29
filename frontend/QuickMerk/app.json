@@ -6,6 +6,9 @@
       "bundler": "metro"
     },
     "name": "QuickMerk",
-    "slug": "QuickMerk"
+    "slug": "QuickMerk",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

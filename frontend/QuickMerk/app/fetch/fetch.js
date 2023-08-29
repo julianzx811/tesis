@@ -8,8 +8,28 @@ import {
   EXPO_PUBLIC_CATEGORIES_URL,
   EXPO_PUBLIC_CATEGORIES_PRODUCTS,
   EXPO_PUBLIC_PRODUCTS_NAME,
+  EXPO_PUBLIC_GET_PRODUCTO,
 } from "@env";
 import axios from "axios";
+
+async function getProduct({ name, setLoading }) {
+  var Url = EXPO_PUBLIC_GET_PRODUCTO + `${name}`;
+
+  try {
+    const response = await axios({
+      method: "get",
+      url: Url,
+    });
+
+    if (response.status === 200) {
+      setLoading(false);
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 async function onLogin({ correo, contrasena, dispatch, login, router, user }) {
   try {
@@ -147,4 +167,11 @@ async function GetProducts({
   setloadingProducts(false);
 }
 
-export { onLogin, GetDocuments, registro, GetCategory, GetProducts };
+export {
+  onLogin,
+  GetDocuments,
+  registro,
+  GetCategory,
+  GetProducts,
+  getProduct,
+};
