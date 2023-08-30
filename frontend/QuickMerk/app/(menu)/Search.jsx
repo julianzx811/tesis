@@ -1,11 +1,17 @@
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { containers } from "../styles";
+import { containers, text } from "../styles";
 import {
   SearchBarComponent,
   Categories,
   Products,
 } from "../components/SearchComponent";
-import { SafeAreaView, ActivityIndicator } from "react-native";
+import {
+  SafeAreaView,
+  ActivityIndicator,
+  Text,
+  View,
+  ScrollView,
+} from "react-native";
 import {
   EXPO_PUBLIC_CATEGORIES_PRODUCTS,
   EXPO_PUBLIC_PRODUCTS_NAME,
@@ -73,19 +79,28 @@ const Search = () => {
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
       <SearchBarComponent UpdateProducts={GetProductsName} />
+
       {loadingCategory ? (
         <ActivityIndicator style={containers({ insets }).simpleContainer} />
       ) : (
         <Categories
           CategoryArray={CategoryArray}
           UpdateProducts={getProducts}
+          insets={insets}
         />
       )}
 
+      <View style={containers({ insets }).section}>
+        <View style={containers({ insets }).sectionHeader}>
+          <Text style={text({ insets }).sectionHeaderText}>Categorias</Text>
+        </View>
+      </View>
       {loadingProducts ? (
         <ActivityIndicator style={containers({ insets }).simpleContainer} />
       ) : (
-        <Products productsArray={productsArray} insets={insets} />
+        <ScrollView>
+          <Products productsArray={productsArray} insets={insets} />
+        </ScrollView>
       )}
     </SafeAreaView>
   );

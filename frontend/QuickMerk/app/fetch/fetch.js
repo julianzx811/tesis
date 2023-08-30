@@ -12,6 +12,25 @@ import {
 } from "@env";
 import axios from "axios";
 
+async function UpdateCorreo({ correo, setLoading }) {
+  var Url = EXPO_PUBLIC_GET_PRODUCTO + `${password}`;
+
+  try {
+    const response = await axios({
+      method: "get",
+      url: Url,
+    });
+
+    if (response.status === 200) {
+      setLoading(false);
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 async function getProduct({ name, setLoading }) {
   var Url = EXPO_PUBLIC_GET_PRODUCTO + `${name}`;
 
@@ -174,4 +193,5 @@ export {
   GetCategory,
   GetProducts,
   getProduct,
+  UpdateCorreo,
 };

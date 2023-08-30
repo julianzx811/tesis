@@ -1,6 +1,6 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import ProductsComponent from "./ProductsComponent";
-import { containers } from "../../styles/";
+import { containers, text } from "../../styles/";
 
 export default function Products({ productsArray, insets }) {
   console.log(productsArray);
@@ -13,27 +13,22 @@ export default function Products({ productsArray, insets }) {
   }
 
   return (
-    <View>
-      <ScrollView style={containers.productContainer}>
-        {productPairs.map((pair, rowIndex) => (
-          <View
-            key={rowIndex}
-            style={[containers({ insets }).row, { paddingLeft: 20 }]}
-          >
-            {pair.map(({ ProductId, ProductName, Descripcion, precio }) => (
-              <ProductsComponent
-                key={ProductId}
-                href={`components/SearchComponent/Product/${ProductId}`}
-                productName={ProductName}
-                ProductId={ProductId}
-                Descripcion={Descripcion}
-                insets={insets}
-                precio={precio}
-              />
-            ))}
-          </View>
-        ))}
-      </ScrollView>
+    <View style={containers({ insets }).section}>
+      {productPairs.map((pair, rowIndex) => (
+        <View key={rowIndex} style={[containers({ insets }).row]}>
+          {pair.map(({ ProductId, ProductName, Descripcion, precio }) => (
+            <ProductsComponent
+              key={ProductId}
+              href={`components/SearchComponent/Product/${ProductId}`}
+              productName={ProductName}
+              ProductId={ProductId}
+              Descripcion={Descripcion}
+              insets={insets}
+              precio={precio}
+            />
+          ))}
+        </View>
+      ))}
     </View>
   );
 }

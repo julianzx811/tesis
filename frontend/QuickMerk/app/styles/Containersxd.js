@@ -29,7 +29,6 @@ const containers = (props) =>
     },
     simpleContainer: {
       backgroundColor: "#003f5c",
-
       flex: 1,
     },
     scrollView: {
@@ -146,7 +145,7 @@ const containers = (props) =>
       paddingVertical: 12,
     },
     sectionHeader: {
-      padding: 8,
+      padding: 0,
       paddingLeft: 12,
     },
     sectionBody: {
@@ -201,7 +200,7 @@ const containers = (props) =>
       borderBottomRightRadius: 12,
     },
     rowWrapper: {
-      paddingLeft: 16,
+      paddingLeft: 0,
       backgroundColor: "#fff",
       borderTopWidth: 1,
       borderColor: "#f0f0f0",

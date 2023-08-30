@@ -1,10 +1,9 @@
 import {
   View,
-  Text,
   Image,
-  TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Text,
 } from "react-native";
 import React from "react";
 import { useLocalSearchParams } from "expo-router";
@@ -13,15 +12,21 @@ import { Appbar } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { containers, buttons, text } from "../../../styles";
 import { getProduct } from "../../../fetch/fetch";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { ButtonComponent, DetailsComponent, ImageSlider } from "./";
+
 export default function Product({}) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { name } = useLocalSearchParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
-
+  const images = [
+    require("../../../assets/carrito.png"),
+    require("../../../assets/avatar.png"),
+    require("../../../assets/product.png"),
+  ];
+  var precio = `$ ${product.precio}`;
   const GettingDaProduct = async (productName) => {
     try {
       const productResponse = await getProduct({
@@ -30,6 +35,7 @@ export default function Product({}) {
       });
       console.log("productResponse" + productResponse.ProductName);
       setProduct(productResponse);
+      console.log("productResponse1" + product.ProductName);
     } catch (error) {
       console.log(error);
     }
@@ -40,47 +46,22 @@ export default function Product({}) {
   }, []);
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
-      <Appbar.Header>
-        <Appbar.BackAction
-          onPress={() => {
-            router.push("/Search");
-          }}
-        />
-        <Appbar.Content title={name} />
-      </Appbar.Header>
-
       {loading ? (
         <ActivityIndicator style={containers({ insets }).simpleContainer} />
       ) : (
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: "#495b63",
-            borderRadius: 20,
-          }}
-        >
-          <View
-            style={{
-              alignItems: "center",
-              backgroundColor: "#003f5c",
-              paddingBottom: 100,
-              borderRadius: 20,
+        <View>
+          <Appbar.BackAction
+            onPress={() => {
+              router.push("/Search");
             }}
-          >
-            <View style={{ borderRadius: 20 }}>
-              <Image source={require("../../../assets/carrito.png")} />
-            </View>
-            <View style={{ borderRadius: 20 }}>
-              <Text>{product.ProductName}</Text>
-            </View>
+          />
+          <Appbar.Content />
+          <View style={{ alignItems: "center" }}>
+            <Text style={text({ insets }).title}>{product.ProductName}</Text>
           </View>
-
-          <TouchableOpacity
-            style={buttons({ insets }).loginBtn}
-            onPress={() => {}}
-          >
-            <Text style={text({ insets }).normalText}>Añadir al carrito</Text>
-          </TouchableOpacity>
+          <ImageSlider />
+          <DetailsComponent Descripcion={product.Descripcion} precio={precio} />
+          <ButtonComponent />
         </View>
       )}
     </SafeAreaView>

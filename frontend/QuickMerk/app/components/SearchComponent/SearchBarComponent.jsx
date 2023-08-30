@@ -13,7 +13,7 @@ export default function SearchBarComponent({ UpdateProducts }) {
   };
 
   return (
-    <View style={{ paddingLeft: 15, paddingRight: 15, paddingBottom: 20 }}>
+    <View style={{ paddingLeft: 15, paddingRight: 15, paddingTop: 20 }}>
       <Searchbar
         placeholder="Search"
         onChangeText={onChangeSearch}

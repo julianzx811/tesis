@@ -1,20 +1,31 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import IconComponent from "./IconComponent";
-
-export default function Categories({ CategoryArray, UpdateProducts }) {
+import { containers, text } from "../../styles";
+export default function Categories({ CategoryArray, UpdateProducts, insets }) {
   return (
-    <View style={{ paddingLeft: 15, paddingRight: 15 }}>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {CategoryArray.map(({ Categoria, icono, CategoriaID }) => (
-          <IconComponent
-            Categoria={Categoria}
-            key={CategoriaID}
-            icono={icono}
-            id={CategoriaID}
-            UpdateProducts={UpdateProducts}
-          />
-        ))}
-      </ScrollView>
+    <View style={containers({ insets }).section}>
+      <View style={containers({ insets }).sectionHeader}>
+        <Text style={text({ insets }).sectionHeaderText}>Categorias</Text>
+      </View>
+      <View
+        style={[
+          containers({ insets }).rowWrapper,
+          { borderTopWidth: 0 },
+          { backgroundColor: "#003f5c" },
+        ]}
+      >
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {CategoryArray.map(({ Categoria, icono, CategoriaID }) => (
+            <IconComponent
+              Categoria={Categoria}
+              key={CategoriaID}
+              icono={icono}
+              id={CategoriaID}
+              UpdateProducts={UpdateProducts}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 }
