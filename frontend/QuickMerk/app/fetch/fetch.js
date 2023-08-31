@@ -9,21 +9,46 @@ import {
   EXPO_PUBLIC_CATEGORIES_PRODUCTS,
   EXPO_PUBLIC_PRODUCTS_NAME,
   EXPO_PUBLIC_GET_PRODUCTO,
+  EXPO_PUBLIC_PATCH_CORREO,
+  EXPO_PUBLIC_PATCH_CONTRASENA,
 } from "@env";
 import axios from "axios";
 
-async function UpdateCorreo({ correo, setLoading }) {
-  var Url = EXPO_PUBLIC_GET_PRODUCTO + `${password}`;
-
+async function UpdateCorreoPasword({
+  lastWord,
+  setLoading,
+  change,
+  id,
+  autorisacion,
+  setModalVisible,
+  modalVisible,
+}) {
+  var Url = "";
+  var Params;
+  if (lastWord === "Correo") {
+    Url = EXPO_PUBLIC_PATCH_CORREO + `correo=${change}&usuarioId=${id}`;
+    Params = {
+      correo: change,
+      usuarioId: id,
+    };
+  } else {
+    Url = EXPO_PUBLIC_PATCH_CONTRASENA + `contrasena=${change}&usuarioId=${id}`;
+    Params = {
+      contrasena: change,
+      usuarioId: id,
+    };
+  }
   try {
-    const response = await axios({
-      method: "get",
-      url: Url,
+    const response = await axios.put(Url, null, {
+      params: { ...Params },
+      headers: {
+        Authorization: `Bearer ${autorisacion}`,
+      },
     });
 
     if (response.status === 200) {
       setLoading(false);
-      return response.data;
+      setModalVisible(!modalVisible);
     }
   } catch (error) {
     console.log(error);
@@ -56,8 +81,8 @@ async function onLogin({ correo, contrasena, dispatch, login, router, user }) {
       method: "post",
       url: EXPO_PUBLIC_LOGIN_URL,
       data: {
-        correo: "yulicorreo",
-        password: "1234",
+        correo: correo,
+        password: contrasena,
       },
     });
 
@@ -193,5 +218,5 @@ export {
   GetCategory,
   GetProducts,
   getProduct,
-  UpdateCorreo,
+  UpdateCorreoPasword,
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Switch } from "react-native";
 import { useDispatch } from "react-redux";
 import styles from "../styles/containers";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -47,13 +47,14 @@ const Account = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [currentWord, setCurrentWord] = useState("");
   return (
     <SafeAreaView style={styles({ insets }).containerxd}>
       <CorreoComponent
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         insets={insets}
+        lastWord={currentWord}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Tittle tittle={"Settings"} insets={insets} />
@@ -72,9 +73,32 @@ const Account = () => {
             <View
               style={[styles({ insets }).rowWrapper, { borderTopWidth: 0 }]}
             >
-              {items.map(({ label, type, value }, index) => (
-                <ItemComponent key={index} label={label} insets={insets} />
-              ))}
+              {items.map(({ label, type, value }, index) => {
+                const words = label.split(" ");
+                const lastWord = words[words.length - 1];
+                return (
+                  <View key={index}>
+                    {label === "Cambiar Contraseña" ||
+                    label === "Cambiar Correo" ? (
+                      <ItemComponent
+                        key={index}
+                        label={label}
+                        insets={insets}
+                        icon={"caret-forward-outline"}
+                        setModalVisible={setModalVisible}
+                        lastWord={lastWord}
+                        setCurrentWord={setCurrentWord}
+                      />
+                    ) : (
+                      <ItemComponent
+                        icon={"add"}
+                        label={label}
+                        insets={insets}
+                      />
+                    )}
+                  </View>
+                );
+              })}
             </View>
           </View>
         ))}

@@ -215,7 +215,7 @@ const containers = (props) =>
       paddingHorizontal: 32,
       borderRadius: 4,
       elevation: 3,
-      backgroundColor: "black",
+      backgroundColor: "#f0f0f0",
     },
   });
 
