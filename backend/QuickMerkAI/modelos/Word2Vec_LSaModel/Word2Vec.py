@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
+from SimilarString import findStringCvs
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Import the imdb movies dataset
@@ -71,7 +72,8 @@ w2v_feature_array = averaged_word_vectorizer(
 
 # Get the user input
 user_movie = input("Enter a movie title: ")
-
+user_movie = findStringCvs(df, user_movie, "Title")
+print(user_movie)
 # Find the index of the user movie
 movie_index = df[df["Title"] == user_movie].index[0]
 

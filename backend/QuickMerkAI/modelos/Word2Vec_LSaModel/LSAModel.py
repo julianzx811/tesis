@@ -1,5 +1,5 @@
-import numpy as np
 import pandas as pd
+from SimilarString import findStringCvs
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -38,7 +38,8 @@ lsa.fit(tfidf)
 
 # Get the user input
 user_movie = input("Enter a movie title: ")
-
+user_movie = findStringCvs(df, user_movie, "Title")
+print("peli :", user_movie)
 # Find the index of the user movie
 movie_index = df[df["Title"] == user_movie].index[0]
 
