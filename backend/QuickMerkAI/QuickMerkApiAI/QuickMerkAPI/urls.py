@@ -3,6 +3,10 @@ from QuickMerkAPI.AImodel import views
 from rest_framework import routers
 
 urlpatterns = [
-    path("api/products/", views.BetterProducts.as_view(), name="instances"),
+    path(
+        "api/cosine_similarity/",
+        views.CosineSimilarity.as_view(),
+        name="consine similarity",
+    ),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

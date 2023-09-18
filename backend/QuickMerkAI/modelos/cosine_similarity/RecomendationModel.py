@@ -7,7 +7,7 @@ df = pd.read_csv("BX-Books.csv", on_bad_lines="skip", encoding="latin-1", sep=";
 
 # print(df.head())
 
-# print(df.info())
+print(df.info())
 
 # cleaning data
 
