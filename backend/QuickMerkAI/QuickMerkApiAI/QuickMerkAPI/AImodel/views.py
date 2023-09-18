@@ -5,14 +5,13 @@ from QuickMerkAPI.AImodel.serializers import UserSerializer
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction.text import (CountVectorizer, TfidfTransformer,
+                                             TfidfVectorizer)
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-class CosineSimilarity(APIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
+class usefullMethods:
     def findStringCvs(self, df, input, column):
         tfidf_vectorizer = TfidfVectorizer()
         tfidf_matrix = tfidf_vectorizer.fit_transform(df[column])
@@ -30,6 +29,12 @@ class CosineSimilarity(APIView):
         result = str(author).lower()
         return result.replace(" ", "")
 
+
+class CosineSimilarity(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    methods = usefullMethods()
+
     def Cosine_Similarity(self, df, input):
         df = df.drop_duplicates(subset="Book-Title")
 
@@ -39,7 +44,7 @@ class CosineSimilarity(APIView):
         df = df.reset_index()
         df = df.drop("index", axis=1)
 
-        df["Book-Author"] = df["Book-Author"].apply(self.clean_text)
+        df["Book-Author"] = df["Book-Author"].apply(self.methods.clean_text)
 
         df["Book-Title"] = df["Book-Title"].str.lower()
         df["Publisher"] = df["Publisher"].str.lower()
@@ -67,7 +72,7 @@ class CosineSimilarity(APIView):
             similarities, columns=df["Book-Title"], index=df["Book-Title"]
         ).reset_index()
 
-        input_book = self.findStringCvs(df, input, "Book-Title")
+        input_book = self.methods.findStringCvs(df, input, "Book-Title")
         recommendations = pd.DataFrame(df.nlargest(11, input_book)["Book-Title"])
         recommendations = recommendations[recommendations["Book-Title"] != input_book]
         return recommendations
@@ -81,3 +86,62 @@ class CosineSimilarity(APIView):
             return Response(self.Cosine_Similarity(df, estring))
         except Exception as error:
             return Response(str(error))
+
+
+class LSAmodel(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    methods = usefullMethods()
+
+    def lsaModel(self, df, input):
+        df["content"] = (
+            df["Title"].astype(str)
+            + " "
+            + df["Runtime (Minutes)"].astype(str)
+            + " "
+            + df["Genre"]
+            + " "
+            + df["Director"]
+            + " "
+            + df["Rating"].astype(str)
+            + " "
+            + df["Votes"].astype(str)
+            + df["Actors"].astype(str)
+        )
+        df["content"] = df["content"].fillna("")
+
+        vectorizer = CountVectorizer()
+        bow = vectorizer.fit_transform(df["content"])
+
+        tfidf_transformer = TfidfTransformer()
+        tfidf = tfidf_transformer.fit_transform(bow)
+
+        lsa = TruncatedSVD(n_components=100, algorithm="arpack")
+        lsa.fit(tfidf)
+
+        user_movie = input
+        user_movie = self.methods.findStringCvs(df, user_movie, "Title")
+        movie_index = df[df["Title"] == user_movie].index[0]
+
+        similarity_scores = cosine_similarity(tfidf[movie_index], tfidf)
+
+        similar_movies = list(enumerate(similarity_scores[0]))
+        sorted_similar_movies = sorted(
+            similar_movies, key=lambda x: x[1], reverse=True
+        )[1:20]
+
+        books = []
+        for i, score in sorted_similar_movies:
+            books.append("{}: {}".format(i, df.loc[i, "Title"]))
+        return books
+
+    def post(self, request):
+        estring = request.query_params["libro"]
+        df = pd.DataFrame.from_records(request.data)
+        print(df["Genre"])
+        try:
+            response = self.lsaModel(df, estring)
+        except Exception as error:
+            response = str(error)
+
+        return Response(response)

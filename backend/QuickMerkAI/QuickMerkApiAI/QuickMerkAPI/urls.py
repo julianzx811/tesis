@@ -8,5 +8,10 @@ urlpatterns = [
         views.CosineSimilarity.as_view(),
         name="consine similarity",
     ),
+    path(
+        "api/LSAmodel/",
+        views.LSAmodel.as_view(),
+        name="lsa model",
+    ),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

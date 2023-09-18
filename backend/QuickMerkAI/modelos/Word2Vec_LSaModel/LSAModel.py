@@ -50,6 +50,9 @@ similarity_scores = cosine_similarity(tfidf[movie_index], tfidf)
 similar_movies = list(enumerate(similarity_scores[0]))
 sorted_similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)[1:20]
 
+books = []
 # Print the top 10 similar movies
 for i, score in sorted_similar_movies:
-    print("{}: {}".format(i, df.loc[i, "Title"]))
+    books.append("{}: {}".format(i, df.loc[i, "Title"]))
+
+print(str(books))
