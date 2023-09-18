@@ -1,6 +1,7 @@
-import io
-
+import numpy as np
 import pandas as pd
+from gensim.models import Word2Vec
+from gensim.utils import simple_preprocess
 from QuickMerkAPI.AImodel.serializers import UserSerializer
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
@@ -28,6 +29,30 @@ class usefullMethods:
     def clean_text(self, author):
         result = str(author).lower()
         return result.replace(" ", "")
+
+    def average_word_vectors(self, words, model, vocabulary, num_features):
+        feature_vector = np.zeros((num_features,), dtype="float64")
+        nwords = 0.0
+
+        for word in words:
+            if word in vocabulary:
+                nwords = nwords + 1.0
+                feature_vector = np.add(feature_vector, model.wv[word])
+
+            if nwords:
+                feature_vector = np.divide(feature_vector, nwords)
+
+        return feature_vector
+
+    def averaged_word_vectorizer(self, corpus, model, num_features):
+        vocabulary = set(model.wv.index_to_key)
+        features = [
+            self.average_word_vectors(
+                tokenized_sentence, model, vocabulary, num_features
+            )
+            for tokenized_sentence in corpus
+        ]
+        return np.array(features)
 
 
 class CosineSimilarity(APIView):
@@ -138,10 +163,70 @@ class LSAmodel(APIView):
     def post(self, request):
         estring = request.query_params["libro"]
         df = pd.DataFrame.from_records(request.data)
-        print(df["Genre"])
         try:
             response = self.lsaModel(df, estring)
         except Exception as error:
             response = str(error)
 
+        return Response(response)
+
+
+class WordtwoVec(APIView):
+    methods = usefullMethods()
+
+    def wordtwovec(self, df, input):
+        # Combine movie name and tags into a single string
+        df["content"] = (
+            df["Title"].astype(str)
+            + " "
+            + df["Runtime (Minutes)"].astype(str)
+            + " "
+            + df["Genre"]
+            + " "
+            + df["Director"]
+            + " "
+            + df["Rating"].astype(str)
+            + " "
+            + df["Votes"].astype(str)
+            + df["Actors"].astype(str)
+        )
+        df["content"] = df["content"].fillna("")
+
+        df["tokenized_content"] = df["content"].apply(simple_preprocess)
+        model = Word2Vec(vector_size=100, window=5, min_count=1, workers=4)
+
+        model.build_vocab(df["tokenized_content"])
+
+        model.train(
+            df["tokenized_content"], total_examples=model.corpus_count, epochs=10
+        )
+
+        w2v_feature_array = self.methods.averaged_word_vectorizer(
+            corpus=df["tokenized_content"], model=model, num_features=100
+        )
+
+        user_movie = input
+        user_movie = self.methods.findStringCvs(df, user_movie, "Title")
+        movie_index = df[df["Title"] == user_movie].index[0]
+
+        user_movie_vector = w2v_feature_array[movie_index].reshape(1, -1)
+        similarity_scores = cosine_similarity(user_movie_vector, w2v_feature_array)
+
+        similar_movies = list(enumerate(similarity_scores[0]))
+        sorted_similar_movies = sorted(
+            similar_movies, key=lambda x: x[1], reverse=True
+        )[1:20]
+
+        books = []
+        for i, score in sorted_similar_movies:
+            books.append("{}: {}".format(i, df.loc[i, "Title"]))
+        return books
+
+    def post(self, request):
+        estring = request.query_params["libro"]
+        df = pd.DataFrame.from_records(request.data)
+        try:
+            response = self.wordtwovec(df, estring)
+        except Exception as error:
+            response = str(error)
         return Response(response)

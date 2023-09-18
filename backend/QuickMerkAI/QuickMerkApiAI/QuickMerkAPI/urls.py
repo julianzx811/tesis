@@ -13,5 +13,10 @@ urlpatterns = [
         views.LSAmodel.as_view(),
         name="lsa model",
     ),
+    path(
+        "api/world2vec/",
+        views.WordtwoVec.as_view(),
+        name="word2vec",
+    ),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
