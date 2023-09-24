@@ -230,3 +230,8 @@ class WordtwoVec(APIView):
         except Exception as error:
             response = str(error)
         return Response(response)
+
+
+class Produts(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]

@@ -76,8 +76,15 @@ WSGI_APPLICATION = "QuickMerkAPI.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "mssql",
+        "NAME": "Peopledb",
+        "USER": "yuli",
+        "PASSWORD": "Caminoarusia7878$",
+        "HOST": "quickmerkpeopleserver.database.windows.net",
+        "PORT": "",  # Leave empty for the default port
+        "OPTIONS": {
+            "driver": "ODBC Driver 17 for SQL Server",
+        },
     }
 }
 
