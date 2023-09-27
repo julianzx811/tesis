@@ -28,7 +28,7 @@ CREATE TABLE Producto_info (
     ProductInfoId int IDENTITY(1, 1) NOT NULL,
     precio float,
     Disponibilidad varchar(10),
-    Imagen varchar(255),
+    Imagen varchar(255), 
     Descripcion  varchar(5000),
     categoria int NULL,
     link VARCHAR(1000) NULL;

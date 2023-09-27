@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
-from QuickMerkAPI.AImodel.serializers import UserSerializer
+from AImodel.serializers import UserSerializer
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,6 +10,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import (CountVectorizer, TfidfTransformer,
                                              TfidfVectorizer)
 from sklearn.metrics.pairwise import cosine_similarity
+from .models import  Producto_categoria, Tienda, Producto_info, Producto
 
 
 class usefullMethods:
@@ -235,3 +236,4 @@ class WordtwoVec(APIView):
 class Produts(APIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    
