@@ -1,16 +1,18 @@
 import numpy as np
 import pandas as pd
+from AImodel.serializers import UserSerializer
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
-from AImodel.serializers import UserSerializer
-from rest_framework import authentication, permissions
+from rest_framework import authentication, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import (CountVectorizer, TfidfTransformer,
                                              TfidfVectorizer)
 from sklearn.metrics.pairwise import cosine_similarity
-from .models import  Producto_categoria, Tienda, Producto_info, Producto
+
+from .models import (Empresa, Producto, Producto_categoria, Producto_info,
+                     Tienda)
 
 
 class usefullMethods:
@@ -233,7 +235,20 @@ class WordtwoVec(APIView):
         return Response(response)
 
 
-class Produts(APIView):
+class Products(APIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
+
+    def get(self, request):
+        Productos = Producto.objects.all()
+        return Response(Productos)
+
+    def post(self, request):
+        print(request)
+        try:
+            for producto in request.data:
+                print(producto)
+            return Response(status=status.is_success)
+        except Exception as error:
+            print(error)
+            return Response()

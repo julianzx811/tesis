@@ -1,6 +1,6 @@
 --initial categories
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
@@ -8,70 +8,70 @@ INSERT INTO [dbo].[Producto_categoria]
            'phone-portrait')
 
 		   
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Ropa',
            'shirt')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Hogar',
            'home')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Alimentación ',
            'pizza')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Salud',
            'heart')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Deportes',
            'football')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Juguetes ',
            'rocket')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Belleza ',
            'color-wand')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Libros',
            'book')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
            ('Entretenimiento',
            'tv')
 
-INSERT INTO [dbo].[Producto_categoria]
+INSERT INTO [dbo].[AImodel_Producto_categoria]
            ([Categoria]
            ,[icono])
      VALUES
@@ -81,7 +81,7 @@ INSERT INTO [dbo].[Producto_categoria]
 -- insertando productos:
 --LIBROS:
 --producto info
-INSERT INTO Producto_info(Descripcion,Imagen,link,precio,Disponibilidad,categoria) VALUES ('Oxford University Press','http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg','http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg', ROUND(RAND() * (250000 - 100000) + 100000, 2),'online',8);
+INSERT INTO AImodel_Producto_info(Descripcion,Imagen,link,precio,Disponibilidad,categoria) VALUES ('Oxford University Press','http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg','http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg', ROUND(RAND() * (250000 - 100000) + 100000, 2),'online',8);
 INSERT INTO Producto_info(Descripcion,Imagen,link,precio,Disponibilidad,categoria) VALUES ('HarperFlamingo Canada','http://images.amazon.com/images/P/0002005018.01.THUMBZZZ.jpg','http://images.amazon.com/images/P/0002005018.01.LZZZZZZZ.jpg', ROUND(RAND() * (250000 - 100000) + 100000, 2),'online',8);
 INSERT INTO Producto_info(Descripcion,Imagen,link,precio,Disponibilidad,categoria) VALUES ('HarperPerennial','http://images.amazon.com/images/P/0060973129.01.THUMBZZZ.jpg','http://images.amazon.com/images/P/0060973129.01.LZZZZZZZ.jpg', ROUND(RAND() * (250000 - 100000) + 100000, 2),'online',8);
 INSERT INTO Producto_info(Descripcion,Imagen,link,precio,Disponibilidad,categoria) VALUES ('Farrar Straus Giroux','http://images.amazon.com/images/P/0374157065.01.THUMBZZZ.jpg','http://images.amazon.com/images/P/0374157065.01.LZZZZZZZ.jpg', ROUND(RAND() * (250000 - 100000) + 100000, 2),'online',8);

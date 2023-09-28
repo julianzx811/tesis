@@ -1,5 +1,5 @@
-from django.urls import include, path
 from AImodel import views
+from django.urls import include, path
 from rest_framework import routers
 
 urlpatterns = [
@@ -17,6 +17,11 @@ urlpatterns = [
         "api/world2vec/",
         views.WordtwoVec.as_view(),
         name="word2vec",
+    ),
+    path(
+        "api/Products/",
+        views.Products.as_view(),
+        name="Products",
     ),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
