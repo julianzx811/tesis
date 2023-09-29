@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Empresa',
             fields=[
-                ('EmpresaId', models.IntegerField(primary_key=True, serialize=False)),
+                ('EmpresaId', models.AutoField(primary_key=True, serialize=False)),
                 ('Empresa_Nombre', models.CharField(max_length=255)),
                 ('link', models.CharField(max_length=1000)),
             ],
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Producto_categoria',
             fields=[
-                ('CategoriaID', models.IntegerField(primary_key=True, serialize=False)),
+                ('CategoriaID', models.AutoField(primary_key=True, serialize=False)),
                 ('Categoria', models.CharField(max_length=255)),
                 ('icono', models.CharField(max_length=255)),
             ],
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tienda',
             fields=[
-                ('TiendaId', models.IntegerField(primary_key=True, serialize=False)),
+                ('TiendaId', models.AutoField(primary_key=True, serialize=False)),
                 ('Tienda_Nombre', models.CharField(max_length=255)),
                 ('latitude', models.FloatField()),
                 ('longitude', models.FloatField()),
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Producto_info',
             fields=[
-                ('ProductInfoId', models.IntegerField(primary_key=True, serialize=False)),
+                ('ProductInfoId', models.AutoField(primary_key=True, serialize=False)),
                 ('precio', models.CharField(max_length=255)),
                 ('Disponibilidad', models.CharField(max_length=255)),
                 ('Imagen', models.CharField(max_length=255)),
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Producto',
             fields=[
-                ('ProductId', models.IntegerField(primary_key=True, serialize=False)),
+                ('ProductId', models.AutoField(primary_key=True, serialize=False)),
                 ('ProductName', models.CharField(max_length=255)),
                 ('info', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='AImodel.producto_info')),
                 ('tiendaId', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='AImodel.tienda')),

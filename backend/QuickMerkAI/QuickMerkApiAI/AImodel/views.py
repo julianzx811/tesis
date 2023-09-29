@@ -13,7 +13,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from .models import (Empresa, Producto, Producto_categoria, Producto_info,
                      Tienda)
-
+from django.core import serializers
+from .mappers import ProductToDictionary,ProductInfoToDictionary
+import json
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
 
 class usefullMethods:
     def findStringCvs(self, df, input, column):
@@ -240,8 +244,14 @@ class Products(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        Productos = Producto.objects.all()
-        return Response(Productos)
+        # Retrieve data from the Producto model
+        productos = Producto.objects.all()
+
+        # Convert the QuerySet to a list of dictionaries
+        productos_list = [model_to_dict(item) for item in productos]
+
+        # Return the data as a JSON response
+        return JsonResponse(productos_list, safe=False)
 
     def post(self, request):
         print(request)
