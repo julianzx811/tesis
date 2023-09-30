@@ -1,6 +1,11 @@
+import json
+
 import numpy as np
 import pandas as pd
 from AImodel.serializers import UserSerializer
+from django.core import serializers
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
 from rest_framework import authentication, permissions, status
@@ -11,13 +16,10 @@ from sklearn.feature_extraction.text import (CountVectorizer, TfidfTransformer,
                                              TfidfVectorizer)
 from sklearn.metrics.pairwise import cosine_similarity
 
+from .mappers import ProductInfoToDictionary, ProductToDictionary
 from .models import (Empresa, Producto, Producto_categoria, Producto_info,
                      Tienda)
-from django.core import serializers
-from .mappers import ProductToDictionary,ProductInfoToDictionary
-import json
-from django.http import JsonResponse
-from django.forms.models import model_to_dict
+
 
 class usefullMethods:
     def findStringCvs(self, df, input, column):
@@ -110,14 +112,17 @@ class CosineSimilarity(APIView):
         return recommendations
 
     def post(self, request):
-        estring = request.query_params["pelicula"]
-        df = pd.DataFrame.from_records(request.data)
-        for col in df.columns:
-            print(col)
         try:
+            estring = request.query_params["pelicula"]
+            df = pd.DataFrame.from_records(request.data)
             return Response(self.Cosine_Similarity(df, estring))
-        except Exception as error:
-            return Response(str(error))
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
 
 
 class LSAmodel(APIView):
@@ -168,13 +173,12 @@ class LSAmodel(APIView):
         return books
 
     def post(self, request):
-        estring = request.query_params["libro"]
-        df = pd.DataFrame.from_records(request.data)
         try:
+            estring = request.query_params["libro"]
+            df = pd.DataFrame.from_records(request.data)
             response = self.lsaModel(df, estring)
-        except Exception as error:
-            response = str(error)
-
+        except Exception as e:
+            response = e
         return Response(response)
 
 
@@ -230,12 +234,13 @@ class WordtwoVec(APIView):
         return books
 
     def post(self, request):
-        estring = request.query_params["libro"]
-        df = pd.DataFrame.from_records(request.data)
         try:
+            estring = request.query_params["libro"]
+            df = pd.DataFrame.from_records(request.data)
+
             response = self.wordtwovec(df, estring)
-        except Exception as error:
-            response = str(error)
+        except Exception as e:
+            response = e
         return Response(response)
 
 
@@ -244,21 +249,53 @@ class Products(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        # Retrieve data from the Producto model
-        productos = Producto.objects.all()
+        try:
+            minimo = request.query_params["minimo"]
+            maximo = request.query_params["maximo"]
+            productos = Producto.objects.all()[int(minimo) : int(maximo)]
+            productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
+            Productos = []
+            for i in range(len(productos)):
+                currentProducto = model_to_dict(productos[i])
+                currentProductoInfo = model_to_dict(productosInfo[i])
+                currentProducto.update(currentProductoInfo)
+                Productos.append(currentProducto)
 
-        # Convert the QuerySet to a list of dictionaries
-        productos_list = [model_to_dict(item) for item in productos]
-
-        # Return the data as a JSON response
-        return JsonResponse(productos_list, safe=False)
+            return JsonResponse(Productos, safe=False)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
 
     def post(self, request):
-        print(request)
         try:
             for producto in request.data:
-                print(producto)
-            return Response(status=status.is_success)
-        except Exception as error:
-            print(error)
-            return Response()
+                productinfoId = Producto_categoria.objects.get(
+                    pk=int(producto["categoria"])
+                )
+                productinfo = Producto_info(
+                    precio=producto["precio"],
+                    Disponibilidad=producto["Disponibilidad"],
+                    Imagen=producto["Imagen"],
+                    Descripcion=producto["Descripcion"],
+                    categoria=productinfoId,
+                    link=producto["link"],
+                )
+                productinfo.save()
+
+                producto = Producto(
+                    ProductName=producto["ProductName"],
+                    info=productinfo,
+                )
+                producto.save()
+                return Response(status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
