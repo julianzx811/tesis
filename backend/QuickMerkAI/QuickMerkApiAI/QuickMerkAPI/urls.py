@@ -23,5 +23,10 @@ urlpatterns = [
         views.Products.as_view(),
         name="Products",
     ),
+    path(
+        "api/Products/<int:product_id>",
+        views.Products.as_view(),
+        name="specific Products",
+    ),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

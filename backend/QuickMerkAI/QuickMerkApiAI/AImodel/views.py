@@ -252,8 +252,22 @@ class Products(APIView):
         try:
             minimo = request.query_params["minimo"]
             maximo = request.query_params["maximo"]
-            productos = Producto.objects.all()[int(minimo) : int(maximo)]
-            productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
+            # productos = Producto.objects.all()[int(minimo) : int(maximo)]
+            # productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
+            productos = Producto.objects.filter(
+                ProductId__range=(int(minimo), int(maximo))
+            ).only("ProductId", "ProductName", "info", "tiendaId")
+            productosInfo = Producto_info.objects.filter(
+                ProductInfoId__range=(int(minimo), int(maximo))
+            ).only(
+                "ProductInfoId",
+                "precio",
+                "Disponibilidad",
+                "Imagen",
+                "Descripcion",
+                "categoria",
+                "link",
+            )
             Productos = []
             for i in range(len(productos)):
                 currentProducto = model_to_dict(productos[i])
@@ -262,6 +276,22 @@ class Products(APIView):
                 Productos.append(currentProducto)
 
             return JsonResponse(Productos, safe=False)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+    def get(self, request, product_id):
+        try:
+            producto = Producto.objects.get(pk=product_id)
+            producto = model_to_dict(producto)
+            productoInfo = Producto_info.objects.get(pk=int(producto["info"]))
+            producto_info = model_to_dict(productoInfo)
+            producto.update(producto_info)
+            return Response(producto, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(
                 str(e),
@@ -292,6 +322,49 @@ class Products(APIView):
                 )
                 producto.save()
                 return Response(status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+    def delete(self, request, product_id):
+        try:
+            producto = Producto.objects.get(pk=product_id)
+            productobj = model_to_dict(producto)
+            productoInfo = Producto_info.objects.get(pk=int(productobj["info"]))
+            producto_info = model_to_dict(productoInfo)
+            productobj.update(producto_info)
+
+            productoInfo.delete()
+            producto.delete()
+
+            return Response(productobj, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+    def patch(self, request, product_id):
+        try:
+            producto = Producto.objects.get(pk=product_id)
+            infoid = model_to_dict(producto)
+            productoInfo = Producto_info.objects.get(pk=int(infoid["info"]))
+            productoInfo.precio = request.data["precio"]
+            productoInfo.Disponibilidad = request.data["Disponibilidad"]
+            productoInfo.Imagen = request.data["Imagen"]
+            productoInfo.Descripcion = request.data["Descripcion"]
+            productoInfo.link = request.data["link"]
+            productoInfo.save()
+
+            producto.ProductName = request.data["ProductName"]
+            producto.save()
+            return Response(infoid, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(
                 str(e),
