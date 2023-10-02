@@ -264,36 +264,6 @@ class Products(APIView):
                 content_type=None,
             )
 
-    def post(self, request):
-        try:
-            for producto in request.data:
-                productinfoId = Producto_categoria.objects.get(
-                    pk=int(producto["categoria"])
-                )
-                productinfo = Producto_info(
-                    precio=producto["precio"],
-                    Disponibilidad=producto["Disponibilidad"],
-                    Imagen=producto["Imagen"],
-                    Descripcion=producto["Descripcion"],
-                    categoria=productinfoId,
-                    link=producto["link"],
-                )
-                productinfo.save()
-
-                producto = Producto(
-                    ProductName=producto["ProductName"],
-                    info=productinfo,
-                )
-                producto.save()
-                return Response(status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response(
-                str(e),
-                status=status.HTTP_404_NOT_FOUND,
-                template_name=None,
-                content_type=None,
-            )
-
     def delete(self, request, product_id):
         try:
             producto = Producto.objects.get(pk=product_id)
@@ -370,6 +340,36 @@ class Product(APIView):
                 Productos.append(currentProducto)
 
             return JsonResponse(Productos, safe=False)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+    def post(self, request):
+        try:
+            for producto in request.data:
+                productinfoId = Producto_categoria.objects.get(
+                    pk=int(producto["categoria"])
+                )
+                productinfo = Producto_info(
+                    precio=producto["precio"],
+                    Disponibilidad=producto["Disponibilidad"],
+                    Imagen=producto["Imagen"],
+                    Descripcion=producto["Descripcion"],
+                    categoria=productinfoId,
+                    link=producto["link"],
+                )
+                productinfo.save()
+
+                producto = Producto(
+                    ProductName=producto["ProductName"],
+                    info=productinfo,
+                )
+                producto.save()
+                return Response(status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response(
                 str(e),
