@@ -248,42 +248,6 @@ class Products(APIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
-        try:
-            minimo = request.query_params["minimo"]
-            maximo = request.query_params["maximo"]
-            # productos = Producto.objects.all()[int(minimo) : int(maximo)]
-            # productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
-            productos = Producto.objects.filter(
-                ProductId__range=(int(minimo), int(maximo))
-            ).only("ProductId", "ProductName", "info", "tiendaId")
-            productosInfo = Producto_info.objects.filter(
-                ProductInfoId__range=(int(minimo), int(maximo))
-            ).only(
-                "ProductInfoId",
-                "precio",
-                "Disponibilidad",
-                "Imagen",
-                "Descripcion",
-                "categoria",
-                "link",
-            )
-            Productos = []
-            for i in range(len(productos)):
-                currentProducto = model_to_dict(productos[i])
-                currentProductoInfo = model_to_dict(productosInfo[i])
-                currentProducto.update(currentProductoInfo)
-                Productos.append(currentProducto)
-
-            return JsonResponse(Productos, safe=False)
-        except Exception as e:
-            return Response(
-                str(e),
-                status=status.HTTP_404_NOT_FOUND,
-                template_name=None,
-                content_type=None,
-            )
-
     def get(self, request, product_id):
         try:
             producto = Producto.objects.get(pk=product_id)
@@ -365,6 +329,47 @@ class Products(APIView):
             producto.ProductName = request.data["ProductName"]
             producto.save()
             return Response(infoid, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+
+class Product(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        try:
+            minimo = request.query_params["minimo"]
+            maximo = request.query_params["maximo"]
+            # productos = Producto.objects.all()[int(minimo) : int(maximo)]
+            # productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
+            productos = Producto.objects.filter(
+                ProductId__range=(int(minimo), int(maximo))
+            ).only("ProductId", "ProductName", "info", "tiendaId")
+            productosInfo = Producto_info.objects.filter(
+                ProductInfoId__range=(int(minimo), int(maximo))
+            ).only(
+                "ProductInfoId",
+                "precio",
+                "Disponibilidad",
+                "Imagen",
+                "Descripcion",
+                "categoria",
+                "link",
+            )
+            Productos = []
+            for i in range(len(productos)):
+                currentProducto = model_to_dict(productos[i])
+                currentProductoInfo = model_to_dict(productosInfo[i])
+                currentProducto.update(currentProductoInfo)
+                Productos.append(currentProducto)
+
+            return JsonResponse(Productos, safe=False)
         except Exception as e:
             return Response(
                 str(e),

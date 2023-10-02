@@ -19,9 +19,9 @@ urlpatterns = [
         name="word2vec",
     ),
     path(
-        "api/Products/",
-        views.Products.as_view(),
-        name="Products",
+        "api/Product/",
+        views.Product.as_view(),
+        name="specific Product",
     ),
     path(
         "api/Products/<int:product_id>",
