@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
-from rest_framework import authentication, permissions, status
+from rest_framework import authentication, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from sklearn.decomposition import TruncatedSVD
@@ -245,11 +245,70 @@ class WordtwoVec(APIView):
             return Response(str(e))
 
 
-class Products(APIView):
+class Products(viewsets.ViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request, product_id):
+    def get_likely_products(self, request):
+        try:
+            producto = request.query_params["productoName"]
+            productos = Producto.objects.filter(ProductName__contains=producto)
+            ProductosReturn = []
+            for i in productos:
+                currentProducto = model_to_dict(i)
+                print(currentProducto)
+                productinfo = Producto_info.objects.get(pk=int(currentProducto["info"]))
+                currentProductoInfo = model_to_dict(productinfo)
+                print(currentProductoInfo)
+                currentProducto.update(currentProductoInfo)
+                ProductosReturn.append(currentProducto)
+
+            return Response(ProductosReturn, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+    def list_productos(self, request):
+        try:
+            minimo = request.query_params["minimo"]
+            maximo = request.query_params["maximo"]
+            # productos = Producto.objects.all()[int(minimo) : int(maximo)]
+            # productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
+            productos = Producto.objects.filter(
+                ProductId__range=(int(minimo), int(maximo))
+            ).only("ProductId", "ProductName", "info", "tiendaId")
+            productosInfo = Producto_info.objects.filter(
+                ProductInfoId__range=(int(minimo), int(maximo))
+            ).only(
+                "ProductInfoId",
+                "precio",
+                "Disponibilidad",
+                "Imagen",
+                "Descripcion",
+                "categoria",
+                "link",
+            )
+            Productos = []
+            for i in range(len(productos)):
+                currentProducto = model_to_dict(productos[i])
+                currentProductoInfo = model_to_dict(productosInfo[i])
+                currentProducto.update(currentProductoInfo)
+                Productos.append(currentProducto)
+
+            return JsonResponse(Productos, safe=False)
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+    def retrieve_producto(self, request, product_id):
         try:
             producto = Producto.objects.get(pk=product_id)
             producto = model_to_dict(producto)
@@ -300,47 +359,6 @@ class Products(APIView):
             producto.ProductName = request.data["ProductName"]
             producto.save()
             return Response(infoid, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response(
-                str(e),
-                status=status.HTTP_404_NOT_FOUND,
-                template_name=None,
-                content_type=None,
-            )
-
-
-class Product(APIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        try:
-            minimo = request.query_params["minimo"]
-            maximo = request.query_params["maximo"]
-            # productos = Producto.objects.all()[int(minimo) : int(maximo)]
-            # productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
-            productos = Producto.objects.filter(
-                ProductId__range=(int(minimo), int(maximo))
-            ).only("ProductId", "ProductName", "info", "tiendaId")
-            productosInfo = Producto_info.objects.filter(
-                ProductInfoId__range=(int(minimo), int(maximo))
-            ).only(
-                "ProductInfoId",
-                "precio",
-                "Disponibilidad",
-                "Imagen",
-                "Descripcion",
-                "categoria",
-                "link",
-            )
-            Productos = []
-            for i in range(len(productos)):
-                currentProducto = model_to_dict(productos[i])
-                currentProductoInfo = model_to_dict(productosInfo[i])
-                currentProducto.update(currentProductoInfo)
-                Productos.append(currentProducto)
-
-            return JsonResponse(Productos, safe=False)
         except Exception as e:
             return Response(
                 str(e),
