@@ -70,7 +70,7 @@ class CosineSimilarity(APIView):
     methods = usefullMethods()
 
     def Cosine_Similarity(self, df, input):
-        df = df.drop_duplicates(subset="Book-Title")
+        df = df.drop_duplicates(subset="ProductName")
 
         sample_size = 50
         df = df.sample(n=sample_size, replace=False, random_state=490)
@@ -78,42 +78,56 @@ class CosineSimilarity(APIView):
         df = df.reset_index()
         df = df.drop("index", axis=1)
 
-        df["Book-Author"] = df["Book-Author"].apply(self.methods.clean_text)
+        df["ProductName"] = df["ProductName"].apply(self.methods.clean_text)
 
-        df["Book-Title"] = df["Book-Title"].str.lower()
-        df["Publisher"] = df["Publisher"].str.lower()
+        df["Descripcion"] = df["Descripcion"].str.lower()
+        df["categoria"] = df["categoria"].str.lower()
 
-        df2 = df.drop(
-            [
-                "ISBN",
-                "Image-URL-S",
-                "Image-URL-M",
-                "Image-URL-L",
-                "Year-Of-Publication",
-            ],
-            axis=1,
-        )  # so we get the 3 variables “Book-Title,” “Book-Author,” and “Publisher”
+        df2 = df[["ProductName", "Descripcion", "categoria"]]
 
-        df2["data"] = df2[df2.columns[1:]].apply(
-            lambda x: " ".join(x.dropna().astype(str)), axis=1
-        )
-
+        # Combine the selected columns into a new 'data' column
+        df2["data"] = df2.apply(lambda x: " ".join(x.dropna().astype(str)), axis=1)
         vectorizer = CountVectorizer()
         vectorized = vectorizer.fit_transform(df2["data"])
         similarities = cosine_similarity(vectorized)
 
-        df = pd.DataFrame(
-            similarities, columns=df["Book-Title"], index=df["Book-Title"]
+        df_similarities = pd.DataFrame(
+            similarities, columns=df["ProductName"], index=df["ProductName"]
         ).reset_index()
 
-        input_book = self.methods.findStringCvs(df, input, "Book-Title")
-        recommendations = pd.DataFrame(df.nlargest(11, input_book)["Book-Title"])
-        recommendations = recommendations[recommendations["Book-Title"] != input_book]
-        return recommendations
+        input_book = self.methods.findStringCvs(df_similarities, input, "ProductName")
+
+        # Get recommendations as a DataFrame including all columns
+        recommendations = df[
+            df["ProductName"].isin(
+                df_similarities.nlargest(11, input_book)["ProductName"]
+            )
+        ]
+
+        # Filter out the input product
+        recommendations = recommendations[recommendations["ProductName"] != input]
+
+        objetos = []
+
+        # Iterar a través de las filas del DataFrame recommendations
+        for index, row in recommendations.iterrows():
+            # Crear un objeto para cada fila y establecer los atributos correspondientes
+            objeto = {
+                "ISBN": row["ISBN"],
+                "ProductName": row["ProductName"],
+                "categoria": row["categoria"],
+                "Year-Of-Publication": row["Year-Of-Publication"],
+                "Descripcion": row["Descripcion"],
+                # Agregar otros atributos aquí según sea necesario
+            }
+            # Agregar el objeto a la lista de objetos
+            objetos.append(objeto)
+
+        return objetos
 
     def post(self, request):
         try:
-            estring = request.query_params["pelicula"]
+            estring = request.query_params["producto"]
             df = pd.DataFrame.from_records(request.data)
             return Response(self.Cosine_Similarity(df, estring))
         except Exception as e:
@@ -132,18 +146,11 @@ class LSAmodel(APIView):
 
     def lsaModel(self, df, input):
         df["content"] = (
-            df["Title"].astype(str)
+            df["ProductName"].astype(str)
             + " "
-            + df["Runtime (Minutes)"].astype(str)
+            + df["categoria"].astype(str)
             + " "
-            + df["Genre"]
-            + " "
-            + df["Director"]
-            + " "
-            + df["Rating"].astype(str)
-            + " "
-            + df["Votes"].astype(str)
-            + df["Actors"].astype(str)
+            + df["Descripcion"].astype(str)
         )
         df["content"] = df["content"].fillna("")
 
@@ -157,8 +164,8 @@ class LSAmodel(APIView):
         lsa.fit(tfidf)
 
         user_movie = input
-        user_movie = self.methods.findStringCvs(df, user_movie, "Title")
-        movie_index = df[df["Title"] == user_movie].index[0]
+        user_movie = self.methods.findStringCvs(df, user_movie, "ProductName")
+        movie_index = df[df["ProductName"] == user_movie].index[0]
 
         similarity_scores = cosine_similarity(tfidf[movie_index], tfidf)
 
@@ -166,20 +173,21 @@ class LSAmodel(APIView):
         sorted_similar_movies = sorted(
             similar_movies, key=lambda x: x[1], reverse=True
         )[1:20]
-
-        books = []
-        for i, score in sorted_similar_movies:
-            books.append("{}: {}".format(i, df.loc[i, "Title"]))
-        return books
+        products = []
+        columnas = ["ProductName", "Descripcion", "categoria"]
+        for row_index, score in sorted_similar_movies:
+            product_info = df.iloc[row_index][columnas].fillna("")
+            products.append(product_info)
+        return products
 
     def post(self, request):
         try:
-            estring = request.query_params["libro"]
+            estring = request.query_params["producto"]
             df = pd.DataFrame.from_records(request.data)
-            response = self.lsaModel(df, estring)
+            return Response(self.lsaModel(df, estring))
         except Exception as e:
-            response = e
-        return Response(response)
+            print(e)
+            return Response(str(e))
 
 
 class WordtwoVec(APIView):
@@ -188,18 +196,11 @@ class WordtwoVec(APIView):
     def wordtwovec(self, df, input):
         # Combine movie name and tags into a single string
         df["content"] = (
-            df["Title"].astype(str)
+            df["ProductName"].astype(str)
             + " "
-            + df["Runtime (Minutes)"].astype(str)
+            + df["categoria"].astype(str)
             + " "
-            + df["Genre"]
-            + " "
-            + df["Director"]
-            + " "
-            + df["Rating"].astype(str)
-            + " "
-            + df["Votes"].astype(str)
-            + df["Actors"].astype(str)
+            + df["Descripcion"].astype(str)
         )
         df["content"] = df["content"].fillna("")
 
@@ -217,8 +218,8 @@ class WordtwoVec(APIView):
         )
 
         user_movie = input
-        user_movie = self.methods.findStringCvs(df, user_movie, "Title")
-        movie_index = df[df["Title"] == user_movie].index[0]
+        user_movie = self.methods.findStringCvs(df, user_movie, "ProductName")
+        movie_index = df[df["ProductName"] == user_movie].index[0]
 
         user_movie_vector = w2v_feature_array[movie_index].reshape(1, -1)
         similarity_scores = cosine_similarity(user_movie_vector, w2v_feature_array)
@@ -227,21 +228,21 @@ class WordtwoVec(APIView):
         sorted_similar_movies = sorted(
             similar_movies, key=lambda x: x[1], reverse=True
         )[1:20]
+        products = []
+        columnas = ["ProductName", "Descripcion", "categoria"]
+        for row_index, score in sorted_similar_movies:
+            product_info = df.iloc[row_index][columnas].fillna("")
+            products.append(product_info)
 
-        books = []
-        for i, score in sorted_similar_movies:
-            books.append("{}: {}".format(i, df.loc[i, "Title"]))
-        return books
+        return products
 
     def post(self, request):
         try:
-            estring = request.query_params["libro"]
+            estring = request.query_params["producto"]
             df = pd.DataFrame.from_records(request.data)
-
-            response = self.wordtwovec(df, estring)
+            return Response(self.wordtwovec(df, estring))
         except Exception as e:
-            response = e
-        return Response(response)
+            return Response(str(e))
 
 
 class Products(APIView):
