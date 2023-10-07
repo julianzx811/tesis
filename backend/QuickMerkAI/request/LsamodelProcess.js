@@ -1,19 +1,5 @@
-
-[
-    {
-        "Rank": "1",
-        "Title": "Guardians of the Galaxy",
-        "Genre": "Action,Adventure,Sci-Fi",
-        "Description": "A group of intergalactic criminals are forced to work together to stop a fanatical warrior from taking control of the universe.",
-        "Director": "James Gunn",
-        "Actors": "Chris Pratt, Vin Diesel, Bradley Cooper, Zoe Saldana",
-        "Year": "2014",
-        "Runtime (Minutes)": "121",
-        "Rating": "8.1",
-        "Votes": "757074",
-        "Revenue (Millions)": "333.13",
-        "Metascore": "76"
-    },
+var request =[
+   
     {
         "Rank": "2",
         "Title": "Prometheus",
@@ -1623,5 +1609,34 @@
     "IMDbVotes": 50359,
     "BoxOfficeEarnings": 1.33,
     "Metascore": 51
-  }
+  },
+ {
+    "ProductName": "Guardians of the Galaxy",
+    "categoria": "Action,Adventure,Sci-Fi",
+    "Descripcion": "A group of intergalactic criminals are forced to work together to stop a fanatical warrior from taking control of the universe.",
+    "link": "James Gunn",
+    "Imagen": "Chris Pratt, Vin Diesel, Bradley Cooper, Zoe Saldana",
+    "precio": "333.13",
+}
 ]
+
+for (var i = 0; i < request.length; i++) {
+    // Revertir los cambios de atributos en cada objeto
+    request[i]["ProductName"] = request[i]["Title"];
+    request[i]["categoria"] = request[i]["Genres"];
+    request[i]["Descripcion"] = request[i]["Description"];
+    request[i]["precio"] = request[i]["Revenue (Millions)"];
+    request[i]["link"] = request[i]["Director"];
+    request[i]["Imagen"] = request[i]["Actors"];
+    
+    // Eliminar los atributos con los nombres antiguos
+    delete request[i]["Title"];
+    delete request[i]["Genres"];
+    delete request[i]["Description"];
+    delete request[i]["Revenue (Millions)"];
+    delete request[i]["Director"];
+    delete request[i]["Actors"];
+}
+var jsonString = JSON.stringify(request, null, 2)
+    .replace(/"([^"]+)":/g, '"$1":');
+console.log(jsonString);

@@ -23,5 +23,5 @@ urlpatterns = [
     ),
     path(r"api/Products/", product_list, name="user-list"),
     path(r"api/Products/<int:product_id>/", product_detail, name="user-detail"),
-    path(r"api/Products/like/", get_likely_products, name="user-detail"),
+    # path(r"api/Products/like/", get_likely_products, name="user-detail"),
 ]

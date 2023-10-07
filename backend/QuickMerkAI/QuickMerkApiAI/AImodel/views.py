@@ -21,237 +21,12 @@ from .models import (Empresa, Producto, Producto_categoria, Producto_info,
                      Tienda)
 
 
-class usefullMethods:
-    def findStringCvs(self, df, input, column):
-        tfidf_vectorizer = TfidfVectorizer()
-        tfidf_matrix = tfidf_vectorizer.fit_transform(df[column])
-
-        user_input = input
-        user_input_vector = tfidf_vectorizer.transform([user_input])
-
-        similarities = cosine_similarity(user_input_vector, tfidf_matrix)
-
-        most_similar_index = similarities.argmax()
-        row = df.iloc[[most_similar_index]]
-        return row[column].values[0]
-
-    def clean_text(self, author):
-        result = str(author).lower()
-        return result.replace(" ", "")
-
-    def average_word_vectors(self, words, model, vocabulary, num_features):
-        feature_vector = np.zeros((num_features,), dtype="float64")
-        nwords = 0.0
-
-        for word in words:
-            if word in vocabulary:
-                nwords = nwords + 1.0
-                feature_vector = np.add(feature_vector, model.wv[word])
-
-            if nwords:
-                feature_vector = np.divide(feature_vector, nwords)
-
-        return feature_vector
-
-    def averaged_word_vectorizer(self, corpus, model, num_features):
-        vocabulary = set(model.wv.index_to_key)
-        features = [
-            self.average_word_vectors(
-                tokenized_sentence, model, vocabulary, num_features
-            )
-            for tokenized_sentence in corpus
-        ]
-        return np.array(features)
-
-
-class CosineSimilarity(APIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    methods = usefullMethods()
-
-    def Cosine_Similarity(self, df, input):
-        df = df.drop_duplicates(subset="ProductName")
-
-        sample_size = 50
-        df = df.sample(n=sample_size, replace=False, random_state=490)
-
-        df = df.reset_index()
-        df = df.drop("index", axis=1)
-
-        df["ProductName"] = df["ProductName"].apply(self.methods.clean_text)
-
-        df["Descripcion"] = df["Descripcion"].str.lower()
-        df["categoria"] = df["categoria"].str.lower()
-
-        df2 = df[["ProductName", "Descripcion", "categoria"]]
-
-        # Combine the selected columns into a new 'data' column
-        df2["data"] = df2.apply(lambda x: " ".join(x.dropna().astype(str)), axis=1)
-        vectorizer = CountVectorizer()
-        vectorized = vectorizer.fit_transform(df2["data"])
-        similarities = cosine_similarity(vectorized)
-
-        df_similarities = pd.DataFrame(
-            similarities, columns=df["ProductName"], index=df["ProductName"]
-        ).reset_index()
-
-        input_book = self.methods.findStringCvs(df_similarities, input, "ProductName")
-
-        # Get recommendations as a DataFrame including all columns
-        recommendations = df[
-            df["ProductName"].isin(
-                df_similarities.nlargest(11, input_book)["ProductName"]
-            )
-        ]
-
-        # Filter out the input product
-        recommendations = recommendations[recommendations["ProductName"] != input]
-
-        objetos = []
-
-        # Iterar a través de las filas del DataFrame recommendations
-        for index, row in recommendations.iterrows():
-            # Crear un objeto para cada fila y establecer los atributos correspondientes
-            objeto = {
-                "ISBN": row["ISBN"],
-                "ProductName": row["ProductName"],
-                "categoria": row["categoria"],
-                "Year-Of-Publication": row["Year-Of-Publication"],
-                "Descripcion": row["Descripcion"],
-                # Agregar otros atributos aquí según sea necesario
-            }
-            # Agregar el objeto a la lista de objetos
-            objetos.append(objeto)
-
-        return objetos
-
-    def post(self, request):
-        try:
-            estring = request.query_params["producto"]
-            df = pd.DataFrame.from_records(request.data)
-            return Response(self.Cosine_Similarity(df, estring))
-        except Exception as e:
-            return Response(
-                str(e),
-                status=status.HTTP_404_NOT_FOUND,
-                template_name=None,
-                content_type=None,
-            )
-
-
-class LSAmodel(APIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    methods = usefullMethods()
-
-    def lsaModel(self, df, input):
-        df["content"] = (
-            df["ProductName"].astype(str)
-            + " "
-            + df["categoria"].astype(str)
-            + " "
-            + df["Descripcion"].astype(str)
-        )
-        df["content"] = df["content"].fillna("")
-
-        vectorizer = CountVectorizer()
-        bow = vectorizer.fit_transform(df["content"])
-
-        tfidf_transformer = TfidfTransformer()
-        tfidf = tfidf_transformer.fit_transform(bow)
-
-        lsa = TruncatedSVD(n_components=100, algorithm="arpack")
-        lsa.fit(tfidf)
-
-        user_movie = input
-        user_movie = self.methods.findStringCvs(df, user_movie, "ProductName")
-        movie_index = df[df["ProductName"] == user_movie].index[0]
-
-        similarity_scores = cosine_similarity(tfidf[movie_index], tfidf)
-
-        similar_movies = list(enumerate(similarity_scores[0]))
-        sorted_similar_movies = sorted(
-            similar_movies, key=lambda x: x[1], reverse=True
-        )[1:20]
-        products = []
-        columnas = ["ProductName", "Descripcion", "categoria"]
-        for row_index, score in sorted_similar_movies:
-            product_info = df.iloc[row_index][columnas].fillna("")
-            products.append(product_info)
-        return products
-
-    def post(self, request):
-        try:
-            estring = request.query_params["producto"]
-            df = pd.DataFrame.from_records(request.data)
-            return Response(self.lsaModel(df, estring))
-        except Exception as e:
-            print(e)
-            return Response(str(e))
-
-
-class WordtwoVec(APIView):
-    methods = usefullMethods()
-
-    def wordtwovec(self, df, input):
-        # Combine movie name and tags into a single string
-        df["content"] = (
-            df["ProductName"].astype(str)
-            + " "
-            + df["categoria"].astype(str)
-            + " "
-            + df["Descripcion"].astype(str)
-        )
-        df["content"] = df["content"].fillna("")
-
-        df["tokenized_content"] = df["content"].apply(simple_preprocess)
-        model = Word2Vec(vector_size=100, window=5, min_count=1, workers=4)
-
-        model.build_vocab(df["tokenized_content"])
-
-        model.train(
-            df["tokenized_content"], total_examples=model.corpus_count, epochs=10
-        )
-
-        w2v_feature_array = self.methods.averaged_word_vectorizer(
-            corpus=df["tokenized_content"], model=model, num_features=100
-        )
-
-        user_movie = input
-        user_movie = self.methods.findStringCvs(df, user_movie, "ProductName")
-        movie_index = df[df["ProductName"] == user_movie].index[0]
-
-        user_movie_vector = w2v_feature_array[movie_index].reshape(1, -1)
-        similarity_scores = cosine_similarity(user_movie_vector, w2v_feature_array)
-
-        similar_movies = list(enumerate(similarity_scores[0]))
-        sorted_similar_movies = sorted(
-            similar_movies, key=lambda x: x[1], reverse=True
-        )[1:20]
-        products = []
-        columnas = ["ProductName", "Descripcion", "categoria"]
-        for row_index, score in sorted_similar_movies:
-            product_info = df.iloc[row_index][columnas].fillna("")
-            products.append(product_info)
-
-        return products
-
-    def post(self, request):
-        try:
-            estring = request.query_params["producto"]
-            df = pd.DataFrame.from_records(request.data)
-            return Response(self.wordtwovec(df, estring))
-        except Exception as e:
-            return Response(str(e))
-
-
 class Products(viewsets.ViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_likely_products(self, request):
+    def get_likely_products(self, producto):
         try:
-            producto = request.query_params["productoName"]
             productos = Producto.objects.filter(ProductName__contains=producto)
             ProductosReturn = []
             for i in productos:
@@ -375,7 +150,7 @@ class Products(viewsets.ViewSet):
                 )
                 productinfo = Producto_info(
                     precio=producto["precio"],
-                    Disponibilidad=producto["Disponibilidad"],
+                    Disponibilidad=get_likely_productsproducto["Disponibilidad"],
                     Imagen=producto["Imagen"],
                     Descripcion=producto["Descripcion"],
                     categoria=productinfoId,
@@ -396,3 +171,236 @@ class Products(viewsets.ViewSet):
                 template_name=None,
                 content_type=None,
             )
+
+
+class usefullMethods:
+    def findStringCvs(self, df, input, column):
+        tfidf_vectorizer = TfidfVectorizer()
+        tfidf_matrix = tfidf_vectorizer.fit_transform(df[column])
+
+        user_input = input
+        user_input_vector = tfidf_vectorizer.transform([user_input])
+
+        similarities = cosine_similarity(user_input_vector, tfidf_matrix)
+
+        most_similar_index = similarities.argmax()
+        row = df.iloc[[most_similar_index]]
+        return row[column].values[0]
+
+    def clean_text(self, author):
+        result = str(author).lower()
+        return result.replace(" ", "")
+
+    def average_word_vectors(self, words, model, vocabulary, num_features):
+        feature_vector = np.zeros((num_features,), dtype="float64")
+        nwords = 0.0
+
+        for word in words:
+            if word in vocabulary:
+                nwords = nwords + 1.0
+                feature_vector = np.add(feature_vector, model.wv[word])
+
+            if nwords:
+                feature_vector = np.divide(feature_vector, nwords)
+
+        return feature_vector
+
+    def averaged_word_vectorizer(self, corpus, model, num_features):
+        vocabulary = set(model.wv.index_to_key)
+        features = [
+            self.average_word_vectors(
+                tokenized_sentence, model, vocabulary, num_features
+            )
+            for tokenized_sentence in corpus
+        ]
+        return np.array(features)
+
+
+class CosineSimilarity(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    producto = Products()
+
+    methods = usefullMethods()
+
+    def Cosine_Similarity(self, df, input):
+        productos = self.producto.get_likely_products(input)
+
+        df = df.drop_duplicates(subset="ProductName")
+
+        sample_size = 50
+        df = df.sample(n=sample_size, replace=False, random_state=490)
+
+        df = df.reset_index()
+        df = df.drop("index", axis=1)
+
+        df["ProductName"] = df["ProductName"].apply(self.methods.clean_text)
+
+        df["Descripcion"] = df["Descripcion"].str.lower()
+        df["categoria"] = df["categoria"].str.lower()
+
+        df2 = df[["ProductName", "Descripcion", "categoria"]]
+
+        # Combine the selected columns into a new 'data' column
+        df2["data"] = df2.apply(lambda x: " ".join(x.dropna().astype(str)), axis=1)
+        vectorizer = CountVectorizer()
+        vectorized = vectorizer.fit_transform(df2["data"])
+        similarities = cosine_similarity(vectorized)
+
+        df_similarities = pd.DataFrame(
+            similarities, columns=df["ProductName"], index=df["ProductName"]
+        ).reset_index()
+
+        input_book = self.methods.findStringCvs(df_similarities, input, "ProductName")
+
+        # Get recommendations as a DataFrame including all columns
+        recommendations = df[
+            df["ProductName"].isin(
+                df_similarities.nlargest(11, input_book)["ProductName"]
+            )
+        ]
+
+        # Filter out the input product
+        recommendations = recommendations[recommendations["ProductName"] != input]
+
+        objetos = []
+
+        # Iterar a través de las filas del DataFrame recommendations
+        for index, row in recommendations.iterrows():
+            # Crear un objeto para cada fila y establecer los atributos correspondientes
+            objeto = {
+                "precio": row["precio"],
+                "ProductName": row["ProductName"],
+                "categoria": row["categoria"],
+                "Year-Of-Publication": row["Year-Of-Publication"],
+                "Descripcion": row["Descripcion"],
+                # Agregar otros atributos aquí según sea necesario
+            }
+            # Agregar el objeto a la lista de objetos
+            objetos.append(objeto)
+
+        return objetos
+
+    def post(self, request):
+        try:
+            estring = request.query_params["producto"]
+            df = pd.DataFrame.from_records(request.data)
+            return Response(self.Cosine_Similarity(df, estring))
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_404_NOT_FOUND,
+                template_name=None,
+                content_type=None,
+            )
+
+
+class LSAmodel(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    producto = Products()
+    methods = usefullMethods()
+
+    def lsaModel(self, df, input):
+        productos = self.producto.get_likely_products(input)
+        df["content"] = (
+            df["ProductName"].astype(str)
+            + " "
+            + df["categoria"].astype(str)
+            + " "
+            + df["Descripcion"].astype(str)
+        )
+        df["content"] = df["content"].fillna("")
+
+        vectorizer = CountVectorizer()
+        bow = vectorizer.fit_transform(df["content"])
+
+        tfidf_transformer = TfidfTransformer()
+        tfidf = tfidf_transformer.fit_transform(bow)
+
+        lsa = TruncatedSVD(n_components=100, algorithm="arpack")
+        lsa.fit(tfidf)
+
+        user_movie = input
+        user_movie = self.methods.findStringCvs(df, user_movie, "ProductName")
+        movie_index = df[df["ProductName"] == user_movie].index[0]
+
+        similarity_scores = cosine_similarity(tfidf[movie_index], tfidf)
+
+        similar_movies = list(enumerate(similarity_scores[0]))
+        sorted_similar_movies = sorted(
+            similar_movies, key=lambda x: x[1], reverse=True
+        )[1:20]
+        products = []
+        columnas = ["ProductName", "Descripcion", "categoria"]
+        for row_index, score in sorted_similar_movies:
+            product_info = df.iloc[row_index][columnas].fillna("")
+            products.append(product_info)
+        return products
+
+    def post(self, request):
+        try:
+            estring = request.query_params["producto"]
+            df = pd.DataFrame.from_records(request.data)
+            return Response(self.lsaModel(df, estring))
+        except Exception as e:
+            print(e)
+            return Response(str(e))
+
+
+class WordtwoVec(APIView):
+    methods = usefullMethods()
+    producto = Products()
+
+    def wordtwovec(self, df, input):
+        productos = self.producto.get_likely_products(input)
+
+        # Combine movie name and tags into a single string
+        df["content"] = (
+            df["ProductName"].astype(str)
+            + " "
+            + df["categoria"].astype(str)
+            + " "
+            + df["Descripcion"].astype(str)
+        )
+        df["content"] = df["content"].fillna("")
+
+        df["tokenized_content"] = df["content"].apply(simple_preprocess)
+        model = Word2Vec(vector_size=100, window=5, min_count=1, workers=4)
+
+        model.build_vocab(df["tokenized_content"])
+
+        model.train(
+            df["tokenized_content"], total_examples=model.corpus_count, epochs=10
+        )
+
+        w2v_feature_array = self.methods.averaged_word_vectorizer(
+            corpus=df["tokenized_content"], model=model, num_features=100
+        )
+
+        user_movie = input
+        user_movie = self.methods.findStringCvs(df, user_movie, "ProductName")
+        movie_index = df[df["ProductName"] == user_movie].index[0]
+
+        user_movie_vector = w2v_feature_array[movie_index].reshape(1, -1)
+        similarity_scores = cosine_similarity(user_movie_vector, w2v_feature_array)
+
+        similar_movies = list(enumerate(similarity_scores[0]))
+        sorted_similar_movies = sorted(
+            similar_movies, key=lambda x: x[1], reverse=True
+        )[1:20]
+        products = []
+        columnas = ["ProductName", "Descripcion", "categoria"]
+        for row_index, score in sorted_similar_movies:
+            product_info = df.iloc[row_index][columnas].fillna("")
+            products.append(product_info)
+
+        return products
+
+    def post(self, request):
+        try:
+            estring = request.query_params["producto"]
+            df = pd.DataFrame.from_records(request.data)
+            return Response(self.wordtwovec(df, estring))
+        except Exception as e:
+            return Response(str(e))
