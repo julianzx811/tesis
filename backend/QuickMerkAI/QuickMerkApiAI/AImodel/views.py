@@ -150,7 +150,7 @@ class Products(viewsets.ViewSet):
                 )
                 productinfo = Producto_info(
                     precio=producto["precio"],
-                    Disponibilidad=get_likely_productsproducto["Disponibilidad"],
+                    Disponibilidad=self.get_likely_products["Disponibilidad"],
                     Imagen=producto["Imagen"],
                     Descripcion=producto["Descripcion"],
                     categoria=productinfoId,
@@ -272,7 +272,7 @@ class CosineSimilarity(APIView):
                 "precio": row["precio"],
                 "ProductName": row["ProductName"],
                 "categoria": row["categoria"],
-                "Year-Of-Publication": row["Year-Of-Publication"],
+                "link": row["link"],
                 "Descripcion": row["Descripcion"],
                 # Agregar otros atributos aquí según sea necesario
             }
@@ -404,3 +404,4 @@ class WordtwoVec(APIView):
             return Response(self.wordtwovec(df, estring))
         except Exception as e:
             return Response(str(e))
+   
