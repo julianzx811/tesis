@@ -11,7 +11,8 @@ class CosineSimilarity:
 
     def Cosine_Similarity(self, df, input):
         productos = self.products.get_likely_products(input)
-
+        df2 = pd.DataFrame(productos)
+        df = pd.concat([df, df2], ignore_index=True)
         df = df.drop_duplicates(subset="ProductName")
 
         sample_size = 50

@@ -4,15 +4,30 @@ from django.forms.models import model_to_dict
 
 class ProductsRepository:
     def get_likely_products(self, producto):
-        productos = Producto.objects.filter(ProductName__contains=producto)
+        productos = Producto.objects.filter(ProductName__contains=producto).only(
+            "ProductName", "info"
+        )
         ProductosReturn = []
         for i in productos:
             currentProducto = model_to_dict(i)
-            print(currentProducto)
-            productinfo = Producto_info.objects.get(pk=int(currentProducto["info"]))
+
+            productinfo = (
+                Producto_info.objects.filter(pk=int(currentProducto["info"]))
+                .only(
+                    "Disponibilidad",
+                    "Descripcion",
+                    "precio",
+                    "link",
+                    "Imagen",
+                )
+                .get()
+            )
             currentProductoInfo = model_to_dict(productinfo)
-            print(currentProductoInfo)
             currentProducto.update(currentProductoInfo)
+            del currentProducto["ProductId"]
+            del currentProducto["info"]
+            del currentProducto["ProductInfoId"]
+            del currentProducto["tiendaId"]
             ProductosReturn.append(currentProducto)
 
         return ProductosReturn

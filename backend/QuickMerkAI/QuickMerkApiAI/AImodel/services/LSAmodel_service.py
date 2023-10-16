@@ -14,6 +14,8 @@ class LSAmodel:
 
     def lsaModel(self, df, input):
         productos = self.repository.get_likely_products(input)
+        df2 = pd.DataFrame(productos)
+        df = pd.concat([df, df2], ignore_index=True)
         df["content"] = (
             df["ProductName"].astype(str)
             + " "
