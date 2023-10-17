@@ -3,8 +3,8 @@ from django.urls import include, path
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import routers
 
-product_list = views.Products.as_view({"get": "list_productos"})
-product_detail = views.Products.as_view({"get": "retrieve_producto"})
+product_list = views.Products.as_view({"get": "list_productos", "post": "post"})
+product_detail = views.Products.as_view({"get": "retrieve_producto", "patch": "patch"})
 get_likely_products = views.Products.as_view({"get": "get_likely_products"})
 cosine_similarity = views.AImodel.as_view({"post": "list_coseno"})
 lSAmodel = views.AImodel.as_view({"post": "list_LSAmodel"})

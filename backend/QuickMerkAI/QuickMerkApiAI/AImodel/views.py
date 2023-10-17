@@ -72,6 +72,36 @@ class Products(viewsets.ViewSet):
                 content_type=None,
             )
 
+    def post(self, request):
+        try:
+            return Response(
+                self.servicios.post(request),
+                status=status.HTTP_201_CREATED,
+            )
+        except Exception as error:
+            print(error)
+            return Response(
+                "algo salio mal",
+                status=status.HTTP_400_BAD_REQUEST,
+                template_name=None,
+                content_type=None,
+            )
+
+    def patch(self, request, product_id):
+        try:
+            return Response(
+                self.servicios.patch(request, product_id),
+                status=status.HTTP_200_OK,
+            )
+        except Exception as error:
+            print(error)
+            return Response(
+                "algo salio mal",
+                status=status.HTTP_400_BAD_REQUEST,
+                template_name=None,
+                content_type=None,
+            )
+
 
 class AImodel(viewsets.ViewSet):
     serializer_class = UserSerializer

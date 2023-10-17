@@ -114,7 +114,7 @@ class ProductsRepository:
                 info=productinfo,
             )
             producto.save()
-            return None
+            return model_to_dict(productinfo).update(model_to_dict(producto))
 
     def GetProductsCategory(self, categoria_id):
         productosquery = Producto_info.objects.filter(categoria=categoria_id)
