@@ -13,15 +13,16 @@ class Products(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
     servicios = ProductService()
 
-    def get_likely_products(self, producto):
+    def get_likely_products(self, request):
         try:
             return Response(
-                ProductService.get_likely_products(producto),
-                status=status.HTTP_201_CREATED,
+                self.servicios.get_likely_products(request),
+                status=status.HTTP_200_OK,
             )
         except Exception as error:
+            print(error)
             return Response(
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_400_BAD_REQUEST,
                 template_name=None,
                 content_type=None,
             )
@@ -30,7 +31,22 @@ class Products(viewsets.ViewSet):
         try:
             return Response(
                 self.servicios.list_productos(request),
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK,
+            )
+        except Exception as error:
+            print(error)
+            return Response(
+                "algo salio mal",
+                status=status.HTTP_400_BAD_REQUEST,
+                template_name=None,
+                content_type=None,
+            )
+
+    def retrieve_producto(self, request, product_id):
+        try:
+            return Response(
+                self.servicios.retrieve_producto(product_id),
+                status=status.HTTP_200_OK,
             )
         except Exception as error:
             print(error)
@@ -41,17 +57,17 @@ class Products(viewsets.ViewSet):
                 content_type=None,
             )
 
-    def retrieve_producto(self, request, product_id):
+    def GetProductsCategory(self, request, categoria_id):
         try:
             return Response(
-                self.servicios.retrieve_producto(product_id),
-                status=status.HTTP_201_CREATED,
+                self.servicios.GetProductsCategory(categoria_id),
+                status=status.HTTP_200_OK,
             )
         except Exception as error:
             print(error)
             return Response(
                 "algo salio mal",
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_400_BAD_REQUEST,
                 template_name=None,
                 content_type=None,
             )
@@ -66,13 +82,13 @@ class AImodel(viewsets.ViewSet):
         try:
             return Response(
                 servicios.post(request),
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK,
             )
         except Exception as error:
             print(error)
             return Response(
                 "algo salio mal",
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_400_BAD_REQUEST,
                 template_name=None,
                 content_type=None,
             )
@@ -82,13 +98,13 @@ class AImodel(viewsets.ViewSet):
             servicios = LSAmodel()
             return Response(
                 servicios.post(request),
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK,
             )
         except Exception as error:
             print(error)
             return Response(
                 "algo salio mal",
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_400_BAD_REQUEST,
                 template_name=None,
                 content_type=None,
             )
@@ -98,13 +114,13 @@ class AImodel(viewsets.ViewSet):
             servicios = WordtwoVec()
             return Response(
                 servicios.post(request),
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK,
             )
         except Exception as error:
             print(error)
             return Response(
                 "algo salio mal",
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_400_BAD_REQUEST,
                 template_name=None,
                 content_type=None,
             )

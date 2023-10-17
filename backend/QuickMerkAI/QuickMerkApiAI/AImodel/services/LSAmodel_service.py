@@ -45,9 +45,17 @@ class LSAmodel:
             similar_movies, key=lambda x: x[1], reverse=True
         )[1:20]
         products = []
-        columnas = ["ProductName", "Descripcion", "categoria"]
         for row_index, score in sorted_similar_movies:
-            product_info = df.iloc[row_index][columnas].fillna("")
+            print(score)
+            product_info = {}
+            product_info["ProductName"] = df.iloc[row_index]["ProductName"]
+            product_info["Descripcion"] = df.iloc[row_index]["Descripcion"]
+            product_info["categoria"] = df.iloc[row_index]["categoria"]
+            product_info["Disponibilidad"] = df.iloc[row_index]["Disponibilidad"]
+            product_info["link"] = df.iloc[row_index]["link"]
+            product_info["Imagen"] = df.iloc[row_index]["Imagen"]
+            product_info["precio"] = df.iloc[row_index]["precio"]
+
             products.append(product_info)
         return products
 

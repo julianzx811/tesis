@@ -61,7 +61,8 @@ class CosineSimilarity:
                 "categoria": row["categoria"],
                 "link": row["link"],
                 "Descripcion": row["Descripcion"],
-                # Agregar otros atributos aquí según sea necesario
+                "categoria": row["categoria"],
+                "Imagen": row["Imagen"],
             }
             # Agregar el objeto a la lista de objetos
             objetos.append(objeto)

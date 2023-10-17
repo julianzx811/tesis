@@ -32,9 +32,7 @@ class ProductsRepository:
 
         return ProductosReturn
 
-    def list_productos(self, request):
-        minimo = request.query_params["minimo"]
-        maximo = request.query_params["maximo"]
+    def list_productos(self, minimo, maximo):
         # productos = Producto.objects.all()[int(minimo) : int(maximo)]
         # productosInfo = Producto_info.objects.all()[int(minimo) : int(maximo)]
         productos = Producto.objects.filter(
@@ -79,18 +77,20 @@ class ProductsRepository:
 
         return productobj
 
-    def patch(self, request, product_id):
+    def patch(
+        self, product_id, precio, Disponibilidad, Descripcion, link, Imagen, ProductName
+    ):
         producto = Producto.objects.get(pk=product_id)
         infoid = model_to_dict(producto)
         productoInfo = Producto_info.objects.get(pk=int(infoid["info"]))
-        productoInfo.precio = request.data["precio"]
-        productoInfo.Disponibilidad = request.data["Disponibilidad"]
-        productoInfo.Imagen = request.data["Imagen"]
-        productoInfo.Descripcion = request.data["Descripcion"]
-        productoInfo.link = request.data["link"]
+        productoInfo.precio = precio
+        productoInfo.Disponibilidad = Disponibilidad
+        productoInfo.Imagen = Imagen
+        productoInfo.Descripcion = Descripcion
+        productoInfo.link = link
         productoInfo.save()
 
-        producto.ProductName = request.data["ProductName"]
+        producto.ProductName = ProductName
         producto.save()
         return infoid
 
@@ -114,4 +114,19 @@ class ProductsRepository:
                 info=productinfo,
             )
             producto.save()
-            return 1
+            return None
+
+    def GetProductsCategory(self, categoria_id):
+        productosquery = Producto_info.objects.filter(categoria=categoria_id)
+        products = []
+
+        for producto in productosquery:
+            currentProductoInfo = model_to_dict(producto)
+            productobj = Producto.objects.get(
+                pk=int(currentProductoInfo["ProductInfoId"])
+            )
+            productobj_data = model_to_dict(productobj)
+            currentProductoInfo.update(productobj_data)
+            products.append(currentProductoInfo)
+
+        return products
