@@ -23,10 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-7qdd&sezorwr57*bfnn6+ihlpdglpqx0ud(@1$)v2fw*7&u(7#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+#cloud configuration
+DEBUG = False
 ALLOWED_HOSTS = ['quickmerkai.azurewebsites.net']
 
+#localhost debug
+# DEBUG = True
+# ALLOWED_HOSTS = []
 
 # Application definition
 

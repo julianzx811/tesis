@@ -122,11 +122,15 @@ class ProductsRepository:
 
         for producto in productosquery:
             currentProductoInfo = model_to_dict(producto)
-            productobj = Producto.objects.get(
+            try:
+                productobj = Producto.objects.get(
                 pk=int(currentProductoInfo["ProductInfoId"])
-            )
-            productobj_data = model_to_dict(productobj)
-            currentProductoInfo.update(productobj_data)
-            products.append(currentProductoInfo)
+                )
+                
+                productobj_data = model_to_dict(productobj)
+                currentProductoInfo.update(productobj_data)
+                products.append(currentProductoInfo)
+            except Exception as error:
+                print(error)
 
         return products
