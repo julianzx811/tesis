@@ -43,7 +43,8 @@ const Search = () => {
     setloadingProducts(true);
     dispatch(CurrentCategory(id));
 
-    var Urlproducts = EXPO_PUBLIC_CATEGORIES_PRODUCTS + `${id}`;
+    var Urlproducts = EXPO_PUBLIC_CATEGORIES_PRODUCTS  + `/${id}`;
+    console.log(Urlproducts)
     try {
       await GetProducts({
         Urlproducts,

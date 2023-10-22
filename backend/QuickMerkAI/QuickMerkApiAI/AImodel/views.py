@@ -60,7 +60,7 @@ class Products(viewsets.ViewSet):
     def GetProductsCategory(self, request, categoria_id):
         try:
             return Response(
-                self.servicios.GetProductsCategory(categoria_id),
+                self.servicios.GetProductsCategory(request, categoria_id),
                 status=status.HTTP_200_OK,
             )
         except Exception as error:
@@ -102,7 +102,7 @@ class Products(viewsets.ViewSet):
                 content_type=None,
             )
 
-    def get_categories(self,request):
+    def get_categories(self, request):
         try:
             return Response(
                 self.servicios.get_categories(),

@@ -116,8 +116,15 @@ class ProductsRepository:
             producto.save()
             return model_to_dict(productinfo).update(model_to_dict(producto))
 
-    def GetProductsCategory(self, categoria_id):
-        productosquery = Producto_info.objects.filter(categoria=categoria_id)
+    def GetProductsCategory(self, categoria_Id, minimo, maximo):
+        # query = f"""SELECT * FROM Archivos_Producto_info WHERE Categoria = '{categoria_id}' LIMIT {minimo} OFFSET {maximo};"""
+        maximo = int(maximo)
+        minimo = int(minimo)
+        print(minimo, maximo, categoria_Id)
+        productosquery = Producto_info.objects.filter(categoria=categoria_Id)[
+            minimo:maximo
+        ]
+        print(productosquery)
         products = []
 
         for producto in productosquery:

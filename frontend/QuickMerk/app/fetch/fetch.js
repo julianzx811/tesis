@@ -13,7 +13,7 @@ import {
   EXPO_PUBLIC_PATCH_CONTRASENA,
 } from "@env";
 import axios from "axios";
-
+import base64 from 'react-native-base64';
 async function UpdateCorreoPasword({
   lastWord,
   setLoading,
@@ -81,8 +81,8 @@ async function onLogin({ correo, contrasena, dispatch, login, router, user }) {
       method: "post",
       url: EXPO_PUBLIC_LOGIN_URL,
       data: {
-        correo: correo,
-        password: contrasena,
+        correo: 'yulicorreo',
+        password: 'string',
       },
     });
 
@@ -170,10 +170,11 @@ async function registro({ setHandlerError, setModalVisible, router, usuario }) {
 }
 
 async function GetCategory({ setCategoryArray, setLoadingCategory }) {
-  await axios({
-    method: "get",
-    url: EXPO_PUBLIC_CATEGORIES_URL,
-  }).then(
+
+const authHeader = 'Basic ' + base64.encode(`${'yulianfromcali'}:${'diosesgrande7878'}`);
+  axios.get(EXPO_PUBLIC_CATEGORIES_URL, {
+    headers: { 'Authorization': authHeader }
+}).then(
     (response) => {
       if (response.status == 200) {
         response.data.forEach((element) => {
@@ -182,7 +183,7 @@ async function GetCategory({ setCategoryArray, setLoadingCategory }) {
       }
     },
     (error) => {
-      console.log(error);
+      console.log('get products error'+error);
     }
   );
   setLoadingCategory(false);
@@ -193,10 +194,10 @@ async function GetProducts({
   setProductsArray,
   setloadingProducts,
 }) {
-  await axios({
-    method: "get",
-    url: Urlproducts,
-  }).then(
+  const authHeader = 'Basic ' + base64.encode(`${'yulianfromcali'}:${'diosesgrande7878'}`);
+  axios.get(Urlproducts, {
+    headers: { 'Authorization': authHeader }
+}).then(
     (response) => {
       if (response.status == 200) {
         response.data.forEach((element) => {
@@ -205,7 +206,7 @@ async function GetProducts({
       }
     },
     (error) => {
-      console.log(error);
+      console.log('get products error'+error);
     }
   );
   setloadingProducts(false);
