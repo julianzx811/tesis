@@ -37,3 +37,6 @@ class ProductService:
 
     def post(self, request):
         return self.repository.post(request)
+
+    def get_categories(self):
+        return self.repository.get_categories()

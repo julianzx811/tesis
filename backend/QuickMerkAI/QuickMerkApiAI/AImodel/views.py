@@ -102,6 +102,21 @@ class Products(viewsets.ViewSet):
                 content_type=None,
             )
 
+    def get_categories(self,request):
+        try:
+            return Response(
+                self.servicios.get_categories(),
+                status=status.HTTP_200_OK,
+            )
+        except Exception as error:
+            print(error)
+            return Response(
+                "algo salio mal",
+                status=status.HTTP_400_BAD_REQUEST,
+                template_name=None,
+                content_type=None,
+            )
+
 
 class AImodel(viewsets.ViewSet):
     serializer_class = UserSerializer

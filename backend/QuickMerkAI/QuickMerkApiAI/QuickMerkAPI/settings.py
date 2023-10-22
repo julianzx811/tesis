@@ -23,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-7qdd&sezorwr57*bfnn6+ihlpdglpqx0ud(@1$)v2fw*7&u(7#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#cloud configuration
-DEBUG = False
-ALLOWED_HOSTS = ['quickmerkai.azurewebsites.net']
+# cloud configuration
+DEBUG = True
+ALLOWED_HOSTS = ['quickmerkai.azurewebsites.net','169.254.129.2']
 
-#localhost debug
-# DEBUG = True
-# ALLOWED_HOSTS = []
+# localhost debug
+#DEBUG = True
+#ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "QuickMerkAPI.urls"
@@ -135,6 +135,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 APPEND_SLASH = True
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"

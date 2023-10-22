@@ -124,9 +124,9 @@ class ProductsRepository:
             currentProductoInfo = model_to_dict(producto)
             try:
                 productobj = Producto.objects.get(
-                pk=int(currentProductoInfo["ProductInfoId"])
+                    pk=int(currentProductoInfo["ProductInfoId"])
                 )
-                
+
                 productobj_data = model_to_dict(productobj)
                 currentProductoInfo.update(productobj_data)
                 products.append(currentProductoInfo)
@@ -134,3 +134,10 @@ class ProductsRepository:
                 print(error)
 
         return products
+
+    def get_categories(self):
+        categoriasquery = Producto_categoria.objects.all()
+        catergorias = []
+        for categoria in categoriasquery:
+            catergorias.append(model_to_dict(categoria))
+        return catergorias

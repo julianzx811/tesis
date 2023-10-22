@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d8536058-bc08-4ce1-a406-c730a87ff2c7/resourceGroups/QuickMerkNet/providers/Microsoft.Web/sites/QuickMerkAI",
+    "appService.deploySubpath": "."
+}
