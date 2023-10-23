@@ -1,4 +1,4 @@
-USE [QuickMerkUsers]
+USE QuickMerkDB
 GO
 
 /****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 16/07/2023 4:24:57 p. m. ******/

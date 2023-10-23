@@ -1,4 +1,4 @@
-USE [Peopledb]
+USE QuickMerkDB
 GO
 
 /****** Object:  Table [dbo].[documentos]    Script Date: 16/07/2023 4:26:13 p. m. ******/
