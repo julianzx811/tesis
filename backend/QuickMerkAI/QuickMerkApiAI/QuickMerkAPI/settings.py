@@ -82,10 +82,10 @@ WSGI_APPLICATION = "QuickMerkAPI.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "mssql",
-        "NAME": "Peopledb",
+        "NAME": "QuickMerkDB",
         "USER": "yuli",
-        "PASSWORD": "Caminoarusia7878$",
-        "HOST": "quickmerkpeopleserver.database.windows.net",
+        "PASSWORD": "Diosesgrande7878$",
+        "HOST": "quickmerkserver.database.windows.net",
         "PORT": "",  # Leave empty for the default port
         "OPTIONS": {
             "driver": "ODBC Driver 17 for SQL Server",

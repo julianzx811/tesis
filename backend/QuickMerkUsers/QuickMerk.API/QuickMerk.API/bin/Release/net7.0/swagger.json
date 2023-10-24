@@ -1,0 +1,552 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "QuickMerk.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/GetDocumentos": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetBusquedas": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "CuentaId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "cantidad",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetDocumento": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "UsuarioId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocumentoDTO"
+            }
+          }
+        }
+      }
+    },
+    "/GetUsuario": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "usuarioId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UsuarioDTO"
+            }
+          }
+        }
+      }
+    },
+    "/GetCuenta": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "usuarioId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Cuenta"
+            }
+          }
+        }
+      }
+    },
+    "/CreateUsuario": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UsuarioDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UsuarioDTO"
+            }
+          }
+        }
+      }
+    },
+    "/CreateBusqueda": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/BusquedaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BusquedaDTO"
+            }
+          }
+        }
+      }
+    },
+    "/Login": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/cuenta"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/UpdateUsuario": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "usuarioId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UsuarioUpdateDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UsuarioDTO"
+            }
+          }
+        }
+      }
+    },
+    "/UpdateCorreo": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "correo",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "usuarioId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ActionResult"
+            }
+          }
+        }
+      }
+    },
+    "/UpdateContrasena": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "contrasena",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "usuarioId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ActionResult"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActionResult": {
+      "type": "object"
+    },
+    "BusquedaDTO": {
+      "required": [
+        "busqueda",
+        "usuarioId"
+      ],
+      "type": "object",
+      "properties": {
+        "usuarioId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "busqueda": {
+          "maxLength": 35,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "Cuenta": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tipo_CuentaId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "usuarioId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "creacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "correo": {
+          "type": "string"
+        },
+        "contrasena": {
+          "type": "string"
+        }
+      }
+    },
+    "DocumentoDTO": {
+      "required": [
+        "documentoName",
+        "tipoDeDocumento"
+      ],
+      "type": "object",
+      "properties": {
+        "documentoName": {
+          "maxLength": 11,
+          "minLength": 0,
+          "type": "string"
+        },
+        "tipoDeDocumento": {
+          "minLength": 1,
+          "type": "string"
+        }
+      }
+    },
+    "UsuarioDTO": {
+      "required": [
+        "apellido",
+        "ciudad",
+        "contrasena",
+        "correo",
+        "direcion",
+        "documento",
+        "edad",
+        "nacimiento",
+        "nombre",
+        "sexo",
+        "telefono",
+        "tipo_Documento_id"
+      ],
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "apellido": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "edad": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nacimiento": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "sexo": {
+          "format": "int32",
+          "maximum": 1,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "telefono": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "direcion": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ciudad": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "documento": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "correo": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "contrasena": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "tipo_Documento_id": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "UsuarioUpdateDTO": {
+      "required": [
+        "apellido",
+        "ciudad",
+        "direcion",
+        "edad",
+        "nacimiento",
+        "nombre",
+        "sexo",
+        "telefono"
+      ],
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "apellido": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "edad": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nacimiento": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "sexo": {
+          "format": "int32",
+          "maximum": 1,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "telefono": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "direcion": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ciudad": {
+          "minLength": 1,
+          "type": "string"
+        }
+      }
+    },
+    "cuenta": {
+      "type": "object",
+      "properties": {
+        "correo": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
