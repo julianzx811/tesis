@@ -1,9 +1,10 @@
 import { View, ScrollView, Text } from "react-native";
 import ProductsComponent from "./ProductsComponent";
 import { containers, text } from "../../styles/";
+import { FAB } from "react-native-paper";
 
 export default function Products({ productsArray, insets }) {
-  console.log(productsArray);
+  //console.log("productos:"+productsArray);
 
   // Create pairs of products for rendering in rows
   const productPairs = [];
@@ -28,7 +29,9 @@ export default function Products({ productsArray, insets }) {
             />
           ))}
         </View>
+        
       ))}
+      
     </View>
   );
 }

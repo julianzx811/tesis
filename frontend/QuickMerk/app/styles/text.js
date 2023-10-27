@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 
 const text = (props) =>
   StyleSheet.create({
+    modalAI:{
+      backgroundColor: '#085f87', 
+      padding: 20
+    },
     title: {
       fontSize: 64,
       fontWeight: "bold",

@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Text,
+  ScrollView
 } from "react-native";
 import React from "react";
 import { useLocalSearchParams } from "expo-router";
@@ -46,6 +47,7 @@ export default function Product({}) {
   }, []);
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
+      <ScrollView showsVerticalScrollIndicator={false}>
       {loading ? (
         <ActivityIndicator style={containers({ insets }).simpleContainer} />
       ) : (
@@ -64,6 +66,7 @@ export default function Product({}) {
           <ButtonComponent />
         </View>
       )}
+      </ScrollView>
     </SafeAreaView>
   );
 }

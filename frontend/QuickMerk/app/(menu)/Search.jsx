@@ -12,15 +12,14 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import {
-  EXPO_PUBLIC_CATEGORIES_PRODUCTS,
-  EXPO_PUBLIC_PRODUCTS_NAME,
-} from "@env";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrentCategory } from "../redux/actions/UserActions";
 import { GetCategory, GetProducts } from "../fetch/fetch";
-
+import { FAB } from "react-native-paper";
+import { Modal, Portal } from 'react-native-paper';
+import * as React from 'react';
+import {StoreModel} from '../components/recomendationsAI'
 const Search = () => {
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
@@ -29,7 +28,11 @@ const Search = () => {
   const categoria = useSelector((store) => store.user.category);
   const [CategoryArray, setCategoryArray] = useState([]);
   const [productsArray, setProductsArray] = useState([]);
+  const [visible, setVisible] = React.useState(false);
 
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  
   async function getCategory() {
     try {
       await GetCategory({ setCategoryArray, setLoadingCategory });
@@ -43,8 +46,11 @@ const Search = () => {
     setloadingProducts(true);
     dispatch(CurrentCategory(id));
 
-    var Urlproducts = EXPO_PUBLIC_CATEGORIES_PRODUCTS  + `/${id}`;
-    console.log(Urlproducts)
+    var Urlproducts =
+      "https://quickmerkrecomendatioai.azurewebsites.net/api/Products/categoria" +
+      `/${id}` +
+      "?minimo=1&maximo=20";
+
     try {
       await GetProducts({
         Urlproducts,
@@ -60,7 +66,9 @@ const Search = () => {
     setProductsArray([]);
     setloadingProducts(true);
     dispatch(CurrentCategory(categoria));
-    var Urlproducts = EXPO_PUBLIC_PRODUCTS_NAME + `${Name}`;
+    var Urlproducts =
+      "https://quickmerkrecomendatioai.azurewebsites.net/api/Products/like?producto=" +
+      `${Name}`;
     try {
       await GetProducts({
         Urlproducts,
@@ -72,6 +80,8 @@ const Search = () => {
     }
   }
 
+
+
   useEffect(() => {
     getCategory();
     getProducts(categoria);
@@ -79,6 +89,7 @@ const Search = () => {
 
   return (
     <SafeAreaView style={containers({ insets }).simpleContainer}>
+      <StoreModel visible={visible} hideModal={hideModal} insets={insets}/>
       <SearchBarComponent UpdateProducts={GetProductsName} />
 
       {loadingCategory ? (
@@ -101,8 +112,15 @@ const Search = () => {
       ) : (
         <ScrollView>
           <Products productsArray={productsArray} insets={insets} />
+          
         </ScrollView>
+        
       )}
+      <FAB
+            icon="plus"
+            style={containers({ insets }).fab}
+            onPress={showModal}
+          />
     </SafeAreaView>
   );
 };
