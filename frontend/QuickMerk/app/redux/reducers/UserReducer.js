@@ -33,6 +33,10 @@ export default (state = initialState, action) => {
         ...state,
         category: action.payload,
       };
+      case "CurrentProducts":
+      return {
+        ...state.productsList
+      };
     default:
       return state;
   }

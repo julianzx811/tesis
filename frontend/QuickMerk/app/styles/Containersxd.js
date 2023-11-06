@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 
 const containers = (props) =>
   StyleSheet.create({
+    inputcontainer:{
+      width:350,
+      borderRadius:5
+    },
     fab: {
        
       borderRadius: 30,            

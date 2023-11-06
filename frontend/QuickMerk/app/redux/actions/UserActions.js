@@ -24,3 +24,9 @@ export const CurrentCategory = (Category) => {
     payload: Category,
   };
 };
+
+export const CurrentProducts = () => {
+  return {
+    type: "CurrentProducts"
+  };
+};
