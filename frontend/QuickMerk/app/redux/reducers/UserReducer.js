@@ -1,6 +1,7 @@
 const initialState = {
   logged: false,
   productsList: [],
+  Recomendations: [],
   token: "",
   category: 1,
   correo: "",
@@ -26,16 +27,29 @@ export default (state = initialState, action) => {
     case "New_product":
       return {
         ...state,
-        productsList: [...state.productsList, action.payload],
+        productsList: [...state.productsList, { ProductName: action.payload }],
       };
     case "CurrentCategory":
       return {
         ...state,
         category: action.payload,
       };
-      case "CurrentProducts":
+    case "DeleteProduct":
+      const updatedProductsList = [...state.productsList];
+      updatedProductsList.splice(action.payload, 1);
+      console.log("debug", updatedProductsList);
       return {
-        ...state.productsList
+        ...state,
+        productsList: updatedProductsList,
+      };
+
+    case "UpdateProduct":
+      const [index, updatedProduct] = action.payload;
+      const UpdatedProductsList = [...state.productsList];
+      updatedProductsList[index] = updatedProduct;
+      return {
+        ...state,
+        productsList: UpdatedProductsList,
       };
     default:
       return state;

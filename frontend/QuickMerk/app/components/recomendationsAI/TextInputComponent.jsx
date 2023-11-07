@@ -1,18 +1,31 @@
-import { View, Text } from 'react-native'
-import * as React from 'react';
-import { TextInput } from 'react-native-paper';
+import { View, Text, TouchableOpacity } from "react-native";
+import * as React from "react";
+import { TextInput, Button } from "react-native-paper";
 import { containers, text } from "../../styles";
-
-export default function TextInputComponent({insets}) {
-    const [text, setText] = React.useState("");
-
-    return (
+import { useSelector } from "react-redux";
+export default function TextInputComponent({
+  insets,
+  ProductName,
+  index,
+  deleteProduct,
+}) {
+  const [text, setText] = React.useState(ProductName);
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
       <TextInput
-        label="Ingresa algun producto"
         value={text}
-        onChangeText={text => setText(text)}
+        onChangeText={(text) => setText(text)}
         style={containers({ insets }).inputcontainer}
-        outlineStyle={{borderRadius:10}}
+        outlineStyle={{ borderRadius: 10 }}
       />
-    );
+      <TouchableOpacity onPress={() => deleteProduct(index)}>
+        <Button
+          icon="delete"
+          mode="contained"
+          color="red"
+          labelStyle={{ color: "white" }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
 }

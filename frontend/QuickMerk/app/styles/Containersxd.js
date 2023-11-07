@@ -2,17 +2,16 @@ import { StyleSheet } from "react-native";
 
 const containers = (props) =>
   StyleSheet.create({
-    inputcontainer:{
-      width:350,
-      borderRadius:5
+    inputcontainer: {
+      width: 300,
+      borderRadius: 5,
     },
     fab: {
-       
-      borderRadius: 30,            
-      backgroundColor: '#ee6e73',                                    
-      position: 'absolute',                                          
-      bottom: 10,                                                    
-      right: 10, 
+      borderRadius: 30,
+      backgroundColor: "#ee6e73",
+      position: "absolute",
+      bottom: 10,
+      right: 10,
     },
     productContainer: {
       position: "absolute",
@@ -24,11 +23,11 @@ const containers = (props) =>
     container: {
       alignItems: "center",
       backgroundColor: "#085f87",
-      borderRadius:10,
-      bottom:100,
-      top:90,
-      left:10,
-      right:10
+      borderRadius: 10,
+      bottom: 100,
+      top: 90,
+      left: 10,
+      right: 10,
     },
     containerLogin: {
       flex: 1,
@@ -45,7 +44,7 @@ const containers = (props) =>
     simpleContainer: {
       backgroundColor: "#003f5c",
       flex: 1,
-      color:"#000003"
+      color: "#000003",
     },
     scrollView: {
       backgroundColor: "#096c99",

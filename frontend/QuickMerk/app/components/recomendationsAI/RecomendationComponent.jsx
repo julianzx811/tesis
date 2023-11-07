@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import { TextInputComponent, ProductsComponent } from "./index";
 
 export default function RecomendationComponent({ insets }) {
-  const ProductsList = useSelector((store) => store.user.productsList);
+  const RecomendationList = useSelector((store) => store.user.Recomendations);
+  console.log("recomendaciones", RecomendationList);
   return (
     <View style={containers({ insets }).simpleContainer}>
-      <ProductsComponent />
       <ScrollView>
-        {ProductsList.map(
+        {RecomendationList.map(
           (precio, ProductName, categoria, link, Descripcion, Imagen) => (
             <TextInputComponent insets={insets} />
           )

@@ -13,8 +13,8 @@ export const logout = () => {
 
 export const newProducts = (item) => {
   return {
-    type: "logout",
-    payload: item.id,
+    type: "New_product",
+    payload: item,
   };
 };
 
@@ -25,8 +25,17 @@ export const CurrentCategory = (Category) => {
   };
 };
 
-export const CurrentProducts = () => {
+export const DeleteProduct = (index) => {
+  console.log(index);
   return {
-    type: "CurrentProducts"
+    type: "DeleteProduct",
+    payload: index,
+  };
+};
+
+export const UpdateProduct = (Product, index) => {
+  return {
+    type: "UpdateProduct",
+    payload: (Product, index),
   };
 };
