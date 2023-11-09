@@ -11,7 +11,7 @@ export default function RecomendationComponent({ insets }) {
     <View style={containers({ insets }).simpleContainer}>
       <ScrollView>
         {RecomendationList.map((producto, index) => (
-          <RecomandationProduct producto={producto} index={index} />
+          <RecomandationProduct producto={producto} key={index} />
         ))}
       </ScrollView>
     </View>

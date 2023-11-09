@@ -1,11 +1,21 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View } from "react-native";
+import * as React from "react";
+import { Avatar, Button, Card, Text } from "react-native-paper";
 
-export default function RecomandationProduct({ producto, index }) {
+const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
+export default function RecomandationProduct({ producto }) {
   return (
-    <View>
-      <Text>{producto.ProductName}</Text>
-      <Text>{index}</Text>
-    </View>
+    <Card>
+      <Card.Title
+        title="Card Title"
+        subtitle="Card Subtitle"
+        left={LeftContent}
+      />
+      <Card.Content>
+        <Text variant="titleLarge">{producto.ProductName}</Text>
+        <Text variant="bodyMedium">{producto.Descripcion}</Text>
+      </Card.Content>
+      <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+    </Card>
   );
 }
