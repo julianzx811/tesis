@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { Modal, Portal } from "react-native-paper";
 import { containers, text } from "../../styles";
@@ -6,9 +5,8 @@ import { ButtonGroup } from "@rneui/themed";
 import { ItemsComponent, RecomendationComponent } from "./index";
 import { useState } from "react";
 import { DeleteProduct } from "../../redux/actions/UserActions";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { ActivityIndicator, Colors } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { ActivityIndicator } from "react-native-paper";
 
 export default function StoreModel({ visible, hideModal, insets }) {
   const [selectedIndex, setSelectedIndex] = useState(0);

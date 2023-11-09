@@ -44,13 +44,26 @@ export default (state = initialState, action) => {
       };
 
     case "UpdateProduct":
-      const [index, updatedProduct] = action.payload;
+      const [updatedProduct, index] = action.payload;
+      console.log("omg", index, updatedProduct);
+
+      // Initialize updatedProductsList as an empty array if it doesn't exist.
       const UpdatedProductsList = [...state.productsList];
-      updatedProductsList[index] = updatedProduct;
-      return {
-        ...state,
-        productsList: UpdatedProductsList,
-      };
+
+      // Check if the index is within the bounds of the array.
+      if (index >= 0 && index < UpdatedProductsList.length) {
+        UpdatedProductsList[index] = { ProductName: updatedProduct };
+
+        // Return the updated state.
+        return {
+          ...state,
+          productsList: UpdatedProductsList,
+        };
+      } else {
+        // Handle an invalid index or other error condition, possibly by returning the original state.
+        return state;
+      }
+
     default:
       return state;
   }

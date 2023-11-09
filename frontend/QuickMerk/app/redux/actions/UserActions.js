@@ -36,6 +36,6 @@ export const DeleteProduct = (index) => {
 export const UpdateProduct = (Product, index) => {
   return {
     type: "UpdateProduct",
-    payload: (Product, index),
+    payload: [Product, index],
   };
 };
