@@ -13,7 +13,8 @@ import {
   EXPO_PUBLIC_PATCH_CONTRASENA,
 } from "@env";
 import axios from "axios";
-import base64 from 'react-native-base64';
+import { exact } from "prop-types";
+import base64 from "react-native-base64";
 
 async function UpdateCorreoPasword({
   lastWord,
@@ -58,14 +59,16 @@ async function UpdateCorreoPasword({
 }
 
 async function getProduct({ name, setLoading }) {
-  const authHeader = 'Basic ' + base64.encode(`${'yulianfromcali'}:${'diosesgrande7878'}`);
-  var Url = 'https://quickmerkrecomendatioai.azurewebsites.net/api/Products/' + `${name}`;
-console.log(Url)
+  const authHeader =
+    "Basic " + base64.encode(`${"yulianfromcali"}:${"diosesgrande7878"}`);
+  var Url =
+    "https://quickmerkrecomendatioai.azurewebsites.net/api/Products/" +
+    `${name}`;
+  console.log(Url);
   try {
-    
     const response = await axios.get(Url, {
-    headers: { 'Authorization': authHeader }
-    })
+      headers: { Authorization: authHeader },
+    });
 
     if (response.status === 200) {
       setLoading(false);
@@ -79,20 +82,24 @@ console.log(Url)
 
 async function onLogin({ correo, contrasena, dispatch, login, router, user }) {
   try {
-    console.log("llego")
+    console.log("llego");
     const response = await axios({
       method: "post",
-      url: 'https://quickmerkapi20231023180634.azurewebsites.net/Login',
+      url: "https://quickmerkapi20231023180634.azurewebsites.net/Login",
       data: {
-        correo: 'string',
-        password: 'string',
+        correo: "string",
+        password: "string",
       },
     });
-    console.log("llego")
+    console.log("llego");
 
     if (response.status === 200) {
-      var url1 = 'https://quickmerkapi20231023180634.azurewebsites.net/GetUsuario?usuarioId' + `=${response.data["cuentaId"]}`;
-      var url2 = 'https://quickmerkapi20231023180634.azurewebsites.net/GetCuenta?usuarioId' + `=${response.data["cuentaId"]}`;
+      var url1 =
+        "https://quickmerkapi20231023180634.azurewebsites.net/GetUsuario?usuarioId" +
+        `=${response.data["cuentaId"]}`;
+      var url2 =
+        "https://quickmerkapi20231023180634.azurewebsites.net/GetCuenta?usuarioId" +
+        `=${response.data["cuentaId"]}`;
       const requests = [
         axios.get(url1, {
           headers: {
@@ -174,22 +181,27 @@ async function registro({ setHandlerError, setModalVisible, router, usuario }) {
 }
 
 async function GetCategory({ setCategoryArray, setLoadingCategory }) {
-
-const authHeader = 'Basic ' + base64.encode(`${'yulianfromcali'}:${'diosesgrande7878'}`);
-  axios.get('https://quickmerkrecomendatioai.azurewebsites.net/api/Products/categoria/', {
-    headers: { 'Authorization': authHeader }
-}).then(
-    (response) => {
-      if (response.status == 200) {
-        response.data.forEach((element) => {
-          setCategoryArray((prevArray) => [...prevArray, element]);
-        });
+  const authHeader =
+    "Basic " + base64.encode(`${"yulianfromcali"}:${"diosesgrande7878"}`);
+  axios
+    .get(
+      "https://quickmerkrecomendatioai.azurewebsites.net/api/Products/categoria/",
+      {
+        headers: { Authorization: authHeader },
       }
-    },
-    (error) => {
-      console.log('get products error'+error);
-    }
-  );
+    )
+    .then(
+      (response) => {
+        if (response.status == 200) {
+          response.data.forEach((element) => {
+            setCategoryArray((prevArray) => [...prevArray, element]);
+          });
+        }
+      },
+      (error) => {
+        console.log("get products error" + error);
+      }
+    );
   setLoadingCategory(false);
 }
 
@@ -198,22 +210,59 @@ async function GetProducts({
   setProductsArray,
   setloadingProducts,
 }) {
-  const authHeader = 'Basic ' + base64.encode(`${'yulianfromcali'}:${'diosesgrande7878'}`);
-  axios.get(Urlproducts, {
-    headers: { 'Authorization': authHeader }
-}).then(
-    (response) => {
-      if (response.status == 200) {
-        response.data.forEach((element) => {
-          setProductsArray((prevArray) => [...prevArray, element]);
-        });
+  const authHeader =
+    "Basic " + base64.encode(`${"yulianfromcali"}:${"diosesgrande7878"}`);
+  axios
+    .get(Urlproducts, {
+      headers: { Authorization: authHeader },
+    })
+    .then(
+      (response) => {
+        if (response.status == 200) {
+          response.data.forEach((element) => {
+            setProductsArray((prevArray) => [...prevArray, element]);
+          });
+        }
+      },
+      (error) => {
+        console.log("get products error" + error);
       }
-    },
-    (error) => {
-      console.log('get products error'+error);
-    }
-  );
+    );
   setloadingProducts(false);
+}
+
+async function LSAmodel(
+  ProductsList,
+  dispatch,
+  NewRecomendation,
+  LSAmodelRequest
+) {
+  console.log("ProductsListxd", ProductsList);
+  const authHeader =
+    "Basic " + base64.encode(`${"yulianfromcali"}:${"diosesgrande7878"}`);
+  ProductsList.forEach((product) => {
+    (url =
+      "https://quickmerkrecomendatioai.azurewebsites.net/api/LSAmodel/?producto=" +
+      product.ProductName),
+      console.log(url);
+    axios
+      .post(url, LSAmodelRequest, {
+        headers: { Authorization: authHeader },
+      })
+      .then(
+        (response) => {
+          if (response.status == 200) {
+            //console.log(response.data);
+            response.data.forEach((element) => {
+              dispatch(NewRecomendation(element));
+            });
+          }
+        },
+        (error) => {
+          console.log("get products error" + error);
+        }
+      );
+  });
 }
 
 export {
@@ -224,4 +273,5 @@ export {
   GetProducts,
   getProduct,
   UpdateCorreoPasword,
+  LSAmodel,
 };

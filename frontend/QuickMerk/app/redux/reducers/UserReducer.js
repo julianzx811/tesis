@@ -29,6 +29,11 @@ export default (state = initialState, action) => {
         ...state,
         productsList: [...state.productsList, { ProductName: action.payload }],
       };
+    case "NewRecomendation":
+      return {
+        ...state,
+        Recomendations: [...state.Recomendations, action.payload],
+      };
     case "CurrentCategory":
       return {
         ...state,

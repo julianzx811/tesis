@@ -39,3 +39,10 @@ export const UpdateProduct = (Product, index) => {
     payload: [Product, index],
   };
 };
+
+export const NewRecomendation = (Recomendation) => {
+  return {
+    type: "NewRecomendation",
+    payload: Recomendation,
+  };
+};

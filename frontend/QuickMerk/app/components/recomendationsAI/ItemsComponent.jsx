@@ -8,6 +8,7 @@ export default function ItemsComponent({
   insets,
   ProductsList,
   deleteProduct,
+  getRecomendations,
 }) {
   return (
     <View style={containers({ insets }).simpleContainer}>
@@ -16,7 +17,7 @@ export default function ItemsComponent({
         deleteProduct={deleteProduct}
         ProductsList={ProductsList}
       />
-      <AddProductComponent />
+      <AddProductComponent getRecomendations={getRecomendations} />
     </View>
   );
 }

@@ -4,24 +4,32 @@ import { containers, text } from "../../styles";
 import { ButtonGroup } from "@rneui/themed";
 import { ItemsComponent, RecomendationComponent } from "./index";
 import { useState } from "react";
-import { DeleteProduct } from "../../redux/actions/UserActions";
+import {
+  DeleteProduct,
+  NewRecomendation,
+} from "../../redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native-paper";
+import { LSAmodel } from "../../fetch/fetch";
+import { LSAmodelRequest } from "../../fetch/LSAmodel";
 
 export default function StoreModel({ visible, hideModal, insets }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
+  const ProductsList = useSelector((store) => store.user.productsList);
+
   const deleteProduct = async (key) => {
     setloading(true);
-
-    // Espera a que la acción DeleteProduct se complete antes de cambiar el estado de carga.
     await dispatch(DeleteProduct(key));
-
     setloading(false);
   };
 
-  const ProductsList = useSelector((store) => store.user.productsList);
+  const getRecomendations = async () => {
+    setloading(true);
+    await LSAmodel(ProductsList, dispatch, NewRecomendation, LSAmodelRequest);
+    setloading(false);
+  };
 
   return (
     <Portal>
@@ -45,6 +53,7 @@ export default function StoreModel({ visible, hideModal, insets }) {
             insets={insets}
             deleteProduct={deleteProduct}
             ProductsList={ProductsList}
+            getRecomendations={getRecomendations}
           />
         )}
       </Modal>

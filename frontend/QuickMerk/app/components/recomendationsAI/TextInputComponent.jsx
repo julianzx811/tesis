@@ -6,8 +6,8 @@ import { useDispatch } from "react-redux";
 import { UpdateProduct } from "../../redux/actions/UserActions";
 
 export default function TextInputComponent({
-  insets,
   ProductName,
+  insets,
   index,
   deleteProduct,
 }) {
@@ -17,6 +17,7 @@ export default function TextInputComponent({
     setText(text);
     await dispatch(UpdateProduct(text, index));
   };
+  console.log(ProductName);
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <TextInput
@@ -31,7 +32,7 @@ export default function TextInputComponent({
           mode="contained"
           color="red"
           labelStyle={{ color: "white" }}
-        />
+        ></Button>
       </TouchableOpacity>
     </View>
   );
