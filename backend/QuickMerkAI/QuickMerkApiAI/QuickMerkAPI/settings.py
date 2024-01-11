@@ -24,12 +24,12 @@ SECRET_KEY = "django-insecure-7qdd&sezorwr57*bfnn6+ihlpdglpqx0ud(@1$)v2fw*7&u(7#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # cloud configuration
-DEBUG = False
-ALLOWED_HOSTS = ['QuickMerkRecomendatioAI.azurewebsites.net','169.254.129.2']
+# DEBUG = False
+# ALLOWED_HOSTS = ["QuickMerkRecomendatioAI.azurewebsites.net", "169.254.129.2"]
 
 # localhost debug
-# DEBUG = True
-#ALLOWED_HOSTS = []
+DEBUG = True
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -82,10 +82,10 @@ WSGI_APPLICATION = "QuickMerkAPI.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "mssql",
-        "NAME": "QuickMerkDB",
+        "NAME": "Peopledb",
         "USER": "yuli",
-        "PASSWORD": "Diosesgrande7878$",
-        "HOST": "quickmerkserver.database.windows.net",
+        "PASSWORD": "Caminoarusia7878$",
+        "HOST": "quickmerkpeopleserver.database.windows.net",
         "PORT": "",  # Leave empty for the default port
         "OPTIONS": {
             "driver": "ODBC Driver 17 for SQL Server",
