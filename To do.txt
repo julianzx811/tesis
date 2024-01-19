@@ -1,10 +1,7 @@
 Codigo:
--implementar modal o pantalla de carga en register y login
--implementar form en login y register QuickMerkApp
--implementar validaciones QuickMerkUsersApi
--implementar handler de error en login y register
--global handling error
--implementar editar cuenta en app
+-rehacer app usando el patron de diseño 
+-generar apk por cada deploy
+-añadir retornar productos de internet usando web scrapping a la API
 
 Documento:
--terminar de rehacer el documento
+-terminar documento
