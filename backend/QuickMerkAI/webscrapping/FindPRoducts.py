@@ -37,7 +37,7 @@ def mercadolibre(producto):
 
     i = 0
     for product in productos:
-        if i == 10:
+        if i == 6:
             break
         try:
             titulo = product.find("h2", class_="ui-search-item__title").text.strip()
@@ -53,8 +53,13 @@ def mercadolibre(producto):
             print(link["href"])
             soup = BeautifulSoup(page.content, "html.parser")
             descripcion = soup.find(
-                "p", class_="ui-pdp-description__content"
-            ).text.strip()
+                "div",
+                class_="ui-pdp-container__row ui-pdp-container__row--highlighted-features",
+            )
+            posible_description = descripcion == None
+            print("omg descrip wtfff: ", posible_description)
+            if posible_description == False:
+                descripcion = descripcion.text
             image = product.find(class_="ui-search-result__image")
             image = image.find("img")
             print("titulo: ", titulo)
