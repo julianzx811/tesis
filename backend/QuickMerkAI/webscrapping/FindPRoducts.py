@@ -14,7 +14,9 @@ urls = [
 
 
 def prueba(producto):
-    mercadolibre(producto)
+    productoARR = producto.replace(" ", "")
+    GoogleShoping(productoARR)
+    # mercadolibre(productoARR)
     SuperMercados(producto, 2)
     SuperMercados(producto, 3)
     SuperMercados(producto, 4)
@@ -26,10 +28,9 @@ def mercadolibre(producto):
     page = requests.get(link, timeout=5)
     soup = BeautifulSoup(page.content, "html.parser")
     # print(soup)
-    results = soup.find(
-        class_="ui-search-results ui-search-results--without-disclaimer"
-    )
-    results1 = soup.find(class_="ui-search-layout ui-search-layout--stack")
+    # results = soup.find(
+    # class_="ui-search-results ui-search-results--without-disclaimer")
+    # results1 = soup.find(class_="ui-search-layout ui-search-layout--stack")
     productos = soup.find_all(
         class_="andes-card ui-search-result ui-search-result--core andes-card--flat andes-card--padding-16"
     )
@@ -49,6 +50,7 @@ def mercadolibre(producto):
                 href=True,
             )
             page = requests.get(link["href"], timeout=5)
+            print(link["href"])
             soup = BeautifulSoup(page.content, "html.parser")
             descripcion = soup.find(
                 "p", class_="ui-pdp-description__content"
@@ -87,7 +89,8 @@ def GoogleShoping(producto):
             image = product.find(class_="oR27Gd")
             image = image.find("img")
             print("imagen: ", image["src"])
-            print(product, end="\n" * 2)
+            print("Descripcion: ")
+            print(end="\n" * 2)
         i += 1
 
 
@@ -97,19 +100,23 @@ def SuperMercados(producto, num):
     page = requests.get(link, timeout=5)
     soup = BeautifulSoup(page.content, "html.parser")
     items = soup.find(class_="bq-cn1")
-    productos = items.find_all("div", class_="bq-cn-r")
-    for producto in productos:
-        title = producto.find(class_="bq-a-r").text.strip()
-        image = producto.find("img")
-        item2 = producto.find_all("p", "mrg-0")
-        link = producto.find_all("a", class_="h-il-ai")
-        print("title: ", title)
-        print("image: ", image["src"])
-        print("descripcion: ", item2[1].text.strip())
-        print("link: ", "https://losprecios.co" + link[0]["href"])
-        print("price: ", item2[2].text.strip().replace("$", ""))
-        print(end="\n" * 2)
+    # print(items)
+    if items != None:
+        productos = items.find_all("div", class_="bq-cn-r")
+        for producto in productos:
+            title = producto.find(class_="bq-a-r").text.strip()
+            image = producto.find("img")
+            item2 = producto.find_all("p", "mrg-0")
+            link = producto.find_all("a", class_="h-il-ai")
+            print("title: ", title)
+            print("image: ", image["src"])
+            print("descripcion: ", item2[1].text.strip())
+            print("link: ", "https://losprecios.co" + link[0]["href"])
+            print("price: ", item2[2].text.strip().replace("$", ""))
+            print(end="\n" * 2)
 
 
-# print(SuperMercados("papas",2))
-prueba("play 5")
+# SuperMercados("chocolate", 4)
+# GoogleShoping("play 5")
+mercadolibre("chocolate")
+# prueba("chocolate")
