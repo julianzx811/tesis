@@ -10,10 +10,9 @@ class ProductService:
         return self.repository.get_likely_products(producto)
 
     def list_productos(self, request):
-        minimo = request.query_params["minimo"]
-        maximo = request.query_params["maximo"]
+        producto = request.query_params["producto"]
 
-        return self.repository.list_productos(minimo, maximo)
+        return self.repository.list_productos(producto)
 
     def GetProductsCategory(self, request, categoria_id):
         minimo = request.query_params["minimo"]
