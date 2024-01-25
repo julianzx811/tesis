@@ -7,15 +7,15 @@ from bs4 import BeautifulSoup
 
 class ProductsRepository:
     urls = [
-        "https://listado.mercadolibre.com.co/producto#D[A:producto]",  # mercado libre
-        "https://www.google.com/search?tbm=shop&hl=es-419&psb=1&ved=2ahUKEwi2ud25mt6DAxWYnloFHdo3AdMQu-kFegQIABAJ&q=producto&oq=producto&gs_lcp=Cgtwcm9kdWN0cy1jYxADUABYAGAAaABwAHgAgAEAiAEAkgEAmAEA&sclient=products-cc",  # google shopping
-        "https://losprecios.co/buscar?t=producto&tid=7",  # jumbo
-        "https://losprecios.co/buscar?t=producto&tid=1",  # d1
-        "https://losprecios.co/buscar?t=producto&tid=6",  # exito
+        {"link": "https://listado.mercadolibre.com.co/producto#D[A:producto]","disponibilidad":"online","tienda":"mercado libre"},
+        {"link":"https://www.google.com/search?tbm=shop&hl=es-419&psb=1&ved=2ahUKEwi2ud25mt6DAxWYnloFHdo3AdMQu-kFegQIABAJ&q=producto&oq=producto&gs_lcp=Cgtwcm9kdWN0cy1jYxADUABYAGAAaABwAHgAgAEAiAEAkgEAmAEA&sclient=products-cc","disponibilidad":"online","tienda":"google shopping"},
+        {"link":"https://losprecios.co/buscar?t=producto&tid=7","disponibilidad":"fisica","tienda":"jumbo"},
+        {"link":"https://losprecios.co/buscar?t=producto&tid=1","disponibilidad":"fisica","tienda":"d1"},  
+        {"link":"https://losprecios.co/buscar?t=producto&tid=6","disponibilidad":"fisica","tienda":"exito"},  
         ]
     def mercadolibre(self,producto):
             arr_productos = np.array([])
-            link = self.urls[0].replace("producto", producto)
+            link = self.urls[0]["link"].replace("producto", producto)
             print(link)
             page = requests.get(link, timeout=5)
             soup = BeautifulSoup(page.content, "html.parser")
@@ -48,11 +48,14 @@ class ProductsRepository:
                     image = product.find(class_="ui-search-result__image")
                     image = image.find("img")
                     current_producto = {
-                        "titulo": titulo,
+                        "ProductName": titulo,
+                        "categoria":"sin categoria",
                         "precio": precio,
-                        "descripcion": descripcion,
+                        "Disponibilidad": self.urls[0]["disponibilidad"],
+                        "Descripcion": descripcion,
                         "link": link["href"],
                         "imagen": image["data-src"],
+                        "tienda":self.urls[0]["tienda"]
                     }
                     arr_productos = np.append(arr_productos, current_producto)
                 except ValueError:
@@ -63,7 +66,7 @@ class ProductsRepository:
 
     def GoogleShoping(self,producto):
         arr_productos = np.array([])
-        link = self.urls[1].replace("producto", producto)
+        link = self.urls[1]["link"].replace("producto", producto)
         page = requests.get(link, timeout=5)
         soup = BeautifulSoup(page.content, "html.parser")
         products = soup.find_all("div", class_="xcR77")
@@ -78,11 +81,14 @@ class ProductsRepository:
                 image = product.find(class_="oR27Gd")
                 image = image.find("img")
                 current_producto = {
-                    "titulo": titlexd,
+                    "ProductName": titlexd,
                     "precio": price,
-                    "descripcion": "por implementar",
+                    "Descripcion": "por implementar",
+                    "categoria":"sin categoria",
+                    "Disponibilidad": self.urls[1]["disponibilidad"],
                     "link": "por implementar",
                     "imagen": image["src"],
+                    "tienda":self.urls[1]["tienda"]
                 }
                 arr_productos = np.append(arr_productos, current_producto)
             i += 1
@@ -91,7 +97,7 @@ class ProductsRepository:
 
     def SuperMercados(self,producto, num):
         arr_productos = np.array([])
-        link = self.urls[num].replace("producto", producto)
+        link = self.urls[num]["link"].replace("producto", producto)
         print(link)
         page = requests.get(link, timeout=5)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -104,11 +110,14 @@ class ProductsRepository:
                 item2 = producto.find_all("p", "mrg-0")
                 link = producto.find_all("a", class_="h-il-ai")
                 current_producto = {
-                    "title": title,
+                    "ProductName": title,
                     "image": image["src"],
-                    "descripcion": item2[1].text.strip(),
+                    "Descripcion": item2[1].text.strip(),
+                    "categoria":"sin categoria",
+                    "Disponibilidad": self.urls[num]["disponibilidad"],
                     "link": "https://losprecios.co" + link[0]["href"],
-                    "price": item2[2].text.strip().replace("$", ""),
+                    "precio": item2[2].text.strip().replace("$", ""),
+                    "tienda":self.urls[num]["tienda"]
                 }
                 arr_productos = np.append(arr_productos, current_producto)
         return arr_productos
@@ -210,35 +219,9 @@ class ProductsRepository:
             producto.save()
             return model_to_dict(productinfo).update(model_to_dict(producto))
 
-    def GetProductsCategory(self, categoria_Id, minimo, maximo):
-        # query = f"""SELECT * FROM Archivos_Producto_info WHERE Categoria = '{categoria_id}' LIMIT {minimo} OFFSET {maximo};"""
-        maximo = int(maximo)
-        minimo = int(minimo)
-        print(minimo, maximo, categoria_Id)
-        productosquery = Producto_info.objects.filter(categoria=categoria_Id)[
-            minimo:maximo
-        ]
-        print(productosquery)
-        products = []
-
-        for producto in productosquery:
-            currentProductoInfo = model_to_dict(producto)
-            try:
-                productobj = Producto.objects.get(
-                    pk=int(currentProductoInfo["ProductInfoId"])
-                )
-
-                productobj_data = model_to_dict(productobj)
-                currentProductoInfo.update(productobj_data)
-                products.append(currentProductoInfo)
-            except Exception as error:
-                print(error)
-
-        return products
-
-    def get_categories(self):
-        categoriasquery = Producto_categoria.objects.all()
-        catergorias = []
-        for categoria in categoriasquery:
-            catergorias.append(model_to_dict(categoria))
-        return catergorias
+    def GetProductsCategory(self, categoria_Id):
+        categoria_name = Producto_categoria.objects.get(pk=categoria_Id)
+        categoria_name = model_to_dict(categoria_name)
+        categoria_name = categoria_name["Categoria"]
+        print(categoria_name)
+        return self.list_productos(categoria_name)

@@ -15,9 +15,7 @@ class ProductService:
         return self.repository.list_productos(producto)
 
     def GetProductsCategory(self, request, categoria_id):
-        minimo = request.query_params["minimo"]
-        maximo = request.query_params["maximo"]
-        return self.repository.GetProductsCategory(categoria_id, minimo, maximo)
+        return self.repository.GetProductsCategory(categoria_id)
 
     def retrieve_producto(self, product_id):
         return self.repository.retrieve_producto(product_id)
