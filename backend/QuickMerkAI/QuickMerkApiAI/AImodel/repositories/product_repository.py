@@ -24,7 +24,7 @@ class ProductsRepository:
             )
             i = 0
             for product in productos:
-                if i == 5:
+                if i == 12:
                     break
                 try:
                     titulo = product.find("h2", class_="ui-search-item__title").text.strip()
@@ -54,7 +54,7 @@ class ProductsRepository:
                         "Disponibilidad": self.urls[0]["disponibilidad"],
                         "Descripcion": descripcion,
                         "link": link["href"],
-                        "imagen": image["data-src"],
+                        "Imagen": image["data-src"],
                         "tienda":self.urls[0]["tienda"]
                     }
                     arr_productos = np.append(arr_productos, current_producto)
@@ -73,7 +73,7 @@ class ProductsRepository:
         i = 0
         for product in products:
             if i > 1:
-                if i > 10:
+                if i > 12:
                     break
                 title = product.find(class_="rgHvZc")
                 titlexd = title.find("a").text
@@ -87,7 +87,7 @@ class ProductsRepository:
                     "categoria":"sin categoria",
                     "Disponibilidad": self.urls[1]["disponibilidad"],
                     "link": "por implementar",
-                    "imagen": image["src"],
+                    "Imagen": image["src"],
                     "tienda":self.urls[1]["tienda"]
                 }
                 arr_productos = np.append(arr_productos, current_producto)
@@ -111,7 +111,7 @@ class ProductsRepository:
                 link = producto.find_all("a", class_="h-il-ai")
                 current_producto = {
                     "ProductName": title,
-                    "image": image["src"],
+                    "Imagen": image["src"],
                     "Descripcion": item2[1].text.strip(),
                     "categoria":"sin categoria",
                     "Disponibilidad": self.urls[num]["disponibilidad"],

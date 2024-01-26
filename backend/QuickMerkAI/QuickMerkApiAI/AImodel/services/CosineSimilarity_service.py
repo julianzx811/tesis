@@ -1,4 +1,5 @@
 import pandas as pd
+pd.options.mode.chained_assignment = None  # default='warn'
 from AImodel.repositories.product_repository import ProductsRepository
 from AImodel.services.usefullMethods_service import usefullMethods
 from sklearn.feature_extraction.text import CountVectorizer
@@ -10,13 +11,13 @@ class CosineSimilarity:
     methods = usefullMethods()
 
     def Cosine_Similarity(self, df, input):
-        productos = self.products.get_likely_products(input)
-        df2 = pd.DataFrame(productos)
-        df = pd.concat([df, df2], ignore_index=True)
-        df = df.drop_duplicates(subset="ProductName")
+        # productos = self.products.get_likely_products(input)
+        # df2 = pd.DataFrame(productos)
+        # df = pd.concat([df, df2], ignore_index=True)
+        # df = df.drop_duplicates(subset="ProductName")
 
         sample_size = 50
-        df = df.sample(n=sample_size, replace=False, random_state=490)
+        df = df.sample(n=sample_size, replace=True, random_state=490)
 
         df = df.reset_index()
         df = df.drop("index", axis=1)
@@ -27,26 +28,30 @@ class CosineSimilarity:
         df["categoria"] = df["categoria"].str.lower()
 
         df2 = df[["ProductName", "Descripcion", "categoria"]]
+        print("llego1")
 
         # Combine the selected columns into a new 'data' column
         df2["data"] = df2.apply(lambda x: " ".join(x.dropna().astype(str)), axis=1)
+        print("llego2")
         vectorizer = CountVectorizer()
+        print("llego3")
         vectorized = vectorizer.fit_transform(df2["data"])
+        print("llego4")
         similarities = cosine_similarity(vectorized)
 
         df_similarities = pd.DataFrame(
             similarities, columns=df["ProductName"], index=df["ProductName"]
         ).reset_index()
-
+        print("llego5")
         input_book = self.methods.findStringCvs(df_similarities, input, "ProductName")
-
+        print("llego6")
         # Get recommendations as a DataFrame including all columns
         recommendations = df[
             df["ProductName"].isin(
                 df_similarities.nlargest(11, input_book)["ProductName"]
             )
         ]
-
+        print("llego7")
         # Filter out the input product
         recommendations = recommendations[recommendations["ProductName"] != input]
 
@@ -63,6 +68,7 @@ class CosineSimilarity:
                 "Descripcion": row["Descripcion"],
                 "categoria": row["categoria"],
                 "Imagen": row["Imagen"],
+                "tienda": row["tienda"],
             }
             # Agregar el objeto a la lista de objetos
             objetos.append(objeto)
@@ -70,10 +76,8 @@ class CosineSimilarity:
         return objetos
 
     def post(self, request):
-        try:
-            estring = request.query_params["producto"]
-            df = pd.DataFrame.from_records(request.data)
-            return self.Cosine_Similarity(df, estring)
-        except Exception as error:
-            print(error)
-            return None
+        estring = request.query_params["producto"]
+        numpyARR = self.products.list_productos(estring)
+        df = pd.DataFrame.from_records(numpyARR)
+        print(df)
+        return self.Cosine_Similarity(df, estring)

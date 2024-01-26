@@ -13,9 +13,9 @@ class LSAmodel:
     methods = usefullMethods()
 
     def lsaModel(self, df, input):
-        productos = self.repository.get_likely_products(input)
-        df2 = pd.DataFrame(productos)
-        df = pd.concat([df, df2], ignore_index=True)
+        # productos = self.repository.get_likely_products(input)
+        # df2 = pd.DataFrame(productos)
+        # df = pd.concat([df, df2], ignore_index=True)
         df["content"] = (
             df["ProductName"].astype(str)
             + " "
@@ -55,11 +55,13 @@ class LSAmodel:
             product_info["link"] = df.iloc[row_index]["link"]
             product_info["Imagen"] = df.iloc[row_index]["Imagen"]
             product_info["precio"] = df.iloc[row_index]["precio"]
-
+            product_info["tienda"] = df.iloc[row_index]["tienda"]
             products.append(product_info)
         return products
 
     def post(self, request):
         estring = request.query_params["producto"]
-        df = pd.DataFrame.from_records(request.data)
+        numpyARR = self.repository.list_productos(estring)
+        df = pd.DataFrame.from_records(numpyARR)
+        print(df)
         return self.lsaModel(df, estring)
