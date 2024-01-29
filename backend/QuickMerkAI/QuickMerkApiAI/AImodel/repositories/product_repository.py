@@ -225,3 +225,10 @@ class ProductsRepository:
         categoria_name = categoria_name["Categoria"]
         print(categoria_name)
         return self.list_productos(categoria_name)
+
+    def get_categories(self):
+        categoriasquery = Producto_categoria.objects.all()
+        catergorias = []
+        for categoria in categoriasquery:
+            catergorias.append(model_to_dict(categoria))
+        return catergorias
