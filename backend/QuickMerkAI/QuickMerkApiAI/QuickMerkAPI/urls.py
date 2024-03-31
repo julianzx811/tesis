@@ -11,6 +11,8 @@ cosine_similarity = views.AImodel.as_view({"post": "list_coseno"})
 lSAmodel = views.AImodel.as_view({"post": "list_LSAmodel"})
 WordtwoVec = views.AImodel.as_view({"post": "list_word2vec"})
 categoria = views.Products.as_view({"get": "GetProductsCategory"})
+Companies = views.Companies.as_view({"get":"GetAllCompanies"})
+
 urlpatterns = [
     path(r"api/world2vec/", WordtwoVec, name="WordtwoVec"),
     path(r"api/LSAmodel/", lSAmodel, name="LSA_model"),
@@ -25,7 +27,8 @@ urlpatterns = [
     path(
         r"api/Products/categoria/<int:categoria_id>/",
         categoria,
-        name="get by categoria",
+        name="get categoria by id",
     ),
-    path(r"api/Products/like/", get_likely_products, name="user-detail"),
+    path(r"api/Products/like/", get_likely_products, name="products-detail"),
+    path(r"api/companies/", Companies, name="Getting-Companies"),
 ]

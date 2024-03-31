@@ -6,7 +6,7 @@ from AImodel.services.product_service import ProductService
 from AImodel.services.WordtwoVec_service import WordtwoVec
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
-
+from AImodel.services.Companies_service import Companies_service
 
 class Products(viewsets.ViewSet):
     serializer_class = UserSerializer
@@ -159,6 +159,26 @@ class AImodel(viewsets.ViewSet):
             servicios = WordtwoVec()
             return Response(
                 servicios.post(request),
+                status=status.HTTP_200_OK,
+            )
+        except Exception as error:
+            print(error)
+            return Response(
+                "algo salio mal",
+                status=status.HTTP_400_BAD_REQUEST,
+                template_name=None,
+                content_type=None,
+            )
+
+class Companies(viewsets.ViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def GetAllCompanies(self,request):
+        try:
+            servicios = Companies_service()
+            return Response(
+                servicios.Get_Companies(request),
                 status=status.HTTP_200_OK,
             )
         except Exception as error:
