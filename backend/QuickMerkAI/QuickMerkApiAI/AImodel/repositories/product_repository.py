@@ -16,7 +16,6 @@ class ProductsRepository:
     def mercadolibre(self,producto):
             arr_productos = np.array([])
             link = self.urls[0]["link"].replace("producto", producto)
-            print(link)
             page = requests.get(link, timeout=5)
             soup = BeautifulSoup(page.content, "html.parser")
             productos = soup.find_all(
@@ -98,7 +97,6 @@ class ProductsRepository:
     def SuperMercados(self,producto, num):
         arr_productos = np.array([])
         link = self.urls[num]["link"].replace("producto", producto)
-        print(link)
         page = requests.get(link, timeout=5)
         soup = BeautifulSoup(page.content, "html.parser")
         items = soup.find(class_="bq-cn1")
@@ -223,7 +221,6 @@ class ProductsRepository:
         categoria_name = Producto_categoria.objects.get(pk=categoria_Id)
         categoria_name = model_to_dict(categoria_name)
         categoria_name = categoria_name["Categoria"]
-        print(categoria_name)
         return self.list_productos(categoria_name)
 
     def get_categories(self):

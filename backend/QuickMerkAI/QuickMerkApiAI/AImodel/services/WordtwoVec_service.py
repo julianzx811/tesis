@@ -51,14 +51,13 @@ class WordtwoVec:
         )[1:20]
         products = []
         for row_index, score in sorted_similar_movies:
-            print(score)
             product_info = {}
             product_info["ProductName"] = df.iloc[row_index]["ProductName"]
             product_info["Descripcion"] = df.iloc[row_index]["Descripcion"]
             product_info["categoria"] = df.iloc[row_index]["categoria"]
             product_info["Disponibilidad"] = df.iloc[row_index]["Disponibilidad"]
             product_info["link"] = df.iloc[row_index]["link"]
-            #product_info["Imagen"] = df.iloc[row_index]["Imagen"]
+            product_info["Imagen"] = df.iloc[row_index]["Imagen"]
             product_info["precio"] = df.iloc[row_index]["precio"]
             product_info["tienda"] = df.iloc[row_index]["tienda"]
             products.append(product_info)
@@ -69,5 +68,5 @@ class WordtwoVec:
         estring = request.query_params["producto"]
         numpyARR = self.repository.list_productos(estring)
         df = pd.DataFrame.from_records(numpyARR)
-        print(df)
+        print(df["link"],df["Imagen"])
         return self.wordtwovec(df, estring)

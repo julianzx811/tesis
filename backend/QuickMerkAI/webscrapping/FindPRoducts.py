@@ -78,6 +78,7 @@ def GoogleShoping(producto):
     link = urls[1].replace("producto", producto)
     page = requests.get(link, timeout=5)
     soup = BeautifulSoup(page.content, "html.parser")
+    print(soup)
     products = soup.find_all("div", class_="xcR77")
     i = 0
     for product in products:
@@ -89,10 +90,11 @@ def GoogleShoping(producto):
             price = product.find(class_="HRLxBb").text
             image = product.find(class_="oR27Gd")
             image = image.find("img")
+            descripcionomg = product.find(class_="sh-ds__trunc")
             current_producto = {
                 "titulo": titlexd,
                 "precio": price,
-                "descripcion": "por implementar",
+                "descripcion": descripcionomg,
                 "link": "por implementar",
                 "imagen": image["src"],
             }
